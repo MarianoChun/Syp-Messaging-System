@@ -118,4 +118,28 @@ public class GrafoNDPonderado extends GrafoND{
 			if( i == j )
 				throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
 		}
+
+		public int[] obtenerAristaMinima() {
+			int[] aristaMinima = new int[2];
+			double pesoMinimo = Double.MAX_VALUE;
+			double pesoActual;
+			for(int col = 0; col < this.tamano(); col++) {
+				for(int fila = 0; fila < this.tamano(); fila ++) {
+					if(col!=fila && this.existeArista(col, fila)) {
+						pesoActual = pesosA[col][fila];
+						if(pesoMinimo > pesoActual) {
+							pesoMinimo = pesoActual;
+							aristaMinima[0] = col;
+							aristaMinima[1] = fila;
+						}
+					}
+				}
+			}
+			return aristaMinima;
+		}
+
+		public boolean formaCircuito(int[] arista) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 }
