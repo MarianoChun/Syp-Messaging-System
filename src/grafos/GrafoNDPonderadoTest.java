@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import agm.Kruskal;
+
 public class GrafoNDPonderadoTest {
 
 	@Test
@@ -68,22 +70,6 @@ public class GrafoNDPonderadoTest {
 		
 		g.obtenerPesoArista(0, 1);
 
-	}
-	
-	@Test
-	public void aristaMinimaTest() {
-		GrafoNDPonderado g = new GrafoNDPonderado(4);
-		g.agregarArista(0, 1, 1.0);
-		g.agregarArista(0, 2, 5.0);
-		g.agregarArista(0, 3, 2.0);
-		g.agregarArista(1, 3, 9.0);
-		g.agregarArista(2, 3, 3.0);
-		int[] esperado = new int[] {0, 1};
-		int[] obtenido = g.obtenerAristaMinima();
-		System.out.println(obtenido[0]);
-		System.out.println(obtenido[1]);
-		assertEquals(esperado[0], obtenido[0]);
-		assertEquals(esperado[1], obtenido[1]);
 	}
 
 }
