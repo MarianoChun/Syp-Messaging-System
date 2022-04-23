@@ -9,13 +9,13 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import grafos.Grafo;
+import grafos.GrafoND;
 
 public class BFSTest {
 
 	@Test
 	public void alcanzablesTrivialTest() {
-		Grafo g = new Grafo(3);
+		GrafoND g = new GrafoND(3);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		g.agregarArista(1, 2);
@@ -31,7 +31,7 @@ public class BFSTest {
 
 	@Test
 	public void alcanzablesDisconexoTest() {
-		Grafo g = new Grafo(4);
+		GrafoND g = new GrafoND(4);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		BFS bfs = new BFS(g);
@@ -44,7 +44,7 @@ public class BFSTest {
 	}
 	
 	public void cliqueConexoTest() {
-		Grafo g = new Grafo(3);
+		GrafoND g = new GrafoND(3);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		g.agregarArista(1, 2);
@@ -54,7 +54,7 @@ public class BFSTest {
 	}
 	
 	public void disconexoTest() {
-		Grafo g = new Grafo(4);
+		GrafoND g = new GrafoND(4);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		BFS bfs = new BFS(g);

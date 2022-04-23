@@ -3,13 +3,13 @@ package grafos;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Grafo
+public class GrafoND
 {
 	// Representamos el grafo por su matriz de adyacencia
-	private boolean[][] A;
+	protected boolean[][] A;
 	
 	// La cantidad de vertices esta predeterminada desde el constructor
-	public Grafo(int vertices)
+	public GrafoND(int vertices)
 	{
 		A = new boolean[vertices][vertices];
 	}

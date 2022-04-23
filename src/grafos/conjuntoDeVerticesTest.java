@@ -11,7 +11,7 @@ public class conjuntoDeVerticesTest {
 
 	@Test
 	public void grafoDisconexoTest() {
-		Grafo g = new Grafo(4);
+		GrafoND g = new GrafoND(4);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		

@@ -15,4 +15,8 @@ public class Assert
 		for(int i=0; i<esperado.length; ++i)
 			assertTrue( obtenido.contains(esperado[i]) );
 	}
+	
+	public static boolean equals(double esperado, double actual) {
+		return esperado == actual;
+	}
 }

@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import grafos.Grafo;
+import grafos.GrafoND;
 
 public class BFS {
 	
 	private Queue<Integer> verticesNoMarcados;
 	private Set<Integer> verticesMarcados;
-	private Grafo grafo;
+	private GrafoND grafo;
 	
-	public BFS(Grafo grafo) {
+	public BFS(GrafoND grafo) {
 		verticesNoMarcados = new LinkedList<Integer>();
 		verticesMarcados = new HashSet<Integer>();
 		this.grafo = grafo;
