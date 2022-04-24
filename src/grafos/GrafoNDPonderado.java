@@ -1,5 +1,6 @@
 package grafos;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -118,4 +119,46 @@ public class GrafoNDPonderado extends GrafoND{
 			if( i == j )
 				throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
 		}
+
+		
+		@Override
+		public String toString() {
+			StringBuffer cadena = new StringBuffer();
+			cadena.append("----- Grafo No dirigido Ponderado ----- \n");
+			for(int col = 0; col < tamano(); col++) {
+				for(int fila = 0; fila < tamano(); fila ++) {
+					if(col!=fila && existeArista(col, fila)) {
+						double peso = obtenerPesoArista(col, fila);
+						cadena.append("(").append(col).append(", ").append(fila).append(", ").append(peso).append(")");
+						cadena.append("\n");
+					}
+				}
+			}
+			cadena.append("-----------------");
+			return cadena.toString();
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = super.hashCode();
+			result = prime * result + Arrays.deepHashCode(pesosA);
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (!super.equals(obj))
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			GrafoNDPonderado other = (GrafoNDPonderado) obj;
+			if (!Arrays.deepEquals(pesosA, other.pesosA))
+				return false;
+			return true;
+		}
+		
+		
 }
