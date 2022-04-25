@@ -3,6 +3,7 @@ package grafos;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class Assert
@@ -18,5 +19,9 @@ public class Assert
 	
 	public static boolean equals(double esperado, double actual) {
 		return esperado == actual;
+	}
+	
+	public static <T> boolean equals(ArrayList<T> esperado, ArrayList<T> actual) {
+		return esperado.equals(actual);
 	}
 }

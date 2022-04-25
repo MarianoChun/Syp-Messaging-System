@@ -1,5 +1,6 @@
 package grafos;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -91,4 +92,28 @@ public class GrafoND
 		if( i == j )
 			throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(A);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GrafoND other = (GrafoND) obj;
+		if (!Arrays.deepEquals(A, other.A))
+			return false;
+		return true;
+	}
+	
+	
 }
