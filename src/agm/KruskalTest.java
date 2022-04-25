@@ -35,6 +35,7 @@ public class KruskalTest {
 //		assertEquals(esperado[1], obtenido[1]);
 	}
 	
+	//Happy path
 	@Test
 	public void kruskalTest() {
 		GrafoNDPonderado g = new GrafoNDPonderado(5);
@@ -54,7 +55,29 @@ public class KruskalTest {
 		System.out.println(actual.toString());
 		assertEquals(esperado, actual);
 		
+	}
+	// Caso borde. Componentes conexas distintas, en cierto punto habra 2 caminos posibles,
+	// uno de los caminos forma circuito, el otro no
+	@Test
+	public void kruskalSegundoTest() {
+		GrafoNDPonderado g = new GrafoNDPonderado(6);
+		g.agregarArista(0, 1, 0.2);
+		g.agregarArista(0, 2, 0.3);
+		g.agregarArista(1, 2, 0.4);
+		g.agregarArista(2, 4, 0.6);
+		g.agregarArista(2, 3, 0.2);
+		g.agregarArista(2, 5, 2.5);
 		
+		GrafoNDPonderado esperado = new GrafoNDPonderado(6);
+		esperado.agregarArista(0, 1, 0.2);
+		esperado.agregarArista(0, 2, 0.3);
+		esperado.agregarArista(2, 4, 0.6);
+		esperado.agregarArista(2, 3, 0.2);
+		esperado.agregarArista(2, 5, 2.5);
 
+		GrafoNDPonderado actual = new Kruskal(g).obtenerArbolGM();
+		System.out.println(actual.toString());
+		assertEquals(esperado, actual);
+		
 	}
 }
