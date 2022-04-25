@@ -19,6 +19,7 @@ public class Kruskal {
 	ArrayList<Arista> aristas;
 	
 	public Kruskal(GrafoNDPonderado GrafoInput) {
+		verificarGrafoConexo(GrafoInput);
 		this.grafoOutputAGM = new GrafoNDPonderado(GrafoInput.tamano());
 		this.GrafoInput = GrafoInput;
 		this.unionFind = new UnionFind(GrafoInput);
@@ -26,6 +27,8 @@ public class Kruskal {
 		generarListaAristas();
 		Collections.sort(aristas);
 	}
+
+	
 
 	public GrafoNDPonderado obtenerArbolGM() {
 		int i = 1;
@@ -62,7 +65,11 @@ public class Kruskal {
 		for(int col = 0; col < GrafoInput.tamano(); col++) {
 			for(int fila = 0; fila < GrafoInput.tamano(); fila ++) {
 				if(col!=fila && GrafoInput.existeArista(col, fila)) {
-					aristas.add(new Arista (col, fila, GrafoInput.obtenerPesoArista(col, fila)));	
+					Arista aristaAAgregar = new Arista (col, fila, GrafoInput.obtenerPesoArista(col, fila));
+					Arista aristaInversa = new Arista (fila, col, GrafoInput.obtenerPesoArista(col, fila));
+					if(!aristas.contains(aristaAAgregar) && !aristas.contains(aristaInversa)) {
+						aristas.add(aristaAAgregar);	
+					}
 				}
 			}
 		}
@@ -74,4 +81,13 @@ public class Kruskal {
 	public boolean formaCircuito(Arista arista) {
 		return unionFind.find(arista.getPrimerExtremo(), arista.getSegundoExtremo());
 	}
+	
+	private void verificarGrafoConexo(GrafoNDPonderado grafoInput) {
+//		GrafoND grafoND = transformarNDPaND(grafoInput);
+//		Parece que no es necesario transformarNDPaND, BFS toma un GrafoNDPonderado
+		BFS bfs = new BFS(grafoInput);
+		if(!bfs.esConexo())
+			throw new IllegalArgumentException("El grafo ingresado no es conexo");
+	}
+
 }
