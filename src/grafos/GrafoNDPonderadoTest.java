@@ -34,7 +34,7 @@ public class GrafoNDPonderadoTest {
 		ArrayList vacio = new ArrayList<Arista>();
 
 		g.agregarArista(2, 3, 0.1);
-		g.eliminarArista(2, 3);
+		g.eliminarArista(2, 3, 0.1);
 		assertEquals(vacio, g.getAristas());
 
 	}

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class GrafoNDPonderado extends GrafoND {
 	private double[][] pesosA;
-	protected ArrayList<Arista> aristas;
+	private ArrayList<Arista> aristas;
 
 	public GrafoNDPonderado(int vertices) {
 		super(vertices);
@@ -45,13 +45,21 @@ public class GrafoNDPonderado extends GrafoND {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
+		if (existeArista(i, j)) {
+			A[i][j] = A[j][i] = false;
+		}
+	}
+	
+	public void eliminarArista(int i, int j, double peso) {
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarDistintos(i, j);
 
 		if (existeArista(i, j)) {
-			Arista arista = new Arista(i, j, 0.0);
+			Arista arista = new Arista(i, j, peso);
 			A[i][j] = A[j][i] = false;
 			aristas.remove(arista);
 		}
-
 	}
 
 	public double obtenerPesoArista(int i, int j) {
