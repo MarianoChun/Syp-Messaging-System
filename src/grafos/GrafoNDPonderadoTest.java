@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import agm.Kruskal;
-
 public class GrafoNDPonderadoTest {
 
 	@Test
@@ -31,7 +29,7 @@ public class GrafoNDPonderadoTest {
 	public void eliminarAristaDeArrayDeAristasTest() {
 		GrafoNDPonderado g = new GrafoNDPonderado(4);
 
-		ArrayList vacio = new ArrayList<Arista>();
+		ArrayList<Arista> vacio = new ArrayList<Arista>();
 
 		g.agregarArista(2, 3, 0.1);
 		g.eliminarArista(2, 3, 0.1);

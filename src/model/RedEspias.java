@@ -2,7 +2,6 @@ package model;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -30,14 +29,16 @@ public class RedEspias {
 	private void cargarEspiasDesdeExcel() {
 		try {
 			// Hacemos la asociacion logica al archivo excel
-			FileInputStream fis = new FileInputStream(new File(pathExcel));
+			//"/lista_de_espias/lista-de-espias.xlsx" 
+			FileInputStream archivo = new FileInputStream(new File(this.getClass().getResource(pathExcel).getPath()));
 
 			// Creamos una instancia Workbook que hace referencia al archivo .xlsx
-			XSSFWorkbook wb = new XSSFWorkbook(fis);
-			XSSFSheet sheet = wb.getSheetAt(0);
+			XSSFWorkbook workbook = new XSSFWorkbook(archivo);
+			XSSFSheet sheet = workbook.getSheetAt(0);
 
 			Iterator<Row> itr = sheet.iterator();
 			String nombreEspia;
+			
 			while (itr.hasNext()) {
 
 				Row row = itr.next();
@@ -47,10 +48,12 @@ public class RedEspias {
 
 					Cell cell = cellIterator.next();
 					nombreEspia = cell.getStringCellValue();
+					
 					// Ignora el nombre de la columna
 					if (!nombreEspia.equals("Nombre")) {
 						espias.add(new Espia(nombreEspia));
 					}
+	
 				}
 
 			}
@@ -69,7 +72,7 @@ public class RedEspias {
 	}
 
 	public static void main(String[] args) {
-		RedEspias red = new RedEspias("C:\\Users\\Mariano\\Desktop\\datosEspias.xlsx");
+		RedEspias red = new RedEspias("/lista_de_espias/lista-de-espias.xlsx");
 	}
 
 }
