@@ -4,20 +4,16 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GrafoND
-{
+public class GrafoND {
 	// Representamos el grafo por su matriz de adyacencia
 	protected boolean[][] A;
-	
 	// La cantidad de vertices esta predeterminada desde el constructor
-	public GrafoND(int vertices)
-	{
+	public GrafoND(int vertices) {
 		A = new boolean[vertices][vertices];
 	}
 	
 	// Agregado de aristas
-	public void agregarArista(int i, int j)
-	{
+	public void agregarArista(int i, int j) {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -27,8 +23,7 @@ public class GrafoND
 	}
 	
 	// Eliminacion de aristas
-	public void eliminarArista(int i, int j)
-	{
+	public void eliminarArista(int i, int j) {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -38,8 +33,7 @@ public class GrafoND
 	}
 
 	// Informa si existe la arista especificada
-	public boolean existeArista(int i, int j)
-	{
+	public boolean existeArista(int i, int j){
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -48,21 +42,19 @@ public class GrafoND
 	}
 
 	// Cantidad de vertices
-	public int tamano()
-	{
+	public int tamaño(){
 		return A.length;
 	}
 	
 	// Vecinos de un vertice
-	public Set<Integer> vecinos(int i)
-	{
+	public Set<Integer> vecinos(int i){
 		verificarVertice(i);
 		
 		Set<Integer> ret = new HashSet<Integer>();
-		for(int j = 0; j < this.tamano(); ++j) if( i != j )
-		{
-			if( this.existeArista(i,j) )
-				ret.add(j);
+		for(int j = 0; j < this.tamaño(); ++j) 
+			if( i != j ) {
+				if( this.existeArista(i,j) )
+					ret.add(j);
 		}
 		
 		return ret;		
@@ -71,14 +63,13 @@ public class GrafoND
 	public Set<Integer> conjuntoDeVertices(){
 		Set<Integer> vertices = new HashSet<Integer>();
 		
-		for(int i = 0; i<this.tamano();i++)
+		for(int i = 0; i<this.tamaño();i++)
 			vertices.add(i);
 		return vertices;
 	}
 	
 	// Verifica que sea un vertice valido
-	private void verificarVertice(int i)
-	{
+	private void verificarVertice(int i) {
 		if( i < 0 )
 			throw new IllegalArgumentException("El vertice no puede ser negativo: " + i);
 		
@@ -87,8 +78,7 @@ public class GrafoND
 	}
 
 	// Verifica que i y j sean distintos
-	private void verificarDistintos(int i, int j)
-	{
+	private void verificarDistintos(int i, int j) {
 		if( i == j )
 			throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
 	}

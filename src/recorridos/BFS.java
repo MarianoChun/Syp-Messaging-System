@@ -22,7 +22,7 @@ public class BFS {
 	}
 	
 	public boolean esConexo() {
-		return grafo.conjuntoDeVertices().equals(verticesAlcanzablesDesdeVertice(0)) && grafo.tamano() == verticesAlcanzablesDesdeVertice(0).size();
+		return grafo.conjuntoDeVertices().equals(verticesAlcanzablesDesdeVertice(0)) && grafo.tamaño() == verticesAlcanzablesDesdeVertice(0).size();
 	}
 	
 	public Set<Integer> verticesAlcanzablesDesdeVertice(int vertice) {

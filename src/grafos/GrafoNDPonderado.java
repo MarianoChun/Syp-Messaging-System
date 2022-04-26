@@ -1,31 +1,34 @@
 package grafos;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class GrafoNDPonderado extends GrafoND{
-	double [][] pesosA;
+	private double [][] pesosA;
+	protected ArrayList<Arista> aristas;
+	
 	
 	public GrafoNDPonderado(int vertices) {
 		super(vertices);
 		this.pesosA = new double[vertices][vertices];
+		this.aristas = new ArrayList<Arista>();
 	}
 	
 	// Agregado de aristas
-		public void agregarArista(int i, int j)
-		{
+		public void agregarArista(int i, int j){
 			verificarVertice(i);
 			verificarVertice(j);
 			verificarDistintos(i, j);
 			
 			if(!existeArista(i,j)) {
 				agregarArista(i, j, 0.0);
+				aristas.add(new Arista(i, j, 0.0));
 			}
 		}
 		
-		public void agregarArista(int i, int j, double peso)
-		{
+		public void agregarArista(int i, int j, double peso){
 			verificarVertice(i);
 			verificarVertice(j);
 			verificarDistintos(i, j);
@@ -33,19 +36,21 @@ public class GrafoNDPonderado extends GrafoND{
 			if(!existeArista(i,j)) {
 				A[i][j] = A[j][i] = true;
 				pesosA[i][j] = pesosA[j][i] = peso;
+				aristas.add(new Arista(i, j, 0.0));
 			}
 
 		}
 		
 		// Eliminacion de aristas
-		public void eliminarArista(int i, int j)
-		{
+		public void eliminarArista(int i, int j){
 			verificarVertice(i);
 			verificarVertice(j);
 			verificarDistintos(i, j);
 
 			if(existeArista(i, j)) {
+				Arista arista = new Arista(i, j, 0.0); 
 				A[i][j] = A[j][i] = false;
+				aristas.remove(arista);
 			}
 
 		}
@@ -65,31 +70,28 @@ public class GrafoNDPonderado extends GrafoND{
 		}
 
 		// Informa si existe la arista especificada
-		public boolean existeArista(int i, int j)
-		{
+		public boolean existeArista(int i, int j) {
 			verificarVertice(i);
 			verificarVertice(j);
 			verificarDistintos(i, j);
 
 			return A[i][j];
 		}
-
+		
 		// Cantidad de vertices
-		public int tamano()
-		{
+		public int tamaño() {
 			return A.length;
 		}
 		
 		// Vecinos de un vertice
-		public Set<Integer> vecinos(int i)
-		{
+		public Set<Integer> vecinos(int i) {
 			verificarVertice(i);
 			
 			Set<Integer> ret = new HashSet<Integer>();
-			for(int j = 0; j < this.tamano(); ++j) if( i != j )
-			{
-				if( this.existeArista(i,j) )
-					ret.add(j);
+			for(int j = 0; j < this.tamaño(); ++j) 
+				if( i != j ) {
+					if( this.existeArista(i,j) )
+						ret.add(j);
 			}
 			
 			return ret;		
@@ -98,14 +100,13 @@ public class GrafoNDPonderado extends GrafoND{
 		public Set<Integer> conjuntoDeVertices(){
 			Set<Integer> vertices = new HashSet<Integer>();
 			
-			for(int i = 0; i<this.tamano();i++)
+			for(int i = 0; i<this.tamaño();i++)
 				vertices.add(i);
 			return vertices;
 		}
 		
 		// Verifica que sea un vertice valido
-		private void verificarVertice(int i)
-		{
+		private void verificarVertice(int i) {
 			if( i < 0 )
 				throw new IllegalArgumentException("El vertice no puede ser negativo: " + i);
 			
@@ -114,19 +115,21 @@ public class GrafoNDPonderado extends GrafoND{
 		}
 
 		// Verifica que i y j sean distintos
-		private void verificarDistintos(int i, int j)
-		{
+		private void verificarDistintos(int i, int j){
 			if( i == j )
 				throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
 		}
-
+		
+		public ArrayList<Arista> getAristas(){
+			return this.aristas;
+		}
 		
 		@Override
 		public String toString() {
 			StringBuffer cadena = new StringBuffer();
 			cadena.append("----- Grafo No dirigido Ponderado ----- \n");
-			for(int col = 0; col < tamano(); col++) {
-				for(int fila = 0; fila < tamano(); fila ++) {
+			for(int col = 0; col < tamaño(); col++) {
+				for(int fila = 0; fila < tamaño(); fila ++) {
 					if(col!=fila && existeArista(col, fila)) {
 						double peso = obtenerPesoArista(col, fila);
 						cadena.append("(").append(col).append(", ").append(fila).append(", ").append(peso).append(")");
