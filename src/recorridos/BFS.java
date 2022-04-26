@@ -1,21 +1,18 @@
 package recorridos;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-
-import grafos.GrafoND;
+import grafos.GrafoNDPonderado;
 
 public class BFS {
 
 	private Queue<Integer> verticesNoMarcados;
 	private Set<Integer> verticesMarcados;
-	private GrafoND grafo;
+	private GrafoNDPonderado grafo;
 
-	public BFS(GrafoND grafo) {
+	public BFS(GrafoNDPonderado grafo) {
 		verticesNoMarcados = new LinkedList<Integer>();
 		verticesMarcados = new HashSet<Integer>();
 		this.grafo = grafo;
