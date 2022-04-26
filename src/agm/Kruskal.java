@@ -20,8 +20,7 @@ public class Kruskal {
 		this.grafoOutputAGM = new GrafoNDPonderado(grafoInput.tamaño());
 		this.grafoInput = grafoInput;
 		this.unionFind = new UnionFind(grafoInput);
-		this.aristas = new ArrayList<Arista>();
-		generarListaAristas();
+		this.aristas = grafoInput.getAristas();
 		Collections.sort(aristas);
 	}
 
@@ -58,30 +57,16 @@ public class Kruskal {
 		return aristaMenor;
 	}
 
-	public void generarListaAristas() {
-		for(int col = 0; col < grafoInput.tamaño(); col++) {
-			for(int fila = 0; fila < grafoInput.tamaño(); fila ++) {
-				if(col!=fila && grafoInput.existeArista(col, fila)) {
-					Arista aristaAAgregar = new Arista (col, fila, grafoInput.obtenerPesoArista(col, fila));
-					Arista aristaInversa = new Arista (fila, col, grafoInput.obtenerPesoArista(col, fila));
-					if(!aristas.contains(aristaAAgregar) && !aristas.contains(aristaInversa)) {
-						aristas.add(aristaAAgregar);	
-					}
-				}
-			}
-		}
-	}
 	
 	public ArrayList<Arista> getAristasOrdenadas(){
 		return aristas;
 	}
+	
 	public boolean formaCircuito(Arista arista) {
 		return unionFind.find(arista.getPrimerExtremo(), arista.getSegundoExtremo());
 	}
 	
 	private void verificarGrafoConexo(GrafoNDPonderado grafoInput) {
-//		GrafoND grafoND = transformarNDPaND(grafoInput);
-//		Parece que no es necesario transformarNDPaND, BFS toma un GrafoNDPonderado
 		BFS bfs = new BFS(grafoInput);
 		if(!bfs.esConexo())
 			throw new IllegalArgumentException("El grafo ingresado no es conexo");

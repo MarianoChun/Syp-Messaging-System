@@ -36,7 +36,7 @@ public class GrafoNDPonderado extends GrafoND{
 			if(!existeArista(i,j)) {
 				A[i][j] = A[j][i] = true;
 				pesosA[i][j] = pesosA[j][i] = peso;
-				aristas.add(new Arista(i, j, 0.0));
+				aristas.add(new Arista(i, j, peso));
 			}
 
 		}
