@@ -19,8 +19,9 @@ public class GrafoND {
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
-		A[i][j] = true;
-		A[j][i] = true;
+		if (!existeArista(i, j)) {
+			A[i][j] = A[j][i] = true;
+		}
 	}
 
 	// Eliminacion de aristas
@@ -28,9 +29,11 @@ public class GrafoND {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
-
-		A[i][j] = false;
-		A[j][i] = false;
+		
+		if (existeArista(i, j)) {
+			A[i][j] = false;
+			A[j][i] = false;
+		}
 	}
 
 	// Informa si existe la arista especificada
@@ -61,6 +64,7 @@ public class GrafoND {
 		return ret;
 	}
 
+	//devuelve un set con todos los vertices
 	public Set<Integer> conjuntoDeVertices() {
 		Set<Integer> vertices = new HashSet<Integer>();
 
@@ -70,7 +74,7 @@ public class GrafoND {
 	}
 
 	// Verifica que sea un vertice valido
-	private void verificarVertice(int i) {
+	protected void verificarVertice(int i) {
 		if (i < 0)
 			throw new IllegalArgumentException("El vertice no puede ser negativo: " + i);
 
@@ -79,9 +83,15 @@ public class GrafoND {
 	}
 
 	// Verifica que i y j sean distintos
-	private void verificarDistintos(int i, int j) {
+	protected void verificarDistintos(int i, int j) {
 		if (i == j)
 			throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
+	}
+	
+	protected void verificarExisteArista(int i, int j) {
+		if (!existeArista(i, j)) {
+			throw new IllegalArgumentException("La arista " + i + "" + j + " no existe");
+		}
 	}
 
 	@Override

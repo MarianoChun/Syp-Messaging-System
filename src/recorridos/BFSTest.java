@@ -2,20 +2,16 @@ package recorridos;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import org.junit.Test;
-
-import grafos.GrafoND;
+import grafos.GrafoNDPonderado;
 
 public class BFSTest {
 
 	@Test
 	public void alcanzablesTrivialTest() {
-		GrafoND g = new GrafoND(3);
+		GrafoNDPonderado g = new GrafoNDPonderado(3);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		g.agregarArista(1, 2);
@@ -31,7 +27,7 @@ public class BFSTest {
 
 	@Test
 	public void alcanzablesDisconexoTest() {
-		GrafoND g = new GrafoND(4);
+		GrafoNDPonderado g = new GrafoNDPonderado(4);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		BFS bfs = new BFS(g);
@@ -44,7 +40,7 @@ public class BFSTest {
 	}
 
 	public void cliqueConexoTest() {
-		GrafoND g = new GrafoND(3);
+		GrafoNDPonderado g = new GrafoNDPonderado(3);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		g.agregarArista(1, 2);
@@ -54,7 +50,7 @@ public class BFSTest {
 	}
 
 	public void disconexoTest() {
-		GrafoND g = new GrafoND(4);
+		GrafoNDPonderado g = new GrafoNDPonderado(4);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		BFS bfs = new BFS(g);
