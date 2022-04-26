@@ -3,11 +3,11 @@
 <h2>Descripción</h2>
 
 <!--Modificar-->
-<p> El sistema consiste en el envio de mensajes a todos los espías que se encuentran en
+<p>El sistema consiste en el envio de mensajes a todos los espías que se encuentran en
 territorio enemigo. La comunicación se realiza de manera personal entre cada par de
 espías:  se encuentran en un punto preacordado y se pasan el mensaje en un papel que se 
 autodestruyeluego de unos segundos. No todos los pares de espías pueden encontrarse, y 
-representamos esta situaci+ón por medio de un grafo G = (V, E) con un vértice por cada 
+representamos esta situación por medio de un grafo G = (V, E) con un vértice por cada 
 espía y una arista por cada par de espías que pueden encontrarse. Para cada arista ij ∈ E, 
 tenemos además la probabilidad pij ∈ [0, 1] de que el enemigo intercepte a los espías 
 durante el encuentro y se arruine el operativo.
