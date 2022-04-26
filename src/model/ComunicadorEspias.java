@@ -7,7 +7,7 @@ public class ComunicadorEspias {
 	private GrafoNDPonderado arbolComunicador;
 
 	public ComunicadorEspias() {
-		this.espias = new RedEspias("C:\\Users\\Mariano\\Desktop\\datosEspias.xlsx");
+		this.espias = new RedEspias("/lista_de_espias/lista-de-espias.xlsx");
 		this.arbolComunicador = new GrafoNDPonderado(espias.cantidadEspias());
 	}
 	// Debemos pensar como etiquetar los vertices del arbolComunicador con los
