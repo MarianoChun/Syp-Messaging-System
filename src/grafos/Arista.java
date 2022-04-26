@@ -1,10 +1,10 @@
 package grafos;
 
-public class Arista implements Comparable{
+public class Arista implements Comparable {
 	private int primerExtremo;
 	private int segundoExtremo;
 	private double peso;
-	
+
 	public Arista(int primerExtremo, int segundoExtremo, double peso) {
 		this.primerExtremo = primerExtremo;
 		this.segundoExtremo = segundoExtremo;
@@ -52,23 +52,21 @@ public class Arista implements Comparable{
 			return false;
 		return true;
 	}
-	
-
 
 	@Override
 	public int compareTo(Object o) {
 		Arista otraArista = (Arista) o;
-		if(this.getPeso() < otraArista.getPeso()) {
+		if (this.getPeso() < otraArista.getPeso()) {
 			return -1;
 		}
 
-		if(this.getPeso() > otraArista.getPeso()) {
+		if (this.getPeso() > otraArista.getPeso()) {
 			return 1;
 		}
-		
+
 		return 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuffer cadena = new StringBuffer();
@@ -79,5 +77,5 @@ public class Arista implements Comparable{
 		cadena.append(this.peso);
 		return cadena.toString();
 	}
-	
+
 }

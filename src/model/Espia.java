@@ -2,7 +2,7 @@ package model;
 
 public class Espia {
 	private String nombre;
-	
+
 	public Espia(String nombre) {
 		this.nombre = nombre;
 	}
@@ -10,6 +10,5 @@ public class Espia {
 	public String getNombre() {
 		return nombre;
 	}
-	
-	
+
 }

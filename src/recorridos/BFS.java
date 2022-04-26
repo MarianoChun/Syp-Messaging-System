@@ -10,24 +10,25 @@ import java.util.Set;
 import grafos.GrafoND;
 
 public class BFS {
-	
+
 	private Queue<Integer> verticesNoMarcados;
 	private Set<Integer> verticesMarcados;
 	private GrafoND grafo;
-	
+
 	public BFS(GrafoND grafo) {
 		verticesNoMarcados = new LinkedList<Integer>();
 		verticesMarcados = new HashSet<Integer>();
 		this.grafo = grafo;
 	}
-	
+
 	public boolean esConexo() {
-		return grafo.conjuntoDeVertices().equals(verticesAlcanzablesDesdeVertice(0)) && grafo.tamaño() == verticesAlcanzablesDesdeVertice(0).size();
+		return grafo.conjuntoDeVertices().equals(verticesAlcanzablesDesdeVertice(0))
+				&& grafo.tamaño() == verticesAlcanzablesDesdeVertice(0).size();
 	}
-	
+
 	public Set<Integer> verticesAlcanzablesDesdeVertice(int vertice) {
 		verticesNoMarcados.add(vertice);
-		while(!verticesNoMarcados.isEmpty()) {
+		while (!verticesNoMarcados.isEmpty()) {
 			int verticeNoMarcado = verticesNoMarcados.remove();
 			marcarVertice(verticeNoMarcado);
 			agregarVecinosNoMarcados(verticeNoMarcado);
@@ -37,8 +38,8 @@ public class BFS {
 
 	private void agregarVecinosNoMarcados(int verticeNoMarcado) {
 		Set<Integer> vecinosDelVertice = grafo.vecinos(verticeNoMarcado);
-		for(int vertice : vecinosDelVertice) {
-			if(!estaVerticeMarcado(vertice)) {
+		for (int vertice : vecinosDelVertice) {
+			if (!estaVerticeMarcado(vertice)) {
 				verticesNoMarcados.add(vertice);
 			}
 		}
