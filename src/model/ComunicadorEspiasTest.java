@@ -32,6 +32,15 @@ public class ComunicadorEspiasTest {
 		assertTrue(c.existeComunicacion("ivan", "PEPE") && c.existeComunicacion("ruben", "rodolFO"));
 	}
 	
+	@Test
+	public void obtenerProbabIntercepcionTest() {
+		ComunicadorEspias c = new ComunicadorEspias();
+		c.agregarComunicacion("juan", "ivan", 0.8);
+
+		double esperado = 0.8;
+		assertTrue(esperado == c.obtenerProbabIntercepcion("juan", "ivan"));
+	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void verificarExistenEspiasTest() {
 		

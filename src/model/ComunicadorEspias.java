@@ -47,4 +47,13 @@ public class ComunicadorEspias {
 		
 		return arbolComunicador.existeArista(indiceEspia1, indiceEspia2);
 	}
+	
+	public double obtenerProbabIntercepcion(String nombreEspia1, String nombreEspia2) {
+		verificarExisteEspias(nombreEspia1, nombreEspia2);
+		
+		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
+		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
+		
+		return arbolComunicador.obtenerPesoArista(indiceEspia1, indiceEspia2);
+	}
 }
