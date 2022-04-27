@@ -148,7 +148,7 @@ public class GrafoNDPonderado extends GrafoND {
 				}
 			}
 		}
-		cadena.append("-----------------");
+		cadena.append("----------------- \n");
 		return cadena.toString();
 	}
 

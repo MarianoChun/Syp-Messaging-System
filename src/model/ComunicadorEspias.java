@@ -1,19 +1,68 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import grafos.GrafoNDPonderado;
 
 public class ComunicadorEspias {
 	private RedEspias espias;
+	private String pathExcel;
 	private GrafoNDPonderado arbolComunicador;
 	
 	public ComunicadorEspias() {
-		this.espias = new RedEspias("/lista_de_espias/lista-de-espias.xlsx");
+		this.pathExcel = "/lista_de_espias/lista-de-espias.xlsx";
+		this.espias = new RedEspias(pathExcel);
 		this.arbolComunicador = new GrafoNDPonderado(espias.cantidadEspias());
 	}
 	
+	public void agregarComunicacionDesdeExcel() {
+		try {
+			// Hacemos la asociacion logica al archivo excel
+			// "/lista_de_espias/lista-de-espias.xlsx"
+			FileInputStream archivo = new FileInputStream(new File(this.getClass().getResource(pathExcel).getPath()));
+
+			// Creamos una instancia Workbook que hace referencia al archivo .xlsx
+			XSSFWorkbook workbook = new XSSFWorkbook(archivo);
+			XSSFSheet sheet = workbook.getSheetAt(0);
+
+			Iterator<Row> itr = sheet.iterator();
+			String nombreEspia;
+			String nombreCompañero;
+			double probIntercepcion;
+
+			while (itr.hasNext()) {
+
+				Row row = itr.next();
+				if (!(row.getCell(0) == null) || !(row.getCell(1) == null) || !(row.getCell(2) == null)) {
+
+					nombreEspia = row.getCell(0).getStringCellValue();
+					nombreCompañero = row.getCell(1).getStringCellValue();
+					
+					// Ignora el nombre de la columna y se asegura que no estemos en una celda vacia
+					if ((!nombreEspia.equals("Nombre")) && !nombreEspia.equals("")) {
+						
+						probIntercepcion = Double.parseDouble(row.getCell(2).getStringCellValue());	
+						agregarComunicacion(nombreEspia, nombreCompañero, probIntercepcion);					
+					}
+				}
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void agregarComunicacion(String nombreEspia1, String nombreEspia2, double probIntercepcion) {
 		verificarExisteEspias(nombreEspia1, nombreEspia2);	
 		verificarProbIntercepcion(probIntercepcion);
@@ -55,5 +104,9 @@ public class ComunicadorEspias {
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
 		
 		return arbolComunicador.obtenerPesoArista(indiceEspia1, indiceEspia2);
+	}
+	
+	public int cantidadEspias() {
+		return espias.cantidadEspias();
 	}
 }

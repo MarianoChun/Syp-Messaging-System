@@ -25,6 +25,7 @@ public class RedEspias {
 		for(Map.Entry<String, Integer> entry : espias.entrySet()) {
 			System.out.println("Indice: " + entry.getValue() + ", Nombre: " + entry.getKey());
 		}
+		System.out.print("\n");
 	}
 
 	private void cargarEspiasDesdeExcel() {
@@ -52,7 +53,7 @@ public class RedEspias {
 					nombreEspia = cell.getStringCellValue();
 					
 					// Ignora el nombre de la columna
-					if (!nombreEspia.equals("Nombre") && !nombreEspia.equals("")) {
+					if (!nombreEspia.equals("Nombre") && !nombreEspia.equals("") && cell.getColumnIndex() == 0) {
 						espias.put(nombreEspia.toLowerCase(), i);
 						i++;
 					}

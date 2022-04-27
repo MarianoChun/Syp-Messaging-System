@@ -1,4 +1,4 @@
-package grafos;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+
+import grafos.GrafoND;
 
 public class conjuntoDeVerticesTest {
 

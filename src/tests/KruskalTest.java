@@ -1,4 +1,4 @@
-package agm;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import agm.Kruskal;
 import grafos.Arista;
 import grafos.Assert;
 import grafos.GrafoNDPonderado;

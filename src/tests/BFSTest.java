@@ -1,4 +1,4 @@
-package recorridos;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import grafos.GrafoND;
+import recorridos.BFS;
 
 public class BFSTest {
 
