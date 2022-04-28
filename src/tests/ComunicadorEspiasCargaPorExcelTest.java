@@ -43,11 +43,6 @@ public class ComunicadorEspiasCargaPorExcelTest {
 	
 	@Test
 	public void agmKruskalTest() {
-		// TODO: El AGM es el esperado, esta fallando el equals del grafoND. Al parecer
-		// la matriz de aristas de ambas no es la misma, coloque prints en los equals para
-		// ver donde entraba el false (El equals esta mal salvo que haya comparado los arboles mal, 
-		// por ahi conviene hacer una lista de espias mas chica para testear, estuve un buen rato
-		// tratando de buscar el error)
 		ComunicadorEspias c = new ComunicadorEspias();
 		c.agregarComunicacionDesdeExcel();
 		
@@ -62,6 +57,8 @@ public class ComunicadorEspiasCargaPorExcelTest {
 		agmEsperado.agregarArista(9, 12, 0.8); // Mabel, Candela, 0.8
 		agmEsperado.agregarArista(10, 7, 0.7); // Gabriela, Alvaro, 0.7
 		agmEsperado.agregarArista(0, 2, 0.9); // Juan, Ruben, 0.9
+		agmEsperado.agregarArista(2, 3, 0.7); // Ruben, William, 0.7
+		agmEsperado.agregarArista(9, 10, 0.9); // Mabel, Gabriela, 0.9
 		
 		assertEquals(agmEsperado, c.obtenerAGMComunicador());
 	}
