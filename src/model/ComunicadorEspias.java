@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import agm.Kruskal;
 import grafos.GrafoNDPonderado;
 
 public class ComunicadorEspias {
@@ -26,6 +27,9 @@ public class ComunicadorEspias {
 		this.arbolComunicador = new GrafoNDPonderado(espias.cantidadEspias());
 	}
 	
+	public GrafoNDPonderado obtenerAGMComunicador() {
+		return new Kruskal(arbolComunicador).obtenerArbolGM();
+	}
 	public void agregarComunicacionDesdeExcel() {
 		try {
 			// Hacemos la asociacion logica al archivo excel
@@ -83,8 +87,11 @@ public class ComunicadorEspias {
 		nombreEspia1 = nombreEspia1.toLowerCase();
 		nombreEspia2 = nombreEspia2.toLowerCase();
 		
-		if(!espias.existeEspia(nombreEspia1) || !espias.existeEspia(nombreEspia2)) {
-			throw new IllegalArgumentException("Algunos de los espias no existen");
+		if(!espias.existeEspia(nombreEspia1)) {
+			throw new IllegalArgumentException("El espia " + nombreEspia1 + " no existe");
+		}
+		if(!espias.existeEspia(nombreEspia2)) {
+			throw new IllegalArgumentException("El espia " + nombreEspia2 + " no existe");
 		}
 	}
 	

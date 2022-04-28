@@ -164,8 +164,10 @@ public class GrafoNDPonderado extends GrafoND {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (!super.equals(obj)) {
+			System.out.println("Falso el super");
 			return false;
+		}
 		if (getClass() != obj.getClass())
 			return false;
 		GrafoNDPonderado other = (GrafoNDPonderado) obj;

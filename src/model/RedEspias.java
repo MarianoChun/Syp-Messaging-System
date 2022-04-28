@@ -41,7 +41,7 @@ public class RedEspias {
 			Iterator<Row> itr = sheet.iterator();
 			String nombreEspia;
 			int i = 0;
-			
+
 			while (itr.hasNext()) {
 
 				Row row = itr.next();
@@ -54,7 +54,7 @@ public class RedEspias {
 					
 					// Ignora el nombre de la columna
 					if (!nombreEspia.equals("Nombre") && !nombreEspia.equals("") && cell.getColumnIndex() == 0) {
-						espias.put(nombreEspia.toLowerCase(), i);
+						espias.putIfAbsent(nombreEspia.toLowerCase(), i);
 						i++;
 					}
 	
