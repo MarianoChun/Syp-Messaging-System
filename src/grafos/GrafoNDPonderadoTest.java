@@ -25,16 +25,26 @@ public class GrafoNDPonderadoTest {
 	}
 
 	@Test
-
 	public void eliminarAristaDeArrayDeAristasTest() {
 		GrafoNDPonderado g = new GrafoNDPonderado(4);
 
 		ArrayList<Arista> vacio = new ArrayList<Arista>();
 
 		g.agregarArista(2, 3, 0.1);
-		g.eliminarArista(2, 3, 0.1);
+		g.eliminarArista(2, 3);
 		assertEquals(vacio, g.getAristas());
+	}
+	
+	@Test
+	public void eliminarAristaDeArrayDeAristasInversoTest() {
+		GrafoNDPonderado g = new GrafoNDPonderado(4);
 
+		ArrayList<Arista> vacio = new ArrayList<Arista>();
+
+		g.agregarArista(3, 1, 0.20);
+		g.eliminarArista(1, 3);
+		
+		assertEquals(vacio, g.getAristas());
 	}
 
 	@Test

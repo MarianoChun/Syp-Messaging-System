@@ -3,11 +3,8 @@ package agm;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
 import org.junit.Test;
-
 import grafos.Arista;
-import grafos.Assert;
 import grafos.GrafoNDPonderado;
 
 public class KruskalTest {

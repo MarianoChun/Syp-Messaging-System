@@ -31,8 +31,7 @@ public class GrafoND {
 		verificarDistintos(i, j);
 		
 		if (existeArista(i, j)) {
-			A[i][j] = false;
-			A[j][i] = false;
+			A[i][j] = A[j][i] = false;
 		}
 	}
 

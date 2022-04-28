@@ -2,8 +2,6 @@ package grafos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GrafoNDPonderado extends GrafoND{
 	private double[][] pesosA;
@@ -30,15 +28,22 @@ public class GrafoNDPonderado extends GrafoND{
 	}
 
 	// Eliminacion de aristas
-	public void eliminarArista(int i, int j, double peso) {
+	@Override
+	public void eliminarArista(int i, int j) {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
 		if (existeArista(i, j)) {
+			double pesoArista = obtenerPesoArista(i, j);
+			eliminarArista(i, j, pesoArista);		
+		}
+	}
+	
+	private void eliminarArista(int i, int j, double peso) {
 			A[i][j] = A[j][i] = false;
 			aristas.remove(new Arista(i, j, peso));
-		}
+			aristas.remove(new Arista(j, i, peso));
 	}
 
 	public double obtenerPesoArista(int i, int j) {

@@ -1,6 +1,6 @@
 package grafos;
 
-public class Arista implements Comparable {
+public class Arista implements Comparable<Object> {
 	private int primerExtremo;
 	private int segundoExtremo;
 	private double peso;
