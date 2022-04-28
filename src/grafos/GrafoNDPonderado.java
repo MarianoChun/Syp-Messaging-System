@@ -139,14 +139,19 @@ public class GrafoNDPonderado extends GrafoND {
 	public String toString() {
 		StringBuffer cadena = new StringBuffer();
 		cadena.append("----- Grafo No dirigido Ponderado ----- \n");
+		int fila;
 		for (int col = 0; col < tamaño(); col++) {
-			for (int fila = 0; fila < tamaño(); fila++) {
-				if (col != fila && existeArista(col, fila)) {
+			fila = 0;
+			while(col != fila) {
+				if (existeArista(col, fila)) {
 					double peso = obtenerPesoArista(col, fila);
 					cadena.append("(").append(col).append(", ").append(fila).append(", ").append(peso).append(")");
-					cadena.append("\n");
+					cadena.append("\n");	
 				}
+				fila++;
 			}
+			
+			
 		}
 		cadena.append("----------------- \n");
 		return cadena.toString();

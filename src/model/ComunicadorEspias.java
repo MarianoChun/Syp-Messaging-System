@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,20 +28,18 @@ public class ComunicadorEspias {
 		this.arbolComunicador = new GrafoNDPonderado(espias.cantidadEspias());
 	}
 	
+	public ComunicadorEspias(String pathExcel) {
+		this.pathExcel = pathExcel;
+		this.espias = new RedEspias(pathExcel);
+		this.arbolComunicador = new GrafoNDPonderado(espias.cantidadEspias());
+	}
+	
 	public GrafoNDPonderado obtenerAGMComunicador() {
 		return new Kruskal(arbolComunicador).obtenerArbolGM();
 	}
 	public void agregarComunicacionDesdeExcel() {
 		try {
-			// Hacemos la asociacion logica al archivo excel
-			// "/lista_de_espias/lista-de-espias.xlsx"
-			FileInputStream archivo = new FileInputStream(new File(this.getClass().getResource(pathExcel).getPath()));
-
-			// Creamos una instancia Workbook que hace referencia al archivo .xlsx
-			XSSFWorkbook workbook = new XSSFWorkbook(archivo);
-			XSSFSheet sheet = workbook.getSheetAt(0);
-
-			Iterator<Row> itr = sheet.iterator();
+			Iterator<Row> itr = obtenerIteradorExcel();
 			String nombreEspia;
 			String nombreCompañero;
 			double probIntercepcion;
@@ -66,6 +65,19 @@ public class ComunicadorEspias {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
+		// Hacemos la asociacion logica al archivo excel
+		// "/lista_de_espias/lista-de-espias.xlsx"
+		FileInputStream archivo = new FileInputStream(new File(this.getClass().getResource(pathExcel).getPath()));
+
+		// Creamos una instancia Workbook que hace referencia al archivo .xlsx
+		XSSFWorkbook workbook = new XSSFWorkbook(archivo);
+		XSSFSheet sheet = workbook.getSheetAt(0);
+
+		Iterator<Row> itr = sheet.iterator();
+		return itr;
 	}
 	public void agregarComunicacion(String nombreEspia1, String nombreEspia2, double probIntercepcion) {
 		verificarExisteEspias(nombreEspia1, nombreEspia2);	

@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,15 +31,7 @@ public class RedEspias {
 
 	private void cargarEspiasDesdeExcel() {
 		try {
-			// Hacemos la asociacion logica al archivo excel
-			//"/lista_de_espias/lista-de-espias.xlsx" 
-			FileInputStream archivo = new FileInputStream(new File(this.getClass().getResource(pathExcel).getPath()));
-
-			// Creamos una instancia Workbook que hace referencia al archivo .xlsx
-			XSSFWorkbook workbook = new XSSFWorkbook(archivo);
-			XSSFSheet sheet = workbook.getSheetAt(0);
-
-			Iterator<Row> itr = sheet.iterator();
+			Iterator<Row> itr = obtenerIteradorExcel();
 			String nombreEspia;
 			int i = 0;
 
@@ -65,6 +58,19 @@ public class RedEspias {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
+		// Hacemos la asociacion logica al archivo excel
+		//"/lista_de_espias/lista-de-espias.xlsx" 
+		FileInputStream archivo = new FileInputStream(new File(this.getClass().getResource(pathExcel).getPath()));
+
+		// Creamos una instancia Workbook que hace referencia al archivo .xlsx
+		XSSFWorkbook workbook = new XSSFWorkbook(archivo);
+		XSSFSheet sheet = workbook.getSheetAt(0);
+
+		Iterator<Row> itr = sheet.iterator();
+		return itr;
 	}
 
 	public int cantidadEspias() {
