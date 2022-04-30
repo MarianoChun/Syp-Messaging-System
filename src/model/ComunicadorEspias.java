@@ -18,24 +18,24 @@ import agm.Kruskal;
 import grafos.GrafoNDPonderado;
 
 public class ComunicadorEspias {
-	private RedEspias espias;
+	private CargadorEspias espias;
 	private String pathExcel;
-	private GrafoNDPonderado arbolComunicador;
+	private GrafoNDPonderado redEspias;
 	
 	public ComunicadorEspias() {
 		this.pathExcel = "/lista_de_espias/lista-de-espias.xlsx";
-		this.espias = new RedEspias(pathExcel);
-		this.arbolComunicador = new GrafoNDPonderado(espias.cantidadEspias());
+		this.espias = new CargadorEspias(pathExcel);
+		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
 	}
 	
 	public ComunicadorEspias(String pathExcel) {
 		this.pathExcel = pathExcel;
-		this.espias = new RedEspias(pathExcel);
-		this.arbolComunicador = new GrafoNDPonderado(espias.cantidadEspias());
+		this.espias = new CargadorEspias(pathExcel);
+		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
 	}
 	
 	public GrafoNDPonderado obtenerAGMComunicador() {
-		return new Kruskal(arbolComunicador).obtenerArbolGM();
+		return new Kruskal(redEspias).obtenerArbolGM();
 	}
 	public void agregarComunicacionDesdeExcel() {
 		try {
@@ -86,7 +86,7 @@ public class ComunicadorEspias {
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
 		
-		arbolComunicador.agregarArista(indiceEspia1, indiceEspia2, probIntercepcion);
+		redEspias.agregarArista(indiceEspia1, indiceEspia2, probIntercepcion);
 	}
 
 	private void verificarProbIntercepcion(double probIntercepcion) {
@@ -113,7 +113,7 @@ public class ComunicadorEspias {
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
 		
-		return arbolComunicador.existeArista(indiceEspia1, indiceEspia2);
+		return redEspias.existeArista(indiceEspia1, indiceEspia2);
 	}
 	
 	public double obtenerProbabIntercepcion(String nombreEspia1, String nombreEspia2) {
@@ -122,7 +122,7 @@ public class ComunicadorEspias {
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
 		
-		return arbolComunicador.obtenerPesoArista(indiceEspia1, indiceEspia2);
+		return redEspias.obtenerPesoArista(indiceEspia1, indiceEspia2);
 	}
 	
 	public int cantidadEspias() {

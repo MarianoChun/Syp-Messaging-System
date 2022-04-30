@@ -15,18 +15,14 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class RedEspias {
+public class CargadorEspias {
 	private Map<String, Integer> espias;
 	private String pathExcel;
 
-	public RedEspias(String pathExcel) {
+	public CargadorEspias(String pathExcel) {
 		this.pathExcel = pathExcel;
 		this.espias = new HashMap<String, Integer>();
 		cargarEspiasDesdeExcel();
-		for(Map.Entry<String, Integer> entry : espias.entrySet()) {
-			System.out.println("Indice: " + entry.getValue() + ", Nombre: " + entry.getKey());
-		}
-		System.out.print("\n");
 	}
 
 	private void cargarEspiasDesdeExcel() {
@@ -45,8 +41,12 @@ public class RedEspias {
 					Cell cell = cellIterator.next();
 					nombreEspia = cell.getStringCellValue();
 					
-					// Ignora el nombre de la columna
-					if (!nombreEspia.equals("Nombre") && !nombreEspia.equals("") && cell.getColumnIndex() == 0) {
+					// Ignora el nombre de la columna !nombreEspia.equals("Nombre") && !nombreEspia.equals("Compañero") &&
+					if (!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 0) {
+						espias.putIfAbsent(nombreEspia.toLowerCase(), i);
+						i++;
+					}
+					if(!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 1) {
 						espias.putIfAbsent(nombreEspia.toLowerCase(), i);
 						i++;
 					}
@@ -70,6 +70,7 @@ public class RedEspias {
 		XSSFSheet sheet = workbook.getSheetAt(0);
 
 		Iterator<Row> itr = sheet.iterator();
+		itr.next();
 		return itr;
 	}
 
@@ -88,13 +89,25 @@ public class RedEspias {
 		return espias.get(nombre);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder strb = new StringBuilder();
+		for(Map.Entry<String, Integer> entry : espias.entrySet()) {
+			strb.append("Indice: ").append(entry.getValue()).append(", Nombre: ").append(entry.getKey()).append("\n");
+		}
+		return strb.toString();
+	}
+	
 	private void verificarExisteEspia(String nombre) {
 		if(!existeEspia(nombre)) {
 			throw new IllegalArgumentException("Error, el espia no existe");
 		}
+		
 	}
-	public static void main(String[] args) {
-		RedEspias red = new RedEspias("/lista_de_espias/lista-de-espias.xlsx");
-	}
+	
+//	public static void main(String[] args) {
+//		CargadorEspias red = new CargadorEspias("/lista_de_espias/lista-de-espias.xlsx");
+//		red.toString();
+//	}
 
 }
