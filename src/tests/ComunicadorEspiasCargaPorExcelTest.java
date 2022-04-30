@@ -60,7 +60,7 @@ public class ComunicadorEspiasCargaPorExcelTest {
 		agmEsperado.agregarArista(2, 3, 0.7); // Ruben, William, 0.7
 		agmEsperado.agregarArista(9, 10, 0.9); // Mabel, Gabriela, 0.9
 		
-		assertEquals(agmEsperado, c.obtenerAGMComunicador());
+		assertEquals(agmEsperado, c.obtenerRedSegura());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

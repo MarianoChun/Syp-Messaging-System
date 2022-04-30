@@ -26,15 +26,17 @@ public class ComunicadorEspias {
 		this.pathExcel = "/lista_de_espias/lista-de-espias.xlsx";
 		this.espias = new CargadorEspias(pathExcel);
 		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
+		agregarComunicacionDesdeExcel();
 	}
 	
 	public ComunicadorEspias(String pathExcel) {
 		this.pathExcel = pathExcel;
 		this.espias = new CargadorEspias(pathExcel);
 		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
+		agregarComunicacionDesdeExcel();
 	}
 	
-	public GrafoNDPonderado obtenerAGMComunicador() {
+	public GrafoNDPonderado obtenerRedSegura() {
 		return new Kruskal(redEspias).obtenerArbolGM();
 	}
 	public void agregarComunicacionDesdeExcel() {
@@ -47,7 +49,7 @@ public class ComunicadorEspias {
 			while (itr.hasNext()) {
 
 				Row row = itr.next();
-				if (!(row.getCell(0) == null) || !(row.getCell(1) == null) || !(row.getCell(2) == null)) {
+				if (!(row.getCell(0) == null) && !(row.getCell(1) == null) && !(row.getCell(2) == null)) {
 
 					nombreEspia = row.getCell(0).getStringCellValue();
 					nombreCompañero = row.getCell(1).getStringCellValue();
@@ -67,6 +69,10 @@ public class ComunicadorEspias {
 		}
 	}
 
+	public boolean redYaEsSegura() {
+		return this.obtenerRedSegura().equals(this.redEspias);
+	}
+	
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
 		// Hacemos la asociacion logica al archivo excel
 		// "/lista_de_espias/lista-de-espias.xlsx"
@@ -80,7 +86,7 @@ public class ComunicadorEspias {
 		return itr;
 	}
 	public void agregarComunicacion(String nombreEspia1, String nombreEspia2, double probIntercepcion) {
-		verificarExisteEspias(nombreEspia1, nombreEspia2);	
+		verificarExistenEspias(nombreEspia1, nombreEspia2);	
 		verificarProbIntercepcion(probIntercepcion);
 		
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
@@ -95,7 +101,7 @@ public class ComunicadorEspias {
 		}
 	}
 
-	private void verificarExisteEspias(String nombreEspia1, String nombreEspia2) {
+	private void verificarExistenEspias(String nombreEspia1, String nombreEspia2) {
 		nombreEspia1 = nombreEspia1.toLowerCase();
 		nombreEspia2 = nombreEspia2.toLowerCase();
 		
@@ -108,7 +114,7 @@ public class ComunicadorEspias {
 	}
 	
 	public boolean existeComunicacion(String nombreEspia1, String nombreEspia2) {
-		verificarExisteEspias(nombreEspia1, nombreEspia2);
+		verificarExistenEspias(nombreEspia1, nombreEspia2);
 		
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
@@ -117,7 +123,7 @@ public class ComunicadorEspias {
 	}
 	
 	public double obtenerProbabIntercepcion(String nombreEspia1, String nombreEspia2) {
-		verificarExisteEspias(nombreEspia1, nombreEspia2);
+		verificarExistenEspias(nombreEspia1, nombreEspia2);
 		
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);

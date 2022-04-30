@@ -2,10 +2,12 @@ package model;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class CargadorEspiasTest {
-
+	
+	
 	@Test
 	public void cargarEspiasTest() {
 		CargadorEspias red = new CargadorEspias("/lista_de_espias/lista-de-espias.xlsx");
@@ -24,4 +26,16 @@ public class CargadorEspiasTest {
 		assertEquals(red.getIndiceEspia("candela"), 12);
 	}
 
+	@Test
+	public void cantidadEspiasTest() {
+		CargadorEspias red = new CargadorEspias("/lista_de_espias/lista-de-espias.xlsx");
+		assertEquals(red.cantidadEspias(), 13);
+	}
+	
+	@Test
+	public void test() {
+		CargadorEspias red = new CargadorEspias("/lista_de_espias/lista-de-espias-no-segura.xlsx");
+		System.out.println(red.toString());
+	}
+	
 }
