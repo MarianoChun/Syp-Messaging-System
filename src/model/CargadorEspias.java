@@ -39,15 +39,15 @@ public class CargadorEspias {
 				while (cellIterator.hasNext()) {
 
 					Cell cell = cellIterator.next();
-					nombreEspia = cell.getStringCellValue();
+					nombreEspia = cell.getStringCellValue().toLowerCase();
 					
 					// Ignora el nombre de la columna !nombreEspia.equals("Nombre") && !nombreEspia.equals("Compañero") &&
 					if (!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 0) {
-						espias.putIfAbsent(nombreEspia.toLowerCase(), i);
+						espias.putIfAbsent(nombreEspia, i);
 						i++;
 					}
 					if(!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 1) {
-						espias.putIfAbsent(nombreEspia.toLowerCase(), i);
+						espias.putIfAbsent(nombreEspia, i);
 						i++;
 					}
 	

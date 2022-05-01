@@ -86,7 +86,8 @@ public class ComunicadorEspias {
 		return itr;
 	}
 	public void agregarComunicacion(String nombreEspia1, String nombreEspia2, double probIntercepcion) {
-		verificarExistenEspias(nombreEspia1, nombreEspia2);	
+		verificarExisteEspia(nombreEspia1);
+		verificarExisteEspia(nombreEspia2);	
 		verificarProbIntercepcion(probIntercepcion);
 		
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
@@ -95,26 +96,29 @@ public class ComunicadorEspias {
 		redEspias.agregarArista(indiceEspia1, indiceEspia2, probIntercepcion);
 	}
 
+	public int obtenerIndiceEspia(String nombreEspia) {
+		verificarExisteEspia(nombreEspia);
+		return espias.getIndiceEspia(nombreEspia);
+	}
+	
 	private void verificarProbIntercepcion(double probIntercepcion) {
 		if(probIntercepcion < 0.0 || probIntercepcion > 1.0) {
 			throw new IllegalArgumentException("La probabilidad de intercepcion debe estar entre 0.0 y 1.0");
 		}
 	}
 
-	private void verificarExistenEspias(String nombreEspia1, String nombreEspia2) {
-		nombreEspia1 = nombreEspia1.toLowerCase();
-		nombreEspia2 = nombreEspia2.toLowerCase();
+	private void verificarExisteEspia(String nombreEspia) {
+		nombreEspia = nombreEspia.toLowerCase();
 		
-		if(!espias.existeEspia(nombreEspia1)) {
-			throw new IllegalArgumentException("El espia " + nombreEspia1 + " no existe");
+		if(!espias.existeEspia(nombreEspia)) {
+			throw new IllegalArgumentException("El espia " + nombreEspia + " no existe");
 		}
-		if(!espias.existeEspia(nombreEspia2)) {
-			throw new IllegalArgumentException("El espia " + nombreEspia2 + " no existe");
-		}
+
 	}
 	
 	public boolean existeComunicacion(String nombreEspia1, String nombreEspia2) {
-		verificarExistenEspias(nombreEspia1, nombreEspia2);
+		verificarExisteEspia(nombreEspia1);
+		verificarExisteEspia(nombreEspia2);
 		
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
@@ -123,7 +127,8 @@ public class ComunicadorEspias {
 	}
 	
 	public double obtenerProbabIntercepcion(String nombreEspia1, String nombreEspia2) {
-		verificarExistenEspias(nombreEspia1, nombreEspia2);
+		verificarExisteEspia(nombreEspia1);
+		verificarExisteEspia(nombreEspia2);
 		
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
@@ -134,4 +139,13 @@ public class ComunicadorEspias {
 	public int cantidadEspias() {
 		return espias.cantidadEspias();
 	}
+
+	@Override
+	public String toString() {
+		StringBuffer cadena = new StringBuffer();
+		cadena.append("------ Comunicador Espias ------\nEspias:\n").append(espias.toString());
+		cadena.append("\nRed espias segura:\n" + redEspias.toString());
+		return cadena.toString();
+	}
+	
 }

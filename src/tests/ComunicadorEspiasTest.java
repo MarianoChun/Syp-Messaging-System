@@ -7,7 +7,14 @@ import org.junit.Test;
 import model.ComunicadorEspias;
 
 public class ComunicadorEspiasTest {
-
+	@Test
+	public void aviso() {
+		 fail("Definir lo de las comunicaciones del comentario");
+	}
+	// Hay que definir si ponemos todas las comunicaciones desde el constructor directamente o 
+	// damos la opcion de cargarlas manualmente. Cuando se defina eso, descomentar los test y 
+	// corregir los test.
+	/*
 	@Test
 	public void agregarEspiaTest() {
 		ComunicadorEspias c = new ComunicadorEspias();
@@ -36,10 +43,10 @@ public class ComunicadorEspiasTest {
 	
 	@Test
 	public void obtenerProbabIntercepcionTest() {
-		ComunicadorEspias c = new ComunicadorEspias();
+		ComunicadorEspias c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
 		c.agregarComunicacion("juan", "ivan", 0.8);
 
-		double esperado = 0.8;
+		double esperado = 0.1;
 		assertTrue(esperado == c.obtenerProbabIntercepcion("juan", "ivan"));
 	}
 	
@@ -63,5 +70,5 @@ public class ComunicadorEspiasTest {
 		ComunicadorEspias c = new ComunicadorEspias();
 		c.agregarComunicacion("William", "Ivan", 2.0);
 	}
-
+	*/
 }
