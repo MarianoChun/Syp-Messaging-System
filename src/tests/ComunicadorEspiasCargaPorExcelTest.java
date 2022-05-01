@@ -2,49 +2,42 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import grafos.GrafoNDPonderado;
 import model.ComunicadorEspias;
 
 public class ComunicadorEspiasCargaPorExcelTest {
-
+	// NOTA: Esta suite de test utiliza los espias de "lista-de-espias-test-2"
+	private ComunicadorEspias c;
+	@Before
+	public void cargarEspias() {
+		c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
+	}
+	
 	@Test
-	public void cargarEspiasYComunicacionesTest() {
-		ComunicadorEspias c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
-
-		
+	public void cargarEspiasYComunicacionesTest() {	
 		assertTrue(c.existeComunicacion("Ruben", "William"));
 	}
 
 	@Test
-	public void existeComunicacionMayusculaTest() {
-		ComunicadorEspias c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
-		
+	public void existeComunicacionMayusculaTest() {	
 		assertTrue(c.existeComunicacion("RODOLFO", "JUAN"));
 	}
 	
 	@Test
 	public void noExisteComunicacionTest() {
-		ComunicadorEspias c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
-
-		
 		assertFalse(c.existeComunicacion("Pepe", "Ruben"));
 	}
 	
 	@Test
 	public void obtenerProbIntercepcionTest() {
-		ComunicadorEspias c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
-
-		
 		assertTrue(0.1 == c.obtenerProbabIntercepcion("Juan", "Ivan"));
 	}
 	
 	@Test
 	public void agmKruskalTest() {
-		ComunicadorEspias c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
-
-		
 		GrafoNDPonderado agmEsperado = new GrafoNDPonderado(c.cantidadEspias());
 		System.out.println(c.toString());
 		//System.out.println(c.obtenerProbabIntercepcion("Alvaro", "Jose"));
@@ -66,9 +59,6 @@ public class ComunicadorEspiasCargaPorExcelTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void probIntercepcionEspiasNoComunicadosTest() {
-		ComunicadorEspias c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
-
-		
 		c.obtenerProbabIntercepcion("Pepe", "Ivan");
 	}
 	
