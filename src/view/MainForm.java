@@ -65,7 +65,7 @@ public class MainForm {
 		// Definimos los modelos de las dos tablas (de espias y red segura)
 		
 		DefaultTableModel modeloTablaEspias = new DefaultTableModel();
-		modeloTablaEspias.addColumn("Nombre espia");
+		modeloTablaEspias.addColumn("Nombres espias");
 		Map<String, Integer> listaEspias = comunicador.obtenerEspias();
 		for(Map.Entry<String, Integer> entry : listaEspias.entrySet()) {
 			modeloTablaEspias.addRow(new Object[] {entry.getKey()});

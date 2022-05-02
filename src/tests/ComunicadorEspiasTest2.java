@@ -8,7 +8,7 @@ import org.junit.Test;
 import grafos.GrafoNDPonderado;
 import model.ComunicadorEspias;
 
-public class ComunicadorEspiasCargaPorExcelTest {
+public class ComunicadorEspiasTest2 {
 	// NOTA: Esta suite de test utiliza los espias de "lista-de-espias-test-2"
 	private ComunicadorEspias c;
 	@Before
@@ -39,8 +39,7 @@ public class ComunicadorEspiasCargaPorExcelTest {
 	@Test
 	public void agmKruskalTest() {
 		GrafoNDPonderado agmEsperado = new GrafoNDPonderado(c.cantidadEspias());
-		System.out.println(c.toString());
-		//System.out.println(c.obtenerProbabIntercepcion("Alvaro", "Jose"));
+
 		agmEsperado.agregarArista(0, 1, 0.1); // Juan, Ivan, 0.1
 		agmEsperado.agregarArista(2, 11, 0.4); // Ruben, Hugo, 0.4
 		agmEsperado.agregarArista(3, 5, 0.3); // William, Pepe, 0.3
@@ -56,10 +55,35 @@ public class ComunicadorEspiasCargaPorExcelTest {
 		
 		assertEquals(agmEsperado, c.obtenerRedSegura());
 	}
+
+	@Test
+	public void agregarEspiasMayusculasTest() {
+		assertTrue(c.existeComunicacion("JuLieTa", "IVAN") && c.existeComunicacion("ruben", "HuGO"));
+	}
+	
+	@Test
+	public void obtenerProbabIntercepcionTest() {
+		double esperado = 0.1;
+		assertTrue(esperado == c.obtenerProbabIntercepcion("juan", "ivan"));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void verificarExistenEspiasTest() {                                                                                         
+		c.agregarComunicacion("Mariano", "Tito", 0.2);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void verificarProbabilidadIntercepcionNegativaTest() {
+		c.agregarComunicacion("Juan", "Rodolfo", -0.5);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void verificarProbabilidadIntercepcionMayorA1Test() {
+		c.agregarComunicacion("William", "Ivan", 2.0);
+	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void probIntercepcionEspiasNoComunicadosTest() {
 		c.obtenerProbabIntercepcion("Pepe", "Ivan");
 	}
-	
 }
