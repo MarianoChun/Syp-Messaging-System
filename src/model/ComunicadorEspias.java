@@ -39,7 +39,12 @@ public class ComunicadorEspias {
 	public GrafoNDPonderado obtenerRedSegura() {
 		return new Kruskal(redEspias).obtenerArbolGM();
 	}
-	public void agregarComunicacionDesdeExcel() {
+	
+	public Map<String, Integer> obtenerEspias() {
+		return espias.obtenerRegistroEspias();                                                                                      
+	}
+	
+ 	public void agregarComunicacionDesdeExcel() {
 		try {
 			Iterator<Row> itr = obtenerIteradorExcel();
 			String nombreEspia;

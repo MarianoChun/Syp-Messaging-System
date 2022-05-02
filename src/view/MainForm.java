@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.EventQueue;
+import java.security.KeyStore.Entry;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -8,6 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+
+import model.ComunicadorEspias;
+
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
@@ -17,7 +22,7 @@ public class MainForm {
 	private JFrame frmPrincipal;
 	private JTable tablaEspias;
 	private JTable tablaRedSegura;
-
+	private ComunicadorEspias comunicador;
 	/**
 	 * Launch the application.
 	 */
@@ -45,6 +50,8 @@ public class MainForm {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		comunicador = new ComunicadorEspias();
+	
 		frmPrincipal = new JFrame();
 		frmPrincipal.setBounds(100, 100, 584, 326);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,10 +66,10 @@ public class MainForm {
 		
 		DefaultTableModel modeloTablaEspias = new DefaultTableModel();
 		modeloTablaEspias.addColumn("Nombre espia");
-		modeloTablaEspias.addRow(new Object[] {"Juan"});
-		modeloTablaEspias.addRow(new Object[] {"PEPE"});
-		modeloTablaEspias.addRow(new Object[] {"osvaldo"});
-		modeloTablaEspias.addRow(new Object[] {"roque"});
+		Map<String, Integer> listaEspias = comunicador.obtenerEspias();
+		for(Map.Entry<String, Integer> entry : listaEspias.entrySet()) {
+			modeloTablaEspias.addRow(new Object[] {entry.getKey()});
+		}
 		
 		
 		DefaultTableModel modeloRedSegura = new DefaultTableModel();

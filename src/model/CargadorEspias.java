@@ -78,6 +78,9 @@ public class CargadorEspias {
 		return espias.size();
 	}
 	
+	public Map<String, Integer> obtenerRegistroEspias() {
+		return espias;
+	}
 	public boolean existeEspia(String nombre) {
 		return espias.containsKey(nombre.toLowerCase());
 	}
