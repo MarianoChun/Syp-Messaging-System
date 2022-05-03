@@ -23,14 +23,14 @@ public class ComunicadorEspias {
 	private GrafoNDPonderado redEspias;
 	
 	public ComunicadorEspias() {
-		this.pathExcel = System.getProperty("user.dir")+ "/src" + "/lista_de_espias/lista-de-espias.xlsx";
+		this.pathExcel = "/lista_de_espias/lista-de-espias.xlsx";
 		this.espias = new CargadorEspias(pathExcel);
 		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
 		agregarComunicacionDesdeExcel();
 	}
 	
 	public ComunicadorEspias(String pathExcel) {
-		this.pathExcel = System.getProperty("user.dir")+ "/src" + pathExcel;
+		this.pathExcel =  pathExcel;
 		this.espias = new CargadorEspias(pathExcel);
 		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
 		agregarComunicacionDesdeExcel();
@@ -81,8 +81,12 @@ public class ComunicadorEspias {
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
 		// Hacemos la asociacion logica al archivo excel
 		// "/lista_de_espias/lista-de-espias.xlsx"
-		FileInputStream archivo = new FileInputStream(new File(pathExcel));
-
+		FileInputStream archivo;
+		try {
+			archivo = new FileInputStream(this.getClass().getResource(pathExcel).getPath());
+		} catch (NullPointerException e) {
+			archivo = new FileInputStream(pathExcel);
+		}
 		// Creamos una instancia Workbook que hace referencia al archivo .xlsx
 		XSSFWorkbook workbook = new XSSFWorkbook(archivo);
 		XSSFSheet sheet = workbook.getSheetAt(0);

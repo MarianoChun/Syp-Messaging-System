@@ -46,7 +46,7 @@ public class ComunicadorEspiasTest {
 	
 	@Test
 	public void redNoSeguraTest() {
-		ComunicadorEspias comunicador2 = new ComunicadorEspias("/lista_de_espias/lista-de-espias-no-segura.xlsx");
+		ComunicadorEspias comunicador2 = new ComunicadorEspias("/lista_de_espias/lista-de-espias.xlsx");
 		System.out.println(comunicador2.obtenerRedSegura());
 	}
 	

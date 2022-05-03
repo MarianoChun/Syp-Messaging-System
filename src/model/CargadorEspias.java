@@ -20,7 +20,7 @@ public class CargadorEspias {
 	private String pathExcel;
 
 	public CargadorEspias(String pathExcel) {
-		this.pathExcel = System.getProperty("user.dir")+ "/src" + pathExcel;
+		this.pathExcel = pathExcel;
 		this.espias = new HashMap<String, Integer>();
 		cargarEspiasDesdeExcel();
 	}
@@ -63,8 +63,12 @@ public class CargadorEspias {
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
 		// Hacemos la asociacion logica al archivo excel
 		//"/lista_de_espias/lista-de-espias.xlsx" 
-		FileInputStream archivo = new FileInputStream(new File(pathExcel));
-
+		FileInputStream archivo;
+		try {
+			archivo = new FileInputStream(this.getClass().getResource(pathExcel).getPath());
+		} catch (NullPointerException e) {
+			archivo = new FileInputStream(pathExcel);
+		}
 		// Creamos una instancia Workbook que hace referencia al archivo .xlsx
 		XSSFWorkbook workbook = new XSSFWorkbook(archivo);
 		XSSFSheet sheet = workbook.getSheetAt(0);
