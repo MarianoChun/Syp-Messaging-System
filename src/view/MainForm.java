@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import java.security.KeyStore.Entry;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +12,9 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import grafos.GrafoNDPonderado;
 import model.ComunicadorEspias;
+import recorridos.BFS;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -70,7 +73,7 @@ public class MainForm {
 		
 		JLabel lblComEspias = new JLabel("Comunicador de espias");
 		lblComEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblComEspias.setBounds(184, 11, 139, 14);
+		lblComEspias.setBounds(203, 11, 139, 14);
 		frmPrincipal.getContentPane().add(lblComEspias);
 		
 		// Definimos los modelos de las dos tablas (de espias y red segura)
@@ -107,6 +110,15 @@ public class MainForm {
 
 		
 		JButton btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
+		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GrafoNDPonderado redSegura = comunicador.obtenerRedSegura();
+				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
+				for(Integer vertice : recorrido) {
+					
+				}
+			}
+		});
 		btnArmarRedSeguraKruskal.setEnabled(false);
 		btnArmarRedSeguraKruskal.setBounds(172, 207, 203, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
@@ -116,6 +128,10 @@ public class MainForm {
 		frmPrincipal.getContentPane().add(lblFlecha);
 		
 		JButton btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
+		btnArmarRedSeguraPrim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnArmarRedSeguraPrim.setEnabled(false);
 		btnArmarRedSeguraPrim.setBounds(172, 241, 203, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
@@ -142,6 +158,9 @@ public class MainForm {
 							modeloTablaEspias.addRow(new Object[] {entry.getKey()});
 						}
 						tablaEspias.setModel(modeloTablaEspias);
+						btnArmarRedSeguraPrim.setEnabled(true);
+						btnArmarRedSeguraKruskal.setEnabled(true);
+						
 					} catch (Exception ex) {
 						System.out.println(ex.getMessage());
 					}
@@ -152,6 +171,16 @@ public class MainForm {
 		});
 		btnSelectorArchivos.setBounds(172, 275, 203, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
+		
+		JLabel lblTituloTablaEspias = new JLabel("Lista espias");
+		lblTituloTablaEspias.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTituloTablaEspias.setBounds(52, 21, 122, 14);
+		frmPrincipal.getContentPane().add(lblTituloTablaEspias);
+		
+		JLabel lblTituloRedSegura = new JLabel("Red segura");
+		lblTituloRedSegura.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTituloRedSegura.setBounds(386, 21, 112, 14);
+		frmPrincipal.getContentPane().add(lblTituloRedSegura);
 		
 	}
 	
