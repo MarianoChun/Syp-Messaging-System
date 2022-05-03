@@ -63,7 +63,7 @@ public class CargadorEspias {
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
 		// Hacemos la asociacion logica al archivo excel
 		//"/lista_de_espias/lista-de-espias.xlsx" 
-		FileInputStream archivo = new FileInputStream(new File(this.getClass().getResource(pathExcel).getPath()));
+		FileInputStream archivo = new FileInputStream(new File(pathExcel));
 
 		// Creamos una instancia Workbook que hace referencia al archivo .xlsx
 		XSSFWorkbook workbook = new XSSFWorkbook(archivo);

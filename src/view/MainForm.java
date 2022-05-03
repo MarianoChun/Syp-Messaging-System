@@ -15,13 +15,22 @@ import model.ComunicadorEspias;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.awt.event.ActionEvent;
 
 public class MainForm {
 
 	private JFrame frmPrincipal;
 	private JTable tablaEspias;
 	private JTable tablaRedSegura;
+	private JFileChooser selectorArchivos;
 	private ComunicadorEspias comunicador;
 	/**
 	 * Launch the application.
@@ -50,10 +59,12 @@ public class MainForm {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		comunicador = new ComunicadorEspias();
-	
+		File directorioAMostrar = new File(System.getProperty("user.dir")+ "/src/lista_de_espias");
+		selectorArchivos = new JFileChooser();
+		selectorArchivos.setCurrentDirectory(directorioAMostrar);
+		
 		frmPrincipal = new JFrame();
-		frmPrincipal.setBounds(100, 100, 584, 326);
+		frmPrincipal.setBounds(100, 100, 584, 367);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
 		
@@ -66,10 +77,7 @@ public class MainForm {
 		
 		DefaultTableModel modeloTablaEspias = new DefaultTableModel();
 		modeloTablaEspias.addColumn("Nombres espias");
-		Map<String, Integer> listaEspias = comunicador.obtenerEspias();
-		for(Map.Entry<String, Integer> entry : listaEspias.entrySet()) {
-			modeloTablaEspias.addRow(new Object[] {entry.getKey()});
-		}
+		
 		
 		
 		DefaultTableModel modeloRedSegura = new DefaultTableModel();
@@ -98,14 +106,53 @@ public class MainForm {
 		scrollPanelRedSegura.setViewportView(tablaRedSegura);
 
 		
-		JButton btnArmarRedSegura = new JButton("Armar red segura");
-		btnArmarRedSegura.setBounds(213, 207, 139, 23);
-		frmPrincipal.getContentPane().add(btnArmarRedSegura);
+		JButton btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
+		btnArmarRedSeguraKruskal.setEnabled(false);
+		btnArmarRedSeguraKruskal.setBounds(172, 207, 203, 23);
+		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 		
 		JLabel lblFlecha = new JLabel("------------->");
 		lblFlecha.setBounds(234, 112, 73, 14);
 		frmPrincipal.getContentPane().add(lblFlecha);
 		
-	
+		JButton btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
+		btnArmarRedSeguraPrim.setEnabled(false);
+		btnArmarRedSeguraPrim.setBounds(172, 241, 203, 23);
+		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
+
+		JButton btnSelectorArchivos = new JButton("Seleccionar archivo excel");
+		btnSelectorArchivos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FileFilter filtro = new FileNameExtensionFilter("Archivos xlsx (.xlsx)", "xlsx");
+				selectorArchivos.setFileFilter(filtro);
+				int valor = selectorArchivos.showOpenDialog(selectorArchivos);
+
+				if (valor == JFileChooser.APPROVE_OPTION) {
+					try {
+						File archivo = selectorArchivos.getSelectedFile();
+						String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
+						comunicador = new ComunicadorEspias(path);
+						
+						Map<String, Integer> listaEspias = comunicador.obtenerEspias();
+						int cantRegistros = tablaEspias.getRowCount();
+						if(cantRegistros > 1) {
+							modeloTablaEspias.getDataVector().removeAllElements();
+							modeloTablaEspias.fireTableDataChanged();
+						}
+						for(Map.Entry<String, Integer> entry : listaEspias.entrySet()) {
+							modeloTablaEspias.addRow(new Object[] {entry.getKey()});
+						}
+						tablaEspias.setModel(modeloTablaEspias);
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
+				} else {
+					System.out.println("No se ha seleccionado ningún fichero");
+				}
+			}
+		});
+		btnSelectorArchivos.setBounds(172, 275, 203, 23);
+		frmPrincipal.getContentPane().add(btnSelectorArchivos);
+		
 	}
 }
