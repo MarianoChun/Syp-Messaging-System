@@ -136,8 +136,7 @@ public class MainForm {
 						Map<String, Integer> listaEspias = comunicador.obtenerEspias();
 						int cantRegistros = tablaEspias.getRowCount();
 						if(cantRegistros > 1) {
-							modeloTablaEspias.getDataVector().removeAllElements();
-							modeloTablaEspias.fireTableDataChanged();
+							removerRegistrosTabla(modeloTablaEspias);
 						}
 						for(Map.Entry<String, Integer> entry : listaEspias.entrySet()) {
 							modeloTablaEspias.addRow(new Object[] {entry.getKey()});
@@ -154,5 +153,10 @@ public class MainForm {
 		btnSelectorArchivos.setBounds(172, 275, 203, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
 		
+	}
+	
+	private void removerRegistrosTabla(DefaultTableModel modeloTabla) {
+		modeloTabla.getDataVector().removeAllElements();
+		modeloTabla.fireTableDataChanged();
 	}
 }
