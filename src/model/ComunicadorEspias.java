@@ -23,14 +23,14 @@ public class ComunicadorEspias {
 	private GrafoNDPonderado redEspias;
 	
 	public ComunicadorEspias() {
-		this.pathExcel = "/lista_de_espias/lista-de-espias.xlsx";
+		this.pathExcel = System.getProperty("user.dir")+ "/src" + "/lista_de_espias/lista-de-espias.xlsx";
 		this.espias = new CargadorEspias(pathExcel);
 		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
 		agregarComunicacionDesdeExcel();
 	}
 	
 	public ComunicadorEspias(String pathExcel) {
-		this.pathExcel = pathExcel;
+		this.pathExcel = System.getProperty("user.dir")+ "/src" + pathExcel;
 		this.espias = new CargadorEspias(pathExcel);
 		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
 		agregarComunicacionDesdeExcel();

@@ -23,7 +23,7 @@ public class GrafoNDPonderado extends GrafoND {
 
 		if (!existeArista(i, j)) {
 			agregarArista(i, j, 0.0);
-			aristas.add(new Arista(i, j, 0.0));
+			aristas.add(new Arista(new Vertice(i), new Vertice(j), 0.0));
 		}
 	}
 
@@ -35,7 +35,7 @@ public class GrafoNDPonderado extends GrafoND {
 		if (!existeArista(i, j)) {
 			A[i][j] = A[j][i] = true;
 			pesosA[i][j] = pesosA[j][i] = peso;
-			aristas.add(new Arista(i, j, peso));
+			aristas.add(new Arista(new Vertice(i), new Vertice(j), peso));
 		}
 
 	}
@@ -56,7 +56,7 @@ public class GrafoNDPonderado extends GrafoND {
 		verificarDistintos(i, j);
 
 		if (existeArista(i, j)) {
-			Arista arista = new Arista(i, j, peso);
+			Arista arista = new Arista(new Vertice(i), new Vertice(j), peso);
 			A[i][j] = A[j][i] = false;
 			aristas.remove(arista);
 		}

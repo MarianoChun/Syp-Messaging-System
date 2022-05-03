@@ -20,7 +20,7 @@ public class CargadorEspias {
 	private String pathExcel;
 
 	public CargadorEspias(String pathExcel) {
-		this.pathExcel = pathExcel;
+		this.pathExcel = System.getProperty("user.dir")+ "/src" + pathExcel;
 		this.espias = new HashMap<String, Integer>();
 		cargarEspiasDesdeExcel();
 	}

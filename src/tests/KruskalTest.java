@@ -10,6 +10,7 @@ import agm.Kruskal;
 import grafos.Arista;
 import grafos.Assert;
 import grafos.GrafoNDPonderado;
+import grafos.Vertice;
 
 public class KruskalTest {
 
@@ -23,17 +24,17 @@ public class KruskalTest {
 		g.agregarArista(2, 3, 3.0);
 
 		ArrayList<Arista> esperado = new ArrayList<Arista>();
-		esperado.add(new Arista(0, 1, 1.0));
-		esperado.add(new Arista(0, 3, 2.0));
-		esperado.add(new Arista(2, 3, 3.0));
-		esperado.add(new Arista(0, 2, 5.0));
-		esperado.add(new Arista(1, 3, 3.0));
+		esperado.add(new Arista(new Vertice(0), new Vertice(0), 1.0));
+		esperado.add(new Arista(new Vertice(0), new Vertice(3), 2.0));
+		esperado.add(new Arista(new Vertice(2), new Vertice(3), 3.0));
+		esperado.add(new Arista(new Vertice(0), new Vertice(2), 5.0));
+		esperado.add(new Arista(new Vertice(1), new Vertice(3), 3.0));
 
 		ArrayList<Arista> listaActual = new Kruskal(g).getAristasOrdenadas();
 		System.out.println(listaActual);
 		for (Arista elem : listaActual) {
-			int i = elem.getPrimerExtremo();
-			int j = elem.getSegundoExtremo();
+			int i = elem.getPrimerExtremo().getIndice();
+			int j = elem.getSegundoExtremo().getIndice();
 			double peso = g.obtenerPesoArista(i, j);
 			System.out.println(i + ", " + j + ", " + peso);
 		}
