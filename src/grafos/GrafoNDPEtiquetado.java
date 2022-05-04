@@ -6,23 +6,24 @@ import java.util.Map;
 public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 	private Map<Integer, String> etiquetas;
 	public GrafoNDPEtiquetado(int vertices) {
-		super(vertices); 
-		etiquetas = new HashMap<Integer, String>();
+		super(vertices);
+		this.etiquetas = new HashMap<Integer, String>();
 	}
 
+	//opino que no va, porque solo nos interesa que ingresen aristas con peso
+//	public void agregarArista(Vertice primerVertice, Vertice segundoVertice) {
+//		int i = primerVertice.getIndice();
+//		int j = segundoVertice.getIndice();
+//		verificarVerticesEtiquetados(primerVertice, segundoVertice);
+//		verificarVertice(i);
+//		verificarVertice(j);
+//		verificarDistintos(i, j);
+//
+//		if (!existeArista(i, j)) {
+//			agregarArista(primerVertice, segundoVertice, 0.0);
+//		}
+//	}
 	
-	public void agregarArista(Vertice primerVertice, Vertice segundoVertice) {
-		int i = primerVertice.getIndice();
-		int j = segundoVertice.getIndice();
-		verificarVerticesEtiquetados(primerVertice, segundoVertice);
-		verificarVertice(i);
-		verificarVertice(j);
-		verificarDistintos(i, j);
-
-		if (!existeArista(i, j)) {
-			agregarArista(primerVertice, segundoVertice, 0.0);
-		}
-	}
 	public void agregarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
@@ -41,6 +42,7 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 
 	}
 
+	@Override
 	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
@@ -50,18 +52,14 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 		verificarDistintos(i, j);
 
 		if (existeArista(i, j)) {
-			double pesoArista = obtenerPesoArista(i, j);
-			eliminarArista(i, j, pesoArista);		
+			double pesoArista = obtenerPesoArista(primerVertice, segundoVertice);
+			eliminarArista(primerVertice, segundoVertice, pesoArista);		
 		}
 	}
 
-	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
+	private void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
-		verificarVerticesEtiquetados(primerVertice, segundoVertice);
-		verificarVertice(i);
-		verificarVertice(j);
-		verificarDistintos(i, j);
 
 		if (existeArista(i, j)) {
 			A[i][j] = A[j][i] = false;

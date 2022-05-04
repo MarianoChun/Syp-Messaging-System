@@ -72,9 +72,9 @@ public class Arista implements Comparable<Object> {
 	@Override
 	public String toString() {
 		StringBuffer cadena = new StringBuffer();
-		cadena.append(this.primerExtremo);
+		cadena.append(this.primerExtremo.toString());
 		cadena.append(", ");
-		cadena.append(this.segundoExtremo);
+		cadena.append(this.segundoExtremo.toString());
 		cadena.append(", ");
 		cadena.append(this.peso);
 		return cadena.toString();
