@@ -1,22 +1,22 @@
 package grafos;
 
 public class Arista implements Comparable<Object> {
-	private int primerExtremo;
-	private int segundoExtremo;
+	private Vertice primerExtremo;
+	private Vertice segundoExtremo;
 	private double peso;
 
-	public Arista(int primerExtremo, int segundoExtremo, double peso) {
+	public Arista(Vertice primerExtremo, Vertice segundoExtremo, double peso) {
 		this.primerExtremo = primerExtremo;
 		this.segundoExtremo = segundoExtremo;
 		this.peso = peso;
 	}
 	
 	
-	public int getPrimerExtremo() {
+	public Vertice getPrimerExtremo() {
 		return primerExtremo;
 	}
 
-	public int getSegundoExtremo() {
+	public Vertice getSegundoExtremo() {
 		return segundoExtremo;
 	}
 
@@ -32,8 +32,8 @@ public class Arista implements Comparable<Object> {
 		long temp;
 		temp = Double.doubleToLongBits(peso);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + primerExtremo;
-		result = prime * result + segundoExtremo;
+		result = prime * result + primerExtremo.getIndice();
+		result = prime * result + segundoExtremo.getIndice();
 		return result;
 	}
 
@@ -46,9 +46,9 @@ public class Arista implements Comparable<Object> {
 		if (getClass() != obj.getClass())
 			return false;
 		Arista other = (Arista) obj;
-		if (primerExtremo != other.primerExtremo)
+		if (!primerExtremo.equals(other.primerExtremo))
 			return false;
-		if (segundoExtremo != other.segundoExtremo)
+		if (!segundoExtremo.equals(other.segundoExtremo))
 			return false;
 		if (peso != other.peso)
 			return false;

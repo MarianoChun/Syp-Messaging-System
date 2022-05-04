@@ -14,6 +14,17 @@ public class GrafoNDPonderado extends GrafoND{
 	}
 
 	// Agregado de aristas
+
+	public void agregarArista(int i, int j) {
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarDistintos(i, j);
+
+		if (!existeArista(i, j)) {
+			agregarArista(i, j, 0.0);
+			aristas.add(new Arista(new Vertice(i), new Vertice(j), 0.0));
+		}
+	}
 	public void agregarArista(int i, int j, double peso) {
 		verificarVertice(i);
 		verificarVertice(j);
@@ -22,7 +33,7 @@ public class GrafoNDPonderado extends GrafoND{
 		if (!existeArista(i, j)) {
 			A[i][j] = A[j][i] = true;
 			pesosA[i][j] = pesosA[j][i] = peso;
-			aristas.add(new Arista(i, j, peso));
+			aristas.add(new Arista(new Vertice(i), new Vertice(j), peso));
 		}
 
 	}
@@ -39,11 +50,17 @@ public class GrafoNDPonderado extends GrafoND{
 			eliminarArista(i, j, pesoArista);		
 		}
 	}
-	
-	private void eliminarArista(int i, int j, double peso) {
+
+	public void eliminarArista(int i, int j, double peso) {
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarDistintos(i, j);
+
+		if (existeArista(i, j)) {
 			A[i][j] = A[j][i] = false;
-			aristas.remove(new Arista(i, j, peso));
-			aristas.remove(new Arista(j, i, peso));
+			aristas.remove(new Arista(new Vertice(i), new Vertice(j), peso));
+			aristas.remove(new Arista(new Vertice(j), new Vertice(i), peso));
+		}
 	}
 
 	public double obtenerPesoArista(int i, int j) {
@@ -66,16 +83,21 @@ public class GrafoNDPonderado extends GrafoND{
 	public String toString() {
 		StringBuffer cadena = new StringBuffer();
 		cadena.append("----- Grafo No dirigido Ponderado ----- \n");
+		int fila;
 		for (int col = 0; col < tamaño(); col++) {
-			for (int fila = 0; fila < tamaño(); fila++) {
-				if (col != fila && existeArista(col, fila)) {
+			fila = 0;
+			while(col != fila) {
+				if (existeArista(col, fila)) {
 					double peso = obtenerPesoArista(col, fila);
 					cadena.append("(").append(col).append(", ").append(fila).append(", ").append(peso).append(")");
-					cadena.append("\n");
+					cadena.append("\n");	
 				}
+				fila++;
 			}
+			
+			
 		}
-		cadena.append("-----------------");
+		cadena.append("----------------- \n");
 		return cadena.toString();
 	}
 
@@ -91,8 +113,10 @@ public class GrafoNDPonderado extends GrafoND{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (!super.equals(obj)) {
+			System.out.println("Falso el super");
 			return false;
+		}
 		if (getClass() != obj.getClass())
 			return false;
 		GrafoNDPonderado other = (GrafoNDPonderado) obj;

@@ -110,8 +110,11 @@ public class GrafoND {
 		if (getClass() != obj.getClass())
 			return false;
 		GrafoND other = (GrafoND) obj;
-		if (!Arrays.deepEquals(A, other.A))
+		if (!Arrays.deepEquals(A, other.A)) {
+			System.out.println("Falso el deep equals A");
 			return false;
+		}
+			
 		return true;
 	}
 

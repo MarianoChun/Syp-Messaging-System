@@ -1,8 +1,11 @@
-package grafos;
+package tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import grafos.Assert;
+import grafos.GrafoND;
 
 public class ConsultaDeVecinosTest {
 	@Test(expected = IllegalArgumentException.class)

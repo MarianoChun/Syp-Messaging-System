@@ -29,8 +29,8 @@ public class Kruskal {
 
 		while (i <= grafoInput.tamaño() - 1) {
 			Arista aristaMinimaNoCircuito = obtenerAristaMinimaNoCircuito();
-			int primerVertice = aristaMinimaNoCircuito.getPrimerExtremo();
-			int segundoVertice = aristaMinimaNoCircuito.getSegundoExtremo();
+			int primerVertice = aristaMinimaNoCircuito.getPrimerExtremo().getIndice();
+			int segundoVertice = aristaMinimaNoCircuito.getSegundoExtremo().getIndice();
 			double peso = grafoInput.obtenerPesoArista(primerVertice, segundoVertice);
 			unionFind.union(primerVertice, segundoVertice);
 
@@ -60,7 +60,7 @@ public class Kruskal {
 	}
 
 	public boolean formaCircuito(Arista arista) {
-		return unionFind.find(arista.getPrimerExtremo(), arista.getSegundoExtremo());
+		return unionFind.find(arista.getPrimerExtremo().getIndice(), arista.getSegundoExtremo().getIndice());
 	}
 
 	private void verificarGrafoConexo(GrafoNDPonderado grafoInput) {
