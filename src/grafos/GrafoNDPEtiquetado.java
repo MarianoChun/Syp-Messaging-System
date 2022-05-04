@@ -20,7 +20,7 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 		verificarDistintos(i, j);
 
 		if (!existeArista(i, j)) {
-			agregarArista(i, j, 0.0);
+			agregarArista(primerVertice, segundoVertice, 0.0);
 		}
 	}
 	public void agregarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {

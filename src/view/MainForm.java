@@ -115,8 +115,9 @@ public class MainForm {
 				GrafoNDPonderado redSegura = comunicador.obtenerRedSegura();
 				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
 				for(Integer vertice : recorrido) {
-					
+					modeloRedSegura.addRow(new Object[] {vertice});
 				}
+				tablaRedSegura.setModel(modeloRedSegura);
 			}
 		});
 		btnArmarRedSeguraKruskal.setEnabled(false);
