@@ -2,17 +2,18 @@ package grafos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class GrafoNDPonderado extends GrafoND{
-	private double[][] pesosA;
-	private ArrayList<Arista> aristas;
+	protected double[][] pesosA;
+	protected ArrayList<Arista> aristas;
 
 	public GrafoNDPonderado(int vertices) {
 		super(vertices);
 		this.pesosA = new double[vertices][vertices];
 		this.aristas = new ArrayList<Arista>();
 	}
-
+	
 	// Agregado de aristas
 
 	public void agregarArista(int i, int j) {
@@ -78,7 +79,14 @@ public class GrafoNDPonderado extends GrafoND{
 	public ArrayList<Arista> getAristas() {
 		return this.aristas;
 	}
-
+	// Debe agresarse esta verificacion cada vez que agregamos una Arista en el caso que cambiemos
+	// la implementacion de int i, int j a Vertice i, Vertice j
+//	private void verificarVerticesNoEtiquetados(Vertice primerVertice, Vertice segundoVertice) {
+//		if(primerVertice.esEtiquetado() || segundoVertice.esEtiquetado()) {
+//			throw new IllegalArgumentException("Los vertices ingresados deben no estar etiquetados");
+//		}
+//	}
+	
 	@Override
 	public String toString() {
 		StringBuffer cadena = new StringBuffer();

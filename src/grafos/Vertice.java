@@ -13,6 +13,9 @@ public class Vertice {
 		this.indice = indice;
 	}
 
+	public boolean esEtiquetado() {
+		return !(this.etiqueta == null);
+	}
 	public String getEtiqueta() {
 		return etiqueta;
 	}
