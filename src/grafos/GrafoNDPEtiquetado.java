@@ -3,8 +3,9 @@ package grafos;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GrafoNDPEtiquetado extends GrafoNDPonderado{
+public class GrafoNDPEtiquetado extends GrafoNDPonderado {
 	private Map<Integer, String> etiquetas;
+
 	public GrafoNDPEtiquetado(int vertices) {
 		super(vertices);
 		this.etiquetas = new HashMap<Integer, String>();
@@ -41,7 +42,7 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 
 		if (existeArista(i, j)) {
 			double pesoArista = obtenerPesoArista(primerVertice, segundoVertice);
-			eliminarArista(primerVertice, segundoVertice, pesoArista);		
+			eliminarArista(primerVertice, segundoVertice, pesoArista);
 		}
 	}
 
@@ -67,14 +68,14 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 
 		return pesosA[i][j];
 	}
-	
+
 	public String obtenerEtiquetaVertice(int i) {
 		verificarVertice(i);
 		return etiquetas.get(i);
 	}
 
 	private void verificarVerticeEtiquetado(Vertice vertice) {
-		if(!vertice.esEtiquetado()) {
+		if (!vertice.esEtiquetado()) {
 			throw new IllegalArgumentException("El vertice ingresado debe esta etiquetado");
 		}
 	}

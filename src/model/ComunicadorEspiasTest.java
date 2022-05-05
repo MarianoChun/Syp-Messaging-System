@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ComunicadorEspiasTest {
-	
+
 	@Test
 	public void redEspiasComunicaciónTest() {
 		ComunicadorEspias comunicadorEspias = new ComunicadorEspias("/lista_de_espias/lista-de-espias.xlsx");
@@ -37,17 +37,17 @@ public class ComunicadorEspiasTest {
 		assertFalse(comunicadorEspias.existeComunicacion("Juan", "Hugo"));
 		assertFalse(comunicadorEspias.existeComunicacion("Juan", "Candela"));
 	}
-	
+
 	@Test
 	public void redSeguraTest() {
 		ComunicadorEspias comunicadorEspias = new ComunicadorEspias("/lista_de_espias/lista-de-espias.xlsx");
 		assertTrue(comunicadorEspias.redYaEsSegura());
 	}
-	
+
 	@Test
 	public void redNoSeguraTest() {
 		ComunicadorEspias comunicador2 = new ComunicadorEspias("/lista_de_espias/lista-de-espias.xlsx");
 		System.out.println(comunicador2.obtenerRedSegura());
 	}
-	
+
 }

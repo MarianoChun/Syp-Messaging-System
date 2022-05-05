@@ -3,12 +3,12 @@ package grafos;
 public class Vertice {
 	private int indice;
 	private String etiqueta;
-	
+
 	public Vertice(int indice, String etiqueta) {
 		this.indice = indice;
 		this.etiqueta = etiqueta;
 	}
-	
+
 	public Vertice(int indice) {
 		this.indice = indice;
 	}
@@ -16,7 +16,7 @@ public class Vertice {
 	public boolean esEtiquetado() {
 		return !(this.etiqueta == null);
 	}
-	
+
 	public String getEtiqueta() {
 		return etiqueta;
 	}
@@ -56,10 +56,10 @@ public class Vertice {
 			return false;
 		return true;
 	}
-	
-	@Override 
+
+	@Override
 	public String toString() {
 		return etiqueta;
 	}
-	
+
 }
