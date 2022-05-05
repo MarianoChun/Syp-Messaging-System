@@ -29,7 +29,7 @@ public class GrafoND {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
-		
+
 		if (existeArista(i, j)) {
 			A[i][j] = A[j][i] = false;
 		}
@@ -63,7 +63,7 @@ public class GrafoND {
 		return ret;
 	}
 
-	//devuelve un set con todos los vertices
+	// devuelve un set con todos los vertices
 	public Set<Integer> conjuntoDeVertices() {
 		Set<Integer> vertices = new HashSet<Integer>();
 
@@ -86,7 +86,7 @@ public class GrafoND {
 		if (i == j)
 			throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
 	}
-	
+
 	protected void verificarExisteArista(int i, int j) {
 		if (!existeArista(i, j)) {
 			throw new IllegalArgumentException("La arista " + i + "" + j + " no existe");
@@ -114,12 +114,12 @@ public class GrafoND {
 			System.out.println("Falso el deep equals A");
 			return false;
 		}
-			
+
 		return true;
 	}
 
 	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {
-		
+
 	}
 
 }

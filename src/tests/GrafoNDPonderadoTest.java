@@ -40,7 +40,7 @@ public class GrafoNDPonderadoTest {
 
 		assertEquals(vacio, g.getAristas());
 	}
-	
+
 	@Test
 	public void eliminarAristaDeArrayDeAristasInversoTest() {
 		GrafoNDPonderado g = new GrafoNDPonderado(4);
@@ -100,5 +100,5 @@ public class GrafoNDPonderadoTest {
 		g.obtenerPesoArista(new Vertice(0), new Vertice(1));
 
 	}
-	
+
 }

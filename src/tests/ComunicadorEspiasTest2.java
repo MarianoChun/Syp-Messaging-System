@@ -13,31 +13,32 @@ import model.ComunicadorEspias;
 public class ComunicadorEspiasTest2 {
 	// NOTA: Esta suite de test utiliza los espias de "lista-de-espias-test-2"
 	private ComunicadorEspias c;
+
 	@Before
 	public void cargarEspias() {
 		c = new ComunicadorEspias("/lista_de_espias/lista-de-espias-test-2.xlsx");
 	}
-	
+
 	@Test
-	public void cargarEspiasYComunicacionesTest() {	
+	public void cargarEspiasYComunicacionesTest() {
 		assertTrue(c.existeComunicacion("Ruben", "William"));
 	}
 
 	@Test
-	public void existeComunicacionMayusculaTest() {	
+	public void existeComunicacionMayusculaTest() {
 		assertTrue(c.existeComunicacion("RODOLFO", "JUAN"));
 	}
-	
+
 	@Test
 	public void noExisteComunicacionTest() {
 		assertFalse(c.existeComunicacion("Pepe", "Ruben"));
 	}
-	
+
 	@Test
 	public void obtenerProbIntercepcionTest() {
 		assertTrue(0.1 == c.obtenerProbabIntercepcion("Juan", "Ivan"));
 	}
-	
+
 	@Test
 	public void agmKruskalTest() {
 		GrafoNDPEtiquetado agmEsperado = new GrafoNDPEtiquetado(c.cantidadEspias());
@@ -54,7 +55,7 @@ public class ComunicadorEspiasTest2 {
 		agmEsperado.agregarArista(new Vertice(0, "juan"), new Vertice(2, "ruben"), 0.9); // Juan, Ruben, 0.9
 		agmEsperado.agregarArista(new Vertice(2, "rUBEN"), new Vertice(3, "william"), 0.7); // Ruben, William, 0.7
 		agmEsperado.agregarArista(new Vertice(7, "mabel"), new Vertice(10, "gabriela"), 0.9); // Mabel, Gabriela, 0.9
-		
+
 		assertEquals(agmEsperado, c.obtenerRedSegura());
 	}
 
@@ -62,28 +63,28 @@ public class ComunicadorEspiasTest2 {
 	public void agregarEspiasMayusculasTest() {
 		assertTrue(c.existeComunicacion("JuLieTa", "IVAN") && c.existeComunicacion("ruben", "HuGO"));
 	}
-	
+
 	@Test
 	public void obtenerProbabIntercepcionTest() {
 		double esperado = 0.1;
 		assertTrue(esperado == c.obtenerProbabIntercepcion("juan", "ivan"));
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
-	public void verificarExistenEspiasTest() {                                                                                         
+	public void verificarExistenEspiasTest() {
 		c.agregarComunicacion("Mariano", "Tito", 0.2);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void verificarProbabilidadIntercepcionNegativaTest() {
 		c.agregarComunicacion("Juan", "Rodolfo", -0.5);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void verificarProbabilidadIntercepcionMayorA1Test() {
 		c.agregarComunicacion("William", "Ivan", 2.0);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void probIntercepcionEspiasNoComunicadosTest() {
 		c.obtenerProbabIntercepcion("Pepe", "Ivan");

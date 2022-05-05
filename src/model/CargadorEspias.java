@@ -40,17 +40,18 @@ public class CargadorEspias {
 
 					Cell cell = cellIterator.next();
 					nombreEspia = cell.getStringCellValue().toLowerCase();
-					
-					// Ignora el nombre de la columna !nombreEspia.equals("Nombre") && !nombreEspia.equals("Compañero") &&
+
+					// Ignora el nombre de la columna !nombreEspia.equals("Nombre") &&
+					// !nombreEspia.equals("Compañero") &&
 					if (!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 0) {
 						espias.putIfAbsent(nombreEspia, i);
 						i++;
 					}
-					if(!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 1) {
+					if (!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 1) {
 						espias.putIfAbsent(nombreEspia, i);
 						i++;
 					}
-	
+
 				}
 
 			}
@@ -62,7 +63,7 @@ public class CargadorEspias {
 
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
 		// Hacemos la asociacion logica al archivo excel
-		//"/lista_de_espias/lista-de-espias.xlsx" 
+		// "/lista_de_espias/lista-de-espias.xlsx"
 		FileInputStream archivo;
 		try {
 			archivo = new FileInputStream(this.getClass().getResource(pathExcel).getPath());
@@ -81,10 +82,11 @@ public class CargadorEspias {
 	public int cantidadEspias() {
 		return espias.size();
 	}
-	
+
 	public Map<String, Integer> obtenerRegistroEspias() {
 		return espias;
 	}
+
 	public boolean existeEspia(String nombre) {
 		return espias.containsKey(nombre.toLowerCase());
 	}
@@ -92,26 +94,26 @@ public class CargadorEspias {
 	public int getIndiceEspia(String nombre) {
 		nombre = nombre.toLowerCase();
 		verificarExisteEspia(nombre);
-		
+
 		return espias.get(nombre);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder strb = new StringBuilder();
-		for(Map.Entry<String, Integer> entry : espias.entrySet()) {
+		for (Map.Entry<String, Integer> entry : espias.entrySet()) {
 			strb.append("Indice: ").append(entry.getValue()).append(", Nombre: ").append(entry.getKey()).append("\n");
 		}
 		return strb.toString();
 	}
-	
+
 	private void verificarExisteEspia(String nombre) {
-		if(!existeEspia(nombre)) {
+		if (!existeEspia(nombre)) {
 			throw new IllegalArgumentException("Error, el espia no existe");
 		}
-		
+
 	}
-	
+
 //	public static void main(String[] args) {
 //		CargadorEspias red = new CargadorEspias("/lista_de_espias/lista-de-espias.xlsx");
 //		red.toString();
