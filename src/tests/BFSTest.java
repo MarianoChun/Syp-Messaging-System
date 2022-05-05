@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
+
+import grafos.GrafoNDPEtiquetado;
 import grafos.GrafoNDPonderado;
 import recorridos.BFS;
 
@@ -12,11 +14,10 @@ public class BFSTest {
 
 	@Test
 	public void alcanzablesTrivialTest() {
-		GrafoNDPonderado g = new GrafoNDPonderado(3);
+		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(3);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		g.agregarArista(1, 2);
-
 		BFS bfs = new BFS(g);
 		Set<Integer> alcanzablesDesdeElPrimero = bfs.verticesAlcanzablesDesdeVertice(0);
 		Set<Integer> verticesEsperados = new HashSet<Integer>();
@@ -28,7 +29,7 @@ public class BFSTest {
 
 	@Test
 	public void alcanzablesDisconexoTest() {
-		GrafoNDPonderado g = new GrafoNDPonderado(4);
+		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		BFS bfs = new BFS(g);
@@ -41,7 +42,7 @@ public class BFSTest {
 	}
 
 	public void cliqueConexoTest() {
-		GrafoNDPonderado g = new GrafoNDPonderado(3);
+		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(3);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		g.agregarArista(1, 2);
@@ -51,7 +52,7 @@ public class BFSTest {
 	}
 
 	public void disconexoTest() {
-		GrafoNDPonderado g = new GrafoNDPonderado(4);
+		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
 		g.agregarArista(0, 1);
 		g.agregarArista(0, 2);
 		BFS bfs = new BFS(g);

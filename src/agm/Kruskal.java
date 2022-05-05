@@ -4,35 +4,37 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import grafos.Arista;
+import grafos.GrafoNDPEtiquetado;
 import grafos.GrafoNDPonderado;
+import grafos.Vertice;
 import recorridos.BFS;
 import unionFind.UnionFind;
 
 public class Kruskal {
 
-	GrafoNDPonderado grafoOutputAGM;
-	GrafoNDPonderado grafoInput;
+	GrafoNDPEtiquetado grafoOutputAGM;
+	GrafoNDPEtiquetado grafoInput;
 	UnionFind unionFind;
 	ArrayList<Arista> aristas;
 
-	public Kruskal(GrafoNDPonderado grafoInput) {
+	public Kruskal(GrafoNDPEtiquetado grafoInput) {
 		verificarGrafoConexo(grafoInput);
-		this.grafoOutputAGM = new GrafoNDPonderado(grafoInput.tamaño());
+		this.grafoOutputAGM = new GrafoNDPEtiquetado(grafoInput.tamaño());
 		this.grafoInput = grafoInput;
 		this.unionFind = new UnionFind(grafoInput);
 		this.aristas = grafoInput.getAristas();
 		Collections.sort(aristas);
 	}
 
-	public GrafoNDPonderado obtenerArbolGM() {
+	public GrafoNDPEtiquetado obtenerArbolGM() {
 		int i = 1;
 
 		while (i <= grafoInput.tamaño() - 1) {
 			Arista aristaMinimaNoCircuito = obtenerAristaMinimaNoCircuito();
-			int primerVertice = aristaMinimaNoCircuito.getPrimerExtremo().getIndice();
-			int segundoVertice = aristaMinimaNoCircuito.getSegundoExtremo().getIndice();
+			Vertice primerVertice = aristaMinimaNoCircuito.getPrimerExtremo();
+			Vertice segundoVertice = aristaMinimaNoCircuito.getSegundoExtremo();
 			double peso = grafoInput.obtenerPesoArista(primerVertice, segundoVertice);
-			unionFind.union(primerVertice, segundoVertice);
+			unionFind.union(primerVertice.getIndice(), segundoVertice.getIndice());
 
 			grafoOutputAGM.agregarArista(primerVertice, segundoVertice, peso);
 			i++;
@@ -63,7 +65,7 @@ public class Kruskal {
 		return this.aristas;
 	}
 
-	private void verificarGrafoConexo(GrafoNDPonderado grafoInput) {
+	private void verificarGrafoConexo(GrafoNDPEtiquetado grafoInput) {
 		BFS bfs = new BFS(grafoInput);
 		if (!bfs.esConexo())
 			throw new IllegalArgumentException("El grafo ingresado no es conexo");

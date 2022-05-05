@@ -9,6 +9,7 @@ import org.junit.Test;
 import grafos.Arista;
 import grafos.Assert;
 import grafos.GrafoNDPonderado;
+import grafos.Vertice;
 
 public class GrafoNDPonderadoTest {
 
@@ -16,16 +17,16 @@ public class GrafoNDPonderadoTest {
 	public void obtenerPesoTest() {
 		GrafoNDPonderado g = new GrafoNDPonderado(4);
 
-		g.agregarArista(2, 3, 0.1);
+		g.agregarArista(new Vertice(2), new Vertice(3), 0.1);
 
-		Assert.equals(0.1, g.obtenerPesoArista(2, 3));
+		Assert.equals(0.1, g.obtenerPesoArista(new Vertice(2), new Vertice(3)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void agregarAristaIguales() {
 		GrafoNDPonderado g = new GrafoNDPonderado(4);
 
-		g.agregarArista(2, 2, 0.5);
+		g.agregarArista(new Vertice(2), new Vertice(2), 0.5);
 	}
 
 	@Test
@@ -34,8 +35,8 @@ public class GrafoNDPonderadoTest {
 
 		ArrayList<Arista> vacio = new ArrayList<Arista>();
 
-		g.agregarArista(2, 3, 0.1);
-		g.eliminarArista(2, 3);
+		g.agregarArista(new Vertice(2), new Vertice(3), 0.1);
+		g.eliminarArista(new Vertice(2), new Vertice(3));
 
 		assertEquals(vacio, g.getAristas());
 	}
@@ -46,8 +47,8 @@ public class GrafoNDPonderadoTest {
 
 		ArrayList<Arista> vacio = new ArrayList<Arista>();
 
-		g.agregarArista(3, 1, 0.20);
-		g.eliminarArista(1, 3);
+		g.agregarArista(new Vertice(3), new Vertice(1), 0.20);
+		g.eliminarArista(new Vertice(1), new Vertice(3));
 		
 		assertEquals(vacio, g.getAristas());
 	}
@@ -56,26 +57,26 @@ public class GrafoNDPonderadoTest {
 	public void obtenerPesoInversoTest() {
 		GrafoNDPonderado g = new GrafoNDPonderado(4);
 
-		g.agregarArista(1, 2, 0.8);
+		g.agregarArista(new Vertice(1), new Vertice(2), 0.8);
 
-		Assert.equals(0.8, g.obtenerPesoArista(2, 1));
+		Assert.equals(0.8, g.obtenerPesoArista(new Vertice(2), new Vertice(1)));
 	}
 
 	@Test
 	public void cambiarPesoAristaExistente() {
 		GrafoNDPonderado g = new GrafoNDPonderado(6);
 
-		g.agregarArista(4, 5, 2.0);
-		g.agregarArista(5, 4, 1.0);
+		g.agregarArista(new Vertice(4), new Vertice(5), 2.0);
+		g.agregarArista(new Vertice(5), new Vertice(4), 1.0);
 
-		Assert.equals(2.0, g.obtenerPesoArista(5, 4));
+		Assert.equals(2.0, g.obtenerPesoArista(new Vertice(5), new Vertice(4)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void obtenerPesoAristaInexistenteTest() {
 		GrafoNDPonderado g = new GrafoNDPonderado(6);
 
-		g.obtenerPesoArista(2, 0);
+		g.obtenerPesoArista(new Vertice(2), new Vertice(0));
 
 	}
 
@@ -85,7 +86,7 @@ public class GrafoNDPonderadoTest {
 
 		g.agregarArista(2, 3);
 
-		Assert.equals(0.0, g.obtenerPesoArista(2, 3));
+		Assert.equals(0.0, g.obtenerPesoArista(new Vertice(2), new Vertice(3)));
 
 	}
 
@@ -93,10 +94,10 @@ public class GrafoNDPonderadoTest {
 	public void obtenerPesoAristaEliminada() {
 		GrafoNDPonderado g = new GrafoNDPonderado(9);
 
-		g.agregarArista(0, 1, 0.9);
-		g.eliminarArista(1, 0);
+		g.agregarArista(new Vertice(0), new Vertice(1), 0.9);
+		g.eliminarArista(new Vertice(1), new Vertice(0));
 
-		g.obtenerPesoArista(0, 1);
+		g.obtenerPesoArista(new Vertice(0), new Vertice(1));
 
 	}
 	

@@ -12,7 +12,9 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import grafos.GrafoNDPEtiquetado;
 import grafos.GrafoNDPonderado;
+import grafos.Vertice;
 import model.ComunicadorEspias;
 import recorridos.BFS;
 
@@ -67,13 +69,13 @@ public class MainForm {
 		selectorArchivos.setCurrentDirectory(directorioAMostrar);
 		
 		frmPrincipal = new JFrame();
-		frmPrincipal.setBounds(100, 100, 584, 367);
+		frmPrincipal.setBounds(100, 100, 754, 367);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
 		
 		JLabel lblComEspias = new JLabel("Comunicador de espias");
 		lblComEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblComEspias.setBounds(203, 11, 139, 14);
+		lblComEspias.setBounds(256, 11, 139, 14);
 		frmPrincipal.getContentPane().add(lblComEspias);
 		
 		// Definimos los modelos de las dos tablas (de espias y red segura)
@@ -84,12 +86,13 @@ public class MainForm {
 		
 		
 		DefaultTableModel modeloRedSegura = new DefaultTableModel();
+		modeloRedSegura.addColumn("Indice espia");
 		modeloRedSegura.addColumn("Nombre espia");
 		modeloRedSegura.addColumn("Compañero");
 		modeloRedSegura.addColumn("Probab. intercepcion");
 		
 		JScrollPane scrollPanelEspias = new JScrollPane();
-		scrollPanelEspias.setBounds(10, 36, 214, 160);
+		scrollPanelEspias.setBounds(38, 36, 214, 160);
 		frmPrincipal.getContentPane().add(scrollPanelEspias);
 		
 		tablaEspias = new JTable();
@@ -100,7 +103,7 @@ public class MainForm {
 
 		
 		JScrollPane scrollPanelRedSegura = new JScrollPane();
-		scrollPanelRedSegura.setBounds(317, 36, 224, 160);
+		scrollPanelRedSegura.setBounds(403, 36, 300, 160);
 		frmPrincipal.getContentPane().add(scrollPanelRedSegura);
 		
 		tablaRedSegura = new JTable();
@@ -112,20 +115,25 @@ public class MainForm {
 		JButton btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
 		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GrafoNDPonderado redSegura = comunicador.obtenerRedSegura();
+				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSegura();
 				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
 				for(Integer vertice : recorrido) {
-					modeloRedSegura.addRow(new Object[] {vertice});
+					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
+					for(Integer vecinoActual : redSegura.vecinos(vertice)) {
+						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
+						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice), new Vertice(vecinoActual));
+						modeloRedSegura.addRow(new Object[] {vertice, nombreEspia, nombreVecino, probIntercepcionVecino});
+					}
 				}
 				tablaRedSegura.setModel(modeloRedSegura);
 			}
 		});
 		btnArmarRedSeguraKruskal.setEnabled(false);
-		btnArmarRedSeguraKruskal.setBounds(172, 207, 203, 23);
+		btnArmarRedSeguraKruskal.setBounds(223, 207, 203, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 		
-		JLabel lblFlecha = new JLabel("------------->");
-		lblFlecha.setBounds(234, 112, 73, 14);
+		JLabel lblFlecha = new JLabel("---------------->");
+		lblFlecha.setBounds(288, 112, 87, 14);
 		frmPrincipal.getContentPane().add(lblFlecha);
 		
 		JButton btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
@@ -134,7 +142,7 @@ public class MainForm {
 			}
 		});
 		btnArmarRedSeguraPrim.setEnabled(false);
-		btnArmarRedSeguraPrim.setBounds(172, 241, 203, 23);
+		btnArmarRedSeguraPrim.setBounds(223, 241, 203, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
 
 		JButton btnSelectorArchivos = new JButton("Seleccionar archivo excel");
@@ -170,17 +178,17 @@ public class MainForm {
 				}
 			}
 		});
-		btnSelectorArchivos.setBounds(172, 275, 203, 23);
+		btnSelectorArchivos.setBounds(223, 275, 203, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
 		
 		JLabel lblTituloTablaEspias = new JLabel("Lista espias");
 		lblTituloTablaEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloTablaEspias.setBounds(52, 21, 122, 14);
+		lblTituloTablaEspias.setBounds(80, 21, 122, 14);
 		frmPrincipal.getContentPane().add(lblTituloTablaEspias);
 		
 		JLabel lblTituloRedSegura = new JLabel("Red segura");
 		lblTituloRedSegura.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloRedSegura.setBounds(386, 21, 112, 14);
+		lblTituloRedSegura.setBounds(507, 21, 112, 14);
 		frmPrincipal.getContentPane().add(lblTituloRedSegura);
 		
 	}

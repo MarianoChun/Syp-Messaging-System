@@ -15,28 +15,30 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import agm.Kruskal;
+import grafos.GrafoNDPEtiquetado;
 import grafos.GrafoNDPonderado;
+import grafos.Vertice;
 
 public class ComunicadorEspias {
 	private CargadorEspias espias;
 	private String pathExcel;
-	private GrafoNDPonderado redEspias;
+	private GrafoNDPEtiquetado redEspias;
 	
 	public ComunicadorEspias() {
 		this.pathExcel = "/lista_de_espias/lista-de-espias.xlsx";
 		this.espias = new CargadorEspias(pathExcel);
-		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
+		this.redEspias = new GrafoNDPEtiquetado(espias.cantidadEspias());
 		agregarComunicacionDesdeExcel();
 	}
 	
 	public ComunicadorEspias(String pathExcel) {
 		this.pathExcel =  pathExcel;
 		this.espias = new CargadorEspias(pathExcel);
-		this.redEspias = new GrafoNDPonderado(espias.cantidadEspias());
+		this.redEspias = new GrafoNDPEtiquetado(espias.cantidadEspias());
 		agregarComunicacionDesdeExcel();
 	}
 	
-	public GrafoNDPonderado obtenerRedSegura() {
+	public GrafoNDPEtiquetado obtenerRedSegura() {
 		return new Kruskal(redEspias).obtenerArbolGM();
 	}
 	
@@ -101,8 +103,10 @@ public class ComunicadorEspias {
 		
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
+		Vertice verticeEspia1 = new Vertice(indiceEspia1, nombreEspia1);
+		Vertice verticeEspia2 = new Vertice(indiceEspia2, nombreEspia2);
 		
-		redEspias.agregarArista(indiceEspia1, indiceEspia2, probIntercepcion);
+		redEspias.agregarArista(verticeEspia1, verticeEspia2, probIntercepcion);
 	}
 
 	public int obtenerIndiceEspia(String nombreEspia) {
@@ -141,8 +145,10 @@ public class ComunicadorEspias {
 		
 		int indiceEspia1 = espias.getIndiceEspia(nombreEspia1);
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
+		Vertice verticeEspia1 = new Vertice(indiceEspia1, nombreEspia1);
+		Vertice verticeEspia2 = new Vertice(indiceEspia2, nombreEspia2);
 		
-		return redEspias.obtenerPesoArista(indiceEspia1, indiceEspia2);
+		return redEspias.obtenerPesoArista(verticeEspia1, verticeEspia2);
 	}
 	
 	public int cantidadEspias() {

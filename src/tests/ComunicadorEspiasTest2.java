@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import grafos.GrafoNDPEtiquetado;
 import grafos.GrafoNDPonderado;
+import grafos.Vertice;
 import model.ComunicadorEspias;
 
 public class ComunicadorEspiasTest2 {
@@ -38,20 +40,20 @@ public class ComunicadorEspiasTest2 {
 	
 	@Test
 	public void agmKruskalTest() {
-		GrafoNDPonderado agmEsperado = new GrafoNDPonderado(c.cantidadEspias());
+		GrafoNDPEtiquetado agmEsperado = new GrafoNDPEtiquetado(c.cantidadEspias());
 
-		agmEsperado.agregarArista(0, 1, 0.1); // Juan, Ivan, 0.1
-		agmEsperado.agregarArista(2, 11, 0.4); // Ruben, Hugo, 0.4
-		agmEsperado.agregarArista(3, 5, 0.3); // William, Pepe, 0.3
-		agmEsperado.agregarArista(4, 0, 0.4); // Rodolfo, Juan, 0.4
-		agmEsperado.agregarArista(6, 7, 0.9); // Jose, Mabel, 0.9
-		agmEsperado.agregarArista(8, 5, 0.5); // Alvaro, Pepe, 0.5
-		agmEsperado.agregarArista(9, 1, 0.1); // Julieta, Ivan, 0.1
-		agmEsperado.agregarArista(7, 12, 0.8); // Mabel, Candela, 0.8
-		agmEsperado.agregarArista(8, 10, 0.7); // Alvaro, Gabriela, 0.7
-		agmEsperado.agregarArista(0, 2, 0.9); // Juan, Ruben, 0.9
-		agmEsperado.agregarArista(2, 3, 0.7); // Ruben, William, 0.7
-		agmEsperado.agregarArista(7, 10, 0.9); // Mabel, Gabriela, 0.9
+		agmEsperado.agregarArista(new Vertice(0, "juan"), new Vertice(1, "ivan"), 0.1); // Juan, Ivan, 0.1
+		agmEsperado.agregarArista(new Vertice(2, "RuBen"), new Vertice(11, "HUGO"), 0.4); // Ruben, Hugo, 0.4
+		agmEsperado.agregarArista(new Vertice(3, "William"), new Vertice(5, "PePe"), 0.3); // William, Pepe, 0.3
+		agmEsperado.agregarArista(new Vertice(4, "RoDOLFo"), new Vertice(0, "Juan"), 0.4); // Rodolfo, Juan, 0.4
+		agmEsperado.agregarArista(new Vertice(6, "JOSE"), new Vertice(7, "mabel"), 0.9); // Jose, Mabel, 0.9
+		agmEsperado.agregarArista(new Vertice(8, "AlVaro"), new Vertice(5, "pepe"), 0.5); // Alvaro, Pepe, 0.5
+		agmEsperado.agregarArista(new Vertice(9, "Julieta"), new Vertice(1,"IVAn"), 0.1); // Julieta, Ivan, 0.1
+		agmEsperado.agregarArista(new Vertice(7, "MaBeL"), new Vertice(12, "CandeLA"), 0.8); // Mabel, Candela, 0.8
+		agmEsperado.agregarArista(new Vertice(8, "alvaro"), new Vertice(10, "Gabriela"), 0.7); // Alvaro, Gabriela, 0.7
+		agmEsperado.agregarArista(new Vertice(0, "juan"), new Vertice(2, "ruben"), 0.9); // Juan, Ruben, 0.9
+		agmEsperado.agregarArista(new Vertice(2, "rUBEN"), new Vertice(3, "william"), 0.7); // Ruben, William, 0.7
+		agmEsperado.agregarArista(new Vertice(7, "mabel"), new Vertice(10, "gabriela"), 0.9); // Mabel, Gabriela, 0.9
 		
 		assertEquals(agmEsperado, c.obtenerRedSegura());
 	}

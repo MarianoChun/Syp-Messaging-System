@@ -6,7 +6,7 @@ public class Vertice {
 	
 	public Vertice(int indice, String etiqueta) {
 		this.indice = indice;
-		this.etiqueta = etiqueta;
+		this.etiqueta = etiqueta.toLowerCase();
 	}
 	
 	public Vertice(int indice) {
@@ -22,7 +22,7 @@ public class Vertice {
 	}
 
 	public void setEtiqueta(String etiqueta) {
-		this.etiqueta = etiqueta;
+		this.etiqueta = etiqueta.toLowerCase();
 	}
 
 	public int getIndice() {

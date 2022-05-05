@@ -15,7 +15,9 @@ public class GrafoNDPonderado extends GrafoND{
 	}
 	
 	// Agregado de aristas
-	public void agregarArista(int i, int j, double peso) {
+	public void agregarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
+		int i = primerVertice.getIndice();
+		int j = segundoVertice.getIndice();
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -23,37 +25,43 @@ public class GrafoNDPonderado extends GrafoND{
 		if (!existeArista(i, j)) {
 			A[i][j] = A[j][i] = true;
 			pesosA[i][j] = pesosA[j][i] = peso;
-			aristas.add(new Arista(new Vertice(i), new Vertice(j), peso));
+			aristas.add(new Arista(primerVertice, segundoVertice, peso));
 		}
 
 	}
 
 	// Eliminacion de aristas
 	@Override
-	public void eliminarArista(int i, int j) {
+	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {
+		int i = primerVertice.getIndice();
+		int j = segundoVertice.getIndice();
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
 		if (existeArista(i, j)) {
-			double pesoArista = obtenerPesoArista(i, j);
-			eliminarArista(i, j, pesoArista);		
+			double pesoArista = obtenerPesoArista(primerVertice, segundoVertice);
+			eliminarArista(primerVertice, segundoVertice, pesoArista);		
 		}
 	}
 
-	private void eliminarArista(int i, int j, double peso) {
+	private void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
+		int i = primerVertice.getIndice();
+		int j = segundoVertice.getIndice();
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
 
 		if (existeArista(i, j)) {
 			A[i][j] = A[j][i] = false;
-			aristas.remove(new Arista(new Vertice(i), new Vertice(j), peso));
-			aristas.remove(new Arista(new Vertice(j), new Vertice(i), peso));
+			aristas.remove(new Arista(primerVertice, segundoVertice, peso));
+			aristas.remove(new Arista(segundoVertice, primerVertice, peso));
 		}
 	}
 
-	public double obtenerPesoArista(int i, int j) {
+	public double obtenerPesoArista(Vertice primerVertice, Vertice segundoVertice) {
+		int i = primerVertice.getIndice();
+		int j = segundoVertice.getIndice();
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarExisteArista(i, j);
@@ -86,7 +94,7 @@ public class GrafoNDPonderado extends GrafoND{
 			fila = 0;
 			while(col != fila) {
 				if (existeArista(col, fila)) {
-					double peso = obtenerPesoArista(col, fila);
+					double peso = obtenerPesoArista(new Vertice(col), new Vertice(fila));
 					cadena.append("(").append(col).append(", ").append(fila).append(", ").append(peso).append(")");
 					cadena.append("\n");	
 				}

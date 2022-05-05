@@ -11,71 +11,57 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 	}
 
 	public void agregarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
-		int i = primerVertice.getIndice();
-		int j = segundoVertice.getIndice();
-		verificarVerticeEtiquetado(primerVertice);
-		verificarVerticeEtiquetado(segundoVertice);
-		verificarVertice(i);
-		verificarVertice(j);
-		verificarDistintos(i, j);
+		super.agregarArista(primerVertice, segundoVertice, peso);
+		etiquetas.put(primerVertice.getIndice(), primerVertice.getEtiqueta());
+		etiquetas.put(segundoVertice.getIndice(), segundoVertice.getEtiqueta());
+		
 
-		if (!existeArista(i, j)) {
-			A[i][j] = A[j][i] = true;
-			pesosA[i][j] = pesosA[j][i] = peso;
-			aristas.add(new Arista(primerVertice, segundoVertice, peso));
-			etiquetas.put(i, primerVertice.getEtiqueta());
-			etiquetas.put(j, segundoVertice.getEtiqueta());
-		}
-
-	}
-
-	@Override
-	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {
-		int i = primerVertice.getIndice();
-		int j = segundoVertice.getIndice();
-		verificarVerticeEtiquetado(primerVertice);
-		verificarVerticeEtiquetado(segundoVertice);
-		verificarVertice(i);
-		verificarVertice(j);
-		verificarDistintos(i, j);
-
-		if (existeArista(i, j)) {
-			double pesoArista = obtenerPesoArista(primerVertice, segundoVertice);
-			eliminarArista(primerVertice, segundoVertice, pesoArista);		
-		}
-	}
-
-	private void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
-		int i = primerVertice.getIndice();
-		int j = segundoVertice.getIndice();
-
-		if (existeArista(i, j)) {
-			A[i][j] = A[j][i] = false;
-			aristas.remove(new Arista(primerVertice, segundoVertice, peso));
-			aristas.remove(new Arista(segundoVertice, primerVertice, peso));
-		}
-	}
-
-	public double obtenerPesoArista(Vertice primerVertice, Vertice segundoVertice) {
-		int i = primerVertice.getIndice();
-		int j = segundoVertice.getIndice();
-		verificarVerticeEtiquetado(primerVertice);
-		verificarVerticeEtiquetado(segundoVertice);
-		verificarVertice(i);
-		verificarVertice(j);
-		verificarExisteArista(i, j);
-
-		return pesosA[i][j];
 	}
 	
 	public String obtenerEtiquetaVertice(int i) {
+		verificarVerticeEtiquetado(i);
 		verificarVertice(i);
 		return etiquetas.get(i);
 	}
+
 
 	private void verificarVerticeEtiquetado(Vertice vertice) {
 		if(!vertice.esEtiquetado()) {
 			throw new IllegalArgumentException("El vertice ingresado debe esta etiquetado");
 		}
 	}
+	
+	private void verificarVerticeEtiquetado(int indice) {
+		String etiquetaVertice = etiquetas.get(indice);
+		if(etiquetaVertice == null) {
+			throw new IllegalArgumentException("El vertice ingresado debe esta etiquetado");
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((etiquetas == null) ? 0 : etiquetas.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GrafoNDPEtiquetado other = (GrafoNDPEtiquetado) obj;
+		if (etiquetas == null) {
+			if (other.etiquetas != null)
+				return false;
+		} else if (!etiquetas.equals(other.etiquetas))
+			return false;
+		return true;
+	}
+	
+	
 }

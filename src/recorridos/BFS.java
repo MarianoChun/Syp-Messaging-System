@@ -4,15 +4,17 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+
+import grafos.GrafoNDPEtiquetado;
 import grafos.GrafoNDPonderado;
 
 public class BFS {
 
 	private Queue<Integer> verticesNoMarcados;
 	private Set<Integer> verticesMarcados;
-	private GrafoNDPonderado grafo;
+	private GrafoNDPEtiquetado grafo;
 
-	public BFS(GrafoNDPonderado grafo) {
+	public BFS(GrafoNDPEtiquetado grafo) {
 		verticesNoMarcados = new LinkedList<Integer>();
 		verticesMarcados = new HashSet<Integer>();
 		this.grafo = grafo;
