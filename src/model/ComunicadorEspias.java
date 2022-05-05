@@ -15,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import agm.Kruskal;
+import agm.Prim;
 import grafos.GrafoNDPEtiquetado;
 import grafos.GrafoNDPonderado;
 import grafos.Vertice;
@@ -38,8 +39,12 @@ public class ComunicadorEspias {
 		agregarComunicacionDesdeExcel();
 	}
 
-	public GrafoNDPEtiquetado obtenerRedSegura() {
+	public GrafoNDPEtiquetado obtenerRedSeguraKruskal() {
 		return new Kruskal(redEspias).obtenerArbolGM();
+	}
+	
+	public GrafoNDPEtiquetado obtenerRedSeguraPrim() {
+		return new Prim(redEspias).obtenerArbolGeneradorMinimo(0);
 	}
 
 	public Map<String, Integer> obtenerEspias() {
@@ -77,7 +82,7 @@ public class ComunicadorEspias {
 	}
 
 	public boolean redYaEsSegura() {
-		return this.obtenerRedSegura().equals(this.redEspias);
+		return this.obtenerRedSeguraKruskal().equals(this.redEspias);
 	}
 
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {

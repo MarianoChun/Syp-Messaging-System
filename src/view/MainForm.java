@@ -112,9 +112,12 @@ public class MainForm {
 		JButton btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
 		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSegura();
+				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSeguraKruskal();
 				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
-
+				int cantRegistros = tablaEspias.getRowCount();
+				if (cantRegistros > 1) {
+					removerRegistrosTabla(modeloRedSegura);
+				}
 				for (Integer vertice : recorrido) {
 					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
 					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
@@ -139,6 +142,22 @@ public class MainForm {
 		JButton btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
 		btnArmarRedSeguraPrim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSeguraPrim();
+				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
+				int cantRegistros = tablaEspias.getRowCount();
+				if (cantRegistros > 1) {
+					removerRegistrosTabla(modeloRedSegura);
+				}
+				for (Integer vertice : recorrido) {
+					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
+					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
+						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
+						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),new Vertice(vecinoActual));
+						modeloRedSegura.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+					}
+
+					tablaRedSegura.setModel(modeloRedSegura);
+				}
 			}
 		});
 		btnArmarRedSeguraPrim.setEnabled(false);

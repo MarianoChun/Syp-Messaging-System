@@ -56,7 +56,7 @@ public class ComunicadorEspiasTest2 {
 		agmEsperado.agregarArista(new Vertice(2, "rUBEN"), new Vertice(3, "william"), 0.7); // Ruben, William, 0.7
 		agmEsperado.agregarArista(new Vertice(7, "mabel"), new Vertice(10, "gabriela"), 0.9); // Mabel, Gabriela, 0.9
 
-		assertEquals(agmEsperado, c.obtenerRedSegura());
+		assertEquals(agmEsperado, c.obtenerRedSeguraKruskal());
 	}
 
 	@Test
