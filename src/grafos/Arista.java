@@ -10,8 +10,7 @@ public class Arista implements Comparable<Object> {
 		this.segundoExtremo = segundoExtremo;
 		this.peso = peso;
 	}
-	
-	
+
 	public Vertice getPrimerExtremo() {
 		return primerExtremo;
 	}
@@ -23,8 +22,7 @@ public class Arista implements Comparable<Object> {
 	public double getPeso() {
 		return peso;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
