@@ -12,8 +12,8 @@ public class GrafoNDPonderado extends GrafoND{
 		super(vertices);
 		this.pesosA = new double[vertices][vertices];
 		this.aristas = new ArrayList<Arista>();
-	}
-	
+	}	
+
 	// Agregado de aristas
 	public void agregarArista(int i, int j, double peso) {
 		verificarVertice(i);
