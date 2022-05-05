@@ -118,4 +118,8 @@ public class GrafoND {
 		return true;
 	}
 
+	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {
+		
+	}
+
 }

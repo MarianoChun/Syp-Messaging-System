@@ -15,17 +15,6 @@ public class GrafoNDPonderado extends GrafoND{
 	}
 	
 	// Agregado de aristas
-
-	public void agregarArista(int i, int j) {
-		verificarVertice(i);
-		verificarVertice(j);
-		verificarDistintos(i, j);
-
-		if (!existeArista(i, j)) {
-			agregarArista(i, j, 0.0);
-			aristas.add(new Arista(new Vertice(i), new Vertice(j), 0.0));
-		}
-	}
 	public void agregarArista(int i, int j, double peso) {
 		verificarVertice(i);
 		verificarVertice(j);
@@ -52,7 +41,7 @@ public class GrafoNDPonderado extends GrafoND{
 		}
 	}
 
-	public void eliminarArista(int i, int j, double peso) {
+	private void eliminarArista(int i, int j, double peso) {
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -79,6 +68,7 @@ public class GrafoNDPonderado extends GrafoND{
 	public ArrayList<Arista> getAristas() {
 		return this.aristas;
 	}
+	
 	// Debe agresarse esta verificacion cada vez que agregamos una Arista en el caso que cambiemos
 	// la implementacion de int i, int j a Vertice i, Vertice j
 //	private void verificarVerticesNoEtiquetados(Vertice primerVertice, Vertice segundoVertice) {

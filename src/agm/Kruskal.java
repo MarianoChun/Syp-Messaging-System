@@ -55,12 +55,12 @@ public class Kruskal {
 		return aristaMenor;
 	}
 
-	public ArrayList<Arista> getAristasOrdenadas() {
-		return aristas;
-	}
-
 	public boolean formaCircuito(Arista arista) {
 		return unionFind.find(arista.getPrimerExtremo().getIndice(), arista.getSegundoExtremo().getIndice());
+	}
+	
+	public ArrayList<Arista> getAristasOrdenadas(){
+		return this.aristas;
 	}
 
 	private void verificarGrafoConexo(GrafoNDPonderado grafoInput) {

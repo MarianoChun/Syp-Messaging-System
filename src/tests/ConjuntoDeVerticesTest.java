@@ -10,7 +10,7 @@ import org.junit.Test;
 import grafos.GrafoND;
 import grafos.GrafoNDPonderado;
 
-public class conjuntoDeVerticesTest {
+public class ConjuntoDeVerticesTest {
 
 	@Test
 	public void grafoDisconexoTest() {

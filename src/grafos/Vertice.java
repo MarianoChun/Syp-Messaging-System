@@ -16,6 +16,7 @@ public class Vertice {
 	public boolean esEtiquetado() {
 		return !(this.etiqueta == null);
 	}
+	
 	public String getEtiqueta() {
 		return etiqueta;
 	}
@@ -56,6 +57,9 @@ public class Vertice {
 		return true;
 	}
 	
-	
+	@Override 
+	public String toString() {
+		return etiqueta;
+	}
 	
 }
