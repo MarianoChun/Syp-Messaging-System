@@ -14,7 +14,8 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 	public void agregarArista(Vertice primerVertice, Vertice segundoVertice) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
-		verificarVerticesEtiquetados(primerVertice, segundoVertice);
+		verificarVerticeEtiquetado(primerVertice);
+		verificarVerticeEtiquetado(segundoVertice);
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -26,7 +27,8 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 	public void agregarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
-		verificarVerticesEtiquetados(primerVertice, segundoVertice);
+		verificarVerticeEtiquetado(primerVertice);
+		verificarVerticeEtiquetado(segundoVertice);
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -44,7 +46,8 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
-		verificarVerticesEtiquetados(primerVertice, segundoVertice);
+		verificarVerticeEtiquetado(primerVertice);
+		verificarVerticeEtiquetado(segundoVertice);
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -58,7 +61,8 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
-		verificarVerticesEtiquetados(primerVertice, segundoVertice);
+		verificarVerticeEtiquetado(primerVertice);
+		verificarVerticeEtiquetado(segundoVertice);
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
@@ -73,7 +77,8 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 	public double obtenerPesoArista(Vertice primerVertice, Vertice segundoVertice) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
-		verificarVerticesEtiquetados(primerVertice, segundoVertice);
+		verificarVerticeEtiquetado(primerVertice);
+		verificarVerticeEtiquetado(segundoVertice);
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarExisteArista(i, j);
@@ -86,9 +91,9 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado{
 		return etiquetas.get(i);
 	}
 
-	private void verificarVerticesEtiquetados(Vertice primerVertice, Vertice segundoVertice) {
-		if(!primerVertice.esEtiquetado() || !segundoVertice.esEtiquetado()) {
-			throw new IllegalArgumentException("Los vertices ingresados deben estar etiquetados");
+	private void verificarVerticeEtiquetado(Vertice vertice) {
+		if(!vertice.esEtiquetado()) {
+			throw new IllegalArgumentException("El vertice ingresado debe esta etiquetado");
 		}
 	}
 }
