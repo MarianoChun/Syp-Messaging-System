@@ -36,7 +36,10 @@ public class MainForm {
 	private JTable tablaEspias;
 	private JTable tablaRedSegura;
 	private JFileChooser selectorArchivos;
+	DefaultTableModel modeloTablaEspias;
+	DefaultTableModel modeloRedSegura;
 	private ComunicadorEspias comunicador;
+	
 
 	/**
 	 * Launch the application.
@@ -65,59 +68,26 @@ public class MainForm {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		File directorioAMostrar = new File(System.getProperty("user.dir") + "/src/lista_de_espias");
-		selectorArchivos = new JFileChooser();
-		selectorArchivos.setCurrentDirectory(directorioAMostrar);
+		iniciarSelectorArchivos();
 
-		frmPrincipal = new JFrame();
-		frmPrincipal.setBounds(100, 100, 754, 367);
-		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmPrincipal.getContentPane().setLayout(null);
+		iniciarFrmPrincipal();
 
-		JLabel lblComEspias = new JLabel("Comunicador de espias");
-		lblComEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblComEspias.setBounds(256, 11, 139, 14);
-		frmPrincipal.getContentPane().add(lblComEspias);
+		crearLblComEspias();
 
 		// Definimos los modelos de las dos tablas (de espias y red segura)
 
-		DefaultTableModel modeloTablaEspias = new DefaultTableModel() {
-			@Override
-		    public boolean isCellEditable(int row, int column) {
-		       return false;
-		    }
-		};
-		modeloTablaEspias.addColumn("Nombres espias");
+		
 
-		DefaultTableModel modeloRedSegura = new DefaultTableModel() {
-			@Override
-		    public boolean isCellEditable(int row, int column) {
-		       return false;
-		    }
-		};
-		modeloRedSegura.addColumn("Indice espia");
-		modeloRedSegura.addColumn("Nombre espia");
-		modeloRedSegura.addColumn("Compañero");
-		modeloRedSegura.addColumn("Probab. intercepcion");
+		
 
-		JScrollPane scrollPanelEspias = new JScrollPane();
-		scrollPanelEspias.setBounds(38, 36, 214, 160);
-		frmPrincipal.getContentPane().add(scrollPanelEspias);
+		JScrollPane scrollPanelEspias = iniciarScrollPanelEspias();
 
-		tablaEspias = new JTable();
-		tablaEspias.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		tablaEspias.setModel(modeloTablaEspias);
-		scrollPanelEspias.setViewportView(tablaEspias);
-		tablaEspias.setBounds(38, 24, 139, 172);
+		iniciarTablaEspias(scrollPanelEspias);
 
-		JScrollPane scrollPanelRedSegura = new JScrollPane();
-		scrollPanelRedSegura.setBounds(403, 36, 300, 160);
-		frmPrincipal.getContentPane().add(scrollPanelRedSegura);
+		JScrollPane scrollPanelRedSegura = iniciarScrollPanelRedSegura();
 
-		tablaRedSegura = new JTable();
-		tablaRedSegura.setModel(modeloRedSegura);
-		tablaRedSegura.setBounds(259, 24, 139, 172);
-		scrollPanelRedSegura.setViewportView(tablaRedSegura);
+		iniciarTablaRedSegura(scrollPanelRedSegura);
+
 
 		JButton btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
 		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
@@ -220,6 +190,81 @@ public class MainForm {
 		lblTituloRedSegura.setBounds(507, 21, 112, 14);
 		frmPrincipal.getContentPane().add(lblTituloRedSegura);
 
+	}
+
+	private void iniciarTablaRedSegura(JScrollPane scrollPanelRedSegura) {
+		tablaRedSegura = new JTable();
+		iniciarModeloRedSegura();
+		tablaRedSegura.setBounds(259, 24, 139, 172);
+		scrollPanelRedSegura.setViewportView(tablaRedSegura);
+	}
+
+	private void iniciarModeloRedSegura() {
+		modeloRedSegura = new DefaultTableModel() {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		};
+		modeloRedSegura.addColumn("Indice espia");
+		modeloRedSegura.addColumn("Nombre espia");
+		modeloRedSegura.addColumn("Compañero");
+		modeloRedSegura.addColumn("Probab. intercepcion");
+		tablaRedSegura.setModel(modeloRedSegura);
+	}
+
+	private JScrollPane iniciarScrollPanelEspias() {
+		JScrollPane scrollPanelEspias = new JScrollPane();
+		scrollPanelEspias.setBounds(38, 36, 214, 160);
+		frmPrincipal.getContentPane().add(scrollPanelEspias);
+		return scrollPanelEspias;
+	}
+
+	private JScrollPane iniciarScrollPanelRedSegura() {
+		JScrollPane scrollPanelRedSegura = new JScrollPane();
+		scrollPanelRedSegura.setBounds(403, 36, 325, 160);
+		frmPrincipal.getContentPane().add(scrollPanelRedSegura);
+		return scrollPanelRedSegura;
+	}
+
+	private DefaultTableModel iniciarTablaEspias(JScrollPane scrollPanelEspias) {
+		tablaEspias = new JTable();
+		tablaEspias.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		iniciarModeloTablaEspias();
+		scrollPanelEspias.setViewportView(tablaEspias);
+		tablaEspias.setBounds(38, 24, 139, 172);
+		return modeloTablaEspias;
+	}
+
+	private void iniciarModeloTablaEspias() {
+		modeloTablaEspias = new DefaultTableModel() {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		};
+		modeloTablaEspias.addColumn("Nombres espias");
+		tablaEspias.setModel(modeloTablaEspias);
+	}
+
+	private void crearLblComEspias() {
+		JLabel lblComEspias = new JLabel("Comunicador de espias");
+		lblComEspias.setHorizontalAlignment(SwingConstants.CENTER);
+		lblComEspias.setBounds(256, 11, 139, 14);
+		frmPrincipal.getContentPane().add(lblComEspias);
+	}
+
+	private void iniciarFrmPrincipal() {
+		frmPrincipal = new JFrame();
+		frmPrincipal.setBounds(100, 100, 770, 367);
+		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPrincipal.getContentPane().setLayout(null);
+	}
+
+	private void iniciarSelectorArchivos() {
+		File directorioAMostrar = new File(System.getProperty("user.dir") + "/src/lista_de_espias");
+		selectorArchivos = new JFileChooser();
+		selectorArchivos.setCurrentDirectory(directorioAMostrar);
 	}
 
 	private void removerRegistrosTabla(DefaultTableModel modeloTabla) {
