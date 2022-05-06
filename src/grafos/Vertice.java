@@ -59,7 +59,9 @@ public class Vertice {
 
 	@Override
 	public String toString() {
-		return etiqueta;
+		StringBuffer cadena = new StringBuffer();
+		cadena.append("(").append(indice).append(", ").append(etiqueta).append(")");
+		return cadena.toString();
 	}
 
 }

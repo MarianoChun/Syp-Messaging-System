@@ -2,12 +2,13 @@ package unionFind;
 
 import java.util.ArrayList;
 
+import grafos.GrafoNDPEtiquetado;
 import grafos.GrafoNDPonderado;
 
 public class UnionFind {
 	private ArrayList<Integer> vertices;
 
-	public UnionFind(GrafoNDPonderado g) {
+	public UnionFind(GrafoNDPEtiquetado g) {
 		this.vertices = new ArrayList<Integer>();
 		this.vertices.addAll(g.conjuntoDeVertices());
 	}

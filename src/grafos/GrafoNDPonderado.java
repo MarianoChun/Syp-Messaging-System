@@ -77,15 +77,6 @@ public class GrafoNDPonderado extends GrafoND {
 		return this.aristas;
 	}
 
-	// Debe agresarse esta verificacion cada vez que agregamos una Arista en el caso
-	// que cambiemos
-	// la implementacion de int i, int j a Vertice i, Vertice j
-//	private void verificarVerticesNoEtiquetados(Vertice primerVertice, Vertice segundoVertice) {
-//		if(primerVertice.esEtiquetado() || segundoVertice.esEtiquetado()) {
-//			throw new IllegalArgumentException("Los vertices ingresados deben no estar etiquetados");
-//		}
-//	}
-
 	@Override
 	public String toString() {
 		StringBuffer cadena = new StringBuffer();

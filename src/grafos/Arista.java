@@ -35,6 +35,12 @@ public class Arista implements Comparable<Object> {
 		return result;
 	}
 
+	// 1extr != other.1Extr && 1extr != other.2extr
+		// false
+	// 2extr !+ other.2Extr && 2extr !+ other.1Extr
+		// false
+	// (0,1)
+	// (1, 0)
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -44,12 +50,26 @@ public class Arista implements Comparable<Object> {
 		if (getClass() != obj.getClass())
 			return false;
 		Arista other = (Arista) obj;
-		if (!primerExtremo.equals(other.primerExtremo))
+		if (peso != other.peso) {
+			System.out.println(this.toString() + " " + other.toString());
+			System.out.println("Entro arista peso false");
 			return false;
-		if (!segundoExtremo.equals(other.segundoExtremo))
+		}
+		if (!primerExtremo.equals(other.primerExtremo) && !primerExtremo.equals(other.segundoExtremo)){
+			System.out.println(this.toString() + " " + other.toString());
+			System.out.println("Entro arista 1er false");
 			return false;
-		if (peso != other.peso)
+		}
+		if (!segundoExtremo.equals(other.segundoExtremo) && !segundoExtremo.equals(other.primerExtremo)){
+			System.out.println("Entro arista 2do false");
 			return false;
+		}
+		if (primerExtremo.equals(other.primerExtremo) && segundoExtremo.equals(other.segundoExtremo))
+			return true;
+		if (primerExtremo.equals(other.primerExtremo) && segundoExtremo.equals(other.segundoExtremo))
+			return true;
+		if (primerExtremo.equals(other.segundoExtremo) && segundoExtremo.equals(other.primerExtremo))
+			return true;
 		return true;
 	}
 
@@ -70,11 +90,11 @@ public class Arista implements Comparable<Object> {
 	@Override
 	public String toString() {
 		StringBuffer cadena = new StringBuffer();
-		cadena.append(this.primerExtremo.toString());
+		cadena.append("[").append(this.primerExtremo.toString());
 		cadena.append(", ");
 		cadena.append(this.segundoExtremo.toString());
 		cadena.append(", ");
-		cadena.append(this.peso);
+		cadena.append(this.peso).append("]");
 		return cadena.toString();
 	}
 

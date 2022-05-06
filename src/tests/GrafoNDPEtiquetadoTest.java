@@ -21,7 +21,7 @@ public class GrafoNDPEtiquetadoTest {
 	@Test
 	public void eliminarAristaTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(5);
-		g.agregarArista(new Vertice(0, "Chacho"), new Vertice(1, "Kiko"), 0.5);
+		g.agregarArista(new Vertice(0, "Chacho"), new Vertice(1, "Ernesto"), 0.5);
 		g.agregarArista(new Vertice(2, "Rodolfo"), new Vertice(1, "Ernesto"), 0.8);
 		g.agregarArista(new Vertice(3, "Felipe"), new Vertice(4, "Kiko"), 0.2);
 
@@ -33,7 +33,7 @@ public class GrafoNDPEtiquetadoTest {
 	public void existeAristaFalseTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
 		g.agregarArista(new Vertice(3, "Ricardo"), new Vertice(1, "Roberto"), 5.0);
-		g.agregarArista(new Vertice(0, "Juan"), new Vertice(1, "Thiago"), 6.0);
+		g.agregarArista(new Vertice(0, "Juan"), new Vertice(1, "Roberto"), 6.0);
 
 		assertFalse(g.existeArista(0, 3));
 	}

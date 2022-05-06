@@ -1,29 +1,149 @@
 package grafos;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-public class GrafoNDPEtiquetado extends GrafoNDPonderado {
+public class GrafoNDPEtiquetado{
+	private boolean[][] A;
+	private double[][] pesosA;
+	private ArrayList<Arista> aristas;
 	private Map<Integer, String> etiquetas;
 
 	public GrafoNDPEtiquetado(int vertices) {
-		super(vertices);
+		A = new boolean[vertices][vertices];
+		this.pesosA = new double[vertices][vertices];
+		this.aristas = new ArrayList<Arista>();
 		this.etiquetas = new HashMap<Integer, String>();
 	}
 
 	public void agregarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
-		super.agregarArista(primerVertice, segundoVertice, peso);
+		verificarVerticeEtiquetado(primerVertice);
+		verificarVerticeEtiquetado(segundoVertice);
+		verificarVerticeYaEtiquetado(primerVertice);
+		verificarVerticeYaEtiquetado(segundoVertice);
+		int i = primerVertice.getIndice();
+		int j = segundoVertice.getIndice();
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarDistintos(i, j);
+
+		if (!existeArista(i, j)) {
+			A[i][j] = A[j][i] = true;
+			pesosA[i][j] = pesosA[j][i] = peso;
+			aristas.add(new Arista(primerVertice, segundoVertice, peso));
+		}
 		etiquetas.put(primerVertice.getIndice(), primerVertice.getEtiqueta());
 		etiquetas.put(segundoVertice.getIndice(), segundoVertice.getEtiqueta());
 	}
+	
+	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {
+		int i = primerVertice.getIndice();
+		int j = segundoVertice.getIndice();
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarDistintos(i, j);
 
+		if (existeArista(i, j)) {
+			double pesoArista = obtenerPesoArista(primerVertice, segundoVertice);
+			eliminarArista(primerVertice, segundoVertice, pesoArista);
+		}
+	}
+	
+	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
+		int i = primerVertice.getIndice();
+		int j = segundoVertice.getIndice();
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarDistintos(i, j);
+
+		if (existeArista(i, j)) {
+			A[i][j] = A[j][i] = false;
+			aristas.remove(new Arista(primerVertice, segundoVertice, peso));
+			aristas.remove(new Arista(segundoVertice, primerVertice, peso));
+		}
+	}
+	
+	public boolean existeArista(int i, int j) {
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarDistintos(i, j);
+
+		return A[i][j];
+	}
+	
+	public double obtenerPesoArista(Vertice primerVertice, Vertice segundoVertice) {
+		int i = primerVertice.getIndice();
+		int j = segundoVertice.getIndice();
+		verificarVertice(i);
+		verificarVertice(j);
+		verificarExisteArista(i, j);
+
+		return pesosA[i][j];
+	}
+
+	public int cantidadAristas() {
+		return this.aristas.size();
+	}
+
+	public ArrayList<Arista> getAristas() {
+		return this.aristas;
+	}
+	
 	public String obtenerEtiquetaVertice(int i) {
 		verificarVerticeEtiquetado(i);
 		verificarVertice(i);
 		return etiquetas.get(i);
 	}
 
+	public Set<Integer> conjuntoDeVertices() {
+		Set<Integer> vertices = new HashSet<Integer>();
 
+		for (int i = 0; i < this.tamaño(); i++)
+			vertices.add(i);
+		return vertices;
+	}
+	
+	public int tamaño() {
+		return A.length;
+	}
+	
+	public Set<Integer> vecinos(int i) {
+		verificarVertice(i);
+
+		Set<Integer> ret = new HashSet<Integer>();
+		for (int j = 0; j < this.tamaño(); ++j)
+			if (i != j) {
+				if (this.existeArista(i, j))
+					ret.add(j);
+			}
+
+		return ret;
+	}
+	
+	public boolean estaVerticeYaEtiquetado(Vertice vertice) {
+		String etiquetaVertice = vertice.getEtiqueta().toLowerCase();
+		int indiceVertice = vertice.getIndice();
+		String etiquetaEnGrafo = etiquetas.get(indiceVertice);
+		
+		if(etiquetaEnGrafo == null) {
+			return false;
+		}
+		return !etiquetaVertice.equals(etiquetaEnGrafo);	
+	}
+	
+	private void verificarVerticeYaEtiquetado(Vertice vertice) {
+		if(estaVerticeYaEtiquetado(vertice)) {
+			String etiquetaVertice = vertice.getEtiqueta();
+			int indiceVertice = vertice.getIndice();
+			String etiquetaEnGrafo = etiquetas.get(indiceVertice);
+			throw new IllegalArgumentException("Ingrese correctamente la etiqueta. Para el vertice " + indiceVertice +" es " + etiquetaEnGrafo + " no es, " + etiquetaVertice);
+		}
+	}
 	private void verificarVerticeEtiquetado(Vertice vertice) {
 		if (!vertice.esEtiquetado()) {
 			throw new IllegalArgumentException("El vertice ingresado debe esta etiquetado");
@@ -37,11 +157,58 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado {
 		}
 	}
 
+	protected void verificarVertice(int i) {
+		if (i < 0)
+			throw new IllegalArgumentException("El vertice no puede ser negativo: " + i);
+
+		if (i >= A.length)
+			throw new IllegalArgumentException("Los vertices deben estar entre 0 y |V|-1: " + i);
+	}
+
+	// Verifica que i y j sean distintos
+	protected void verificarDistintos(int i, int j) {
+		if (i == j)
+			throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
+	}
+
+	protected void verificarExisteArista(int i, int j) {
+		if (!existeArista(i, j)) {
+			throw new IllegalArgumentException("La arista " + i + "" + j + " no existe");
+		}
+	}
+	@Override
+	public String toString() {
+		StringBuffer cadena = new StringBuffer();
+		cadena.append("----- Grafo No dirigido Ponderado Etiquetado ----- \n");
+		int fila;
+		for (int col = 0; col < tamaño(); col++) {
+			fila = 0;
+			while (col != fila) {
+				if (existeArista(col, fila)) {
+					double peso = obtenerPesoArista(new Vertice(col), new Vertice(fila));
+					String etiquetaCol = obtenerEtiquetaVertice(col);
+					String etiquetaFila = obtenerEtiquetaVertice(fila);
+					cadena.append("[ (").append(col).append(", ").append(etiquetaCol).append("), (");
+					cadena.append(fila).append(", ").append(etiquetaFila).append("), ");
+					cadena.append(peso).append(" ]");
+					cadena.append("\n");
+				}
+				fila++;
+			}
+
+		}
+		cadena.append("----------------- \n");
+		return cadena.toString();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(A);
+		result = prime * result + ((aristas == null) ? 0 : aristas.hashCode());
 		result = prime * result + ((etiquetas == null) ? 0 : etiquetas.hashCode());
+		result = prime * result + Arrays.deepHashCode(pesosA);
 		return result;
 	}
 
@@ -49,18 +216,47 @@ public class GrafoNDPEtiquetado extends GrafoNDPonderado {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		GrafoNDPEtiquetado other = (GrafoNDPEtiquetado) obj;
+
+		if (!Arrays.deepEquals(A, other.A)) {
+			System.out.println("Falso equals A Grafo");
+			return false;
+		}
+		if (!Arrays.deepEquals(pesosA, other.pesosA)){
+			System.out.println("Falso equals pesosA Grafo");
+			return false;
+		}
 		if (etiquetas == null) {
 			if (other.etiquetas != null)
 				return false;
 		} else if (!etiquetas.equals(other.etiquetas))
 			return false;
-		return true;
+		if (aristas == null) {
+			if (other.aristas != null)
+				return false;
+		}
+		boolean valor = true;
+		for(Arista otherArista : other.aristas) {
+			valor = valor && equalsAristas(otherArista);
+		}
+
+		return valor;
 	}
+	
+	private boolean equalsAristas(Arista otroArista) {
+		for(Arista aristaActual : this.aristas) {
+			if(otroArista.equals(aristaActual)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	
 	
 }
