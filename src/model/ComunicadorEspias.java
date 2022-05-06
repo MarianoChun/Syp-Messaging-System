@@ -42,7 +42,7 @@ public class ComunicadorEspias {
 	public GrafoNDPEtiquetado obtenerRedSeguraKruskal() {
 		return new Kruskal(redEspias).obtenerArbolGM();
 	}
-	
+
 	public GrafoNDPEtiquetado obtenerRedSeguraPrim() {
 		return new Prim(redEspias).obtenerArbolGeneradorMinimo(0);
 	}
@@ -111,7 +111,7 @@ public class ComunicadorEspias {
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
 		Vertice verticeEspia1 = new Vertice(indiceEspia1, nombreEspia1);
 		Vertice verticeEspia2 = new Vertice(indiceEspia2, nombreEspia2);
-		
+
 		redEspias.agregarArista(verticeEspia1, verticeEspia2, probIntercepcion);
 
 	}
@@ -154,7 +154,7 @@ public class ComunicadorEspias {
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
 		Vertice verticeEspia1 = new Vertice(indiceEspia1, nombreEspia1);
 		Vertice verticeEspia2 = new Vertice(indiceEspia2, nombreEspia2);
-		
+
 		return redEspias.obtenerPesoArista(verticeEspia1, verticeEspia2);
 	}
 

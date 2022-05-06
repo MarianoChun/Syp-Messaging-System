@@ -49,7 +49,7 @@ public class GrafoNDPonderadoTest {
 
 		g.agregarArista(new Vertice(3), new Vertice(1), 0.20);
 		g.eliminarArista(new Vertice(1), new Vertice(3));
-		
+
 		assertEquals(vacio, g.getAristas());
 	}
 

@@ -55,15 +55,14 @@ public class GrafoNDPEtiquetadoTest {
 
 		assertTrue(esperado == g.obtenerPesoArista(new Vertice(4), new Vertice(0)));
 	}
-	
+
 //	@Test(expected = IllegalArgumentException.class)
 //	public void agregarArista1VerticeNoEtiquetadoTest() {
 //		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(3);
 //		
 //		g.agregarArista(new Vertice(0), new Vertice(1, "Pepe"), 1.5);
 //	}
-	
-	
+
 //	@Test(expected = IllegalArgumentException.class)
 //	public void agregarArista2VerticesNoEtiquetadosTest() {
 //		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(3);

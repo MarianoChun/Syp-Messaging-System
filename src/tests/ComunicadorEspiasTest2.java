@@ -49,7 +49,7 @@ public class ComunicadorEspiasTest2 {
 		agmEsperado.agregarArista(new Vertice(4, "RoDOLFo"), new Vertice(0, "Juan"), 0.4); // Rodolfo, Juan, 0.4
 		agmEsperado.agregarArista(new Vertice(6, "JOSE"), new Vertice(7, "mabel"), 0.9); // Jose, Mabel, 0.9
 		agmEsperado.agregarArista(new Vertice(8, "AlVaro"), new Vertice(5, "pepe"), 0.5); // Alvaro, Pepe, 0.5
-		agmEsperado.agregarArista(new Vertice(9, "Julieta"), new Vertice(1,"IVAn"), 0.1); // Julieta, Ivan, 0.1
+		agmEsperado.agregarArista(new Vertice(9, "Julieta"), new Vertice(1, "IVAn"), 0.1); // Julieta, Ivan, 0.1
 		agmEsperado.agregarArista(new Vertice(7, "MaBeL"), new Vertice(12, "CandeLA"), 0.8); // Mabel, Candela, 0.8
 		agmEsperado.agregarArista(new Vertice(8, "alvaro"), new Vertice(10, "Gabriela"), 0.7); // Alvaro, Gabriela, 0.7
 		agmEsperado.agregarArista(new Vertice(0, "juan"), new Vertice(2, "ruben"), 0.9); // Juan, Ruben, 0.9

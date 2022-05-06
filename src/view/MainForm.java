@@ -122,8 +122,10 @@ public class MainForm {
 					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
 					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
 						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
-						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),new Vertice(vecinoActual));
-						modeloRedSegura.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
+								new Vertice(vecinoActual));
+						modeloRedSegura
+								.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
 					}
 
 					tablaRedSegura.setModel(modeloRedSegura);
@@ -133,7 +135,7 @@ public class MainForm {
 		btnArmarRedSeguraKruskal.setEnabled(false);
 		btnArmarRedSeguraKruskal.setBounds(223, 207, 203, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
-	
+
 		JLabel lblFlecha = new JLabel("---------------->");
 		lblFlecha.setBounds(288, 112, 87, 14);
 
@@ -152,8 +154,10 @@ public class MainForm {
 					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
 					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
 						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
-						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),new Vertice(vecinoActual));
-						modeloRedSegura.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
+								new Vertice(vecinoActual));
+						modeloRedSegura
+								.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
 					}
 
 					tablaRedSegura.setModel(modeloRedSegura);
