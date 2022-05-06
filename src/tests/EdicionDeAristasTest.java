@@ -4,92 +4,127 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import grafos.GrafoND;
+import grafos.GrafoNDPEtiquetado;
+import grafos.Vertice;
 
 public class EdicionDeAristasTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void primerVerticeNegativoTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(-1, 3);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(-1, "-1");
+		Vertice v2 = new Vertice(3, "3");
+		grafo.agregarArista(v1, v2, 0.1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void primerVerticeExcedidoTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(5, 2);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(5, "5");
+		Vertice v2 = new Vertice(3, "3");
+		grafo.agregarArista(v1, v2, 0.1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void segundoVerticeNegativoTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, -1);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(3, "3");
+		Vertice v2 = new Vertice(-1, "-1");
+		grafo.agregarArista(v1, v2, 0.1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void segundoVerticeExcedidoTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, 5);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		Vertice v2 = new Vertice(5, "5");
+		grafo.agregarArista(v1, v2, 0.1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void agregarLoopTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, 2);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		
+		grafo.agregarArista(v1, v1, 0.1);
 	}
 
 	@Test
 	public void aristaExistenteTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, 3);
-		assertTrue(grafo.existeArista(2, 3));
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		Vertice v2 = new Vertice(3, "3");
+		
+		grafo.agregarArista(v1, v2, 0.1);
+		
+		assertTrue(grafo.existeArista(v1.getIndice(), v2.getIndice()));
 	}
 
 	@Test
 	public void aristaOpuestaTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, 3);
-		assertTrue(grafo.existeArista(3, 2));
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		Vertice v2 = new Vertice(3, "3");
+		grafo.agregarArista(v1, v2, 0.1);
+		
+		assertTrue(grafo.existeArista(v2.getIndice(), v1.getIndice()));
 	}
 
 	@Test
 	public void aristaInexistenteTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, 3);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		Vertice v2 = new Vertice(3, "3");
+		
+		grafo.agregarArista(v1, v2, 0.1);
+
 		assertFalse(grafo.existeArista(1, 4));
 	}
 
 	@Test
 	public void agregarAristaDosVecesTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, 3);
-		grafo.agregarArista(2, 3);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		Vertice v2 = new Vertice(3, "3");
+		grafo.agregarArista(v1, v2, 0.1);
+		grafo.agregarArista(v1, v2, 0.1);
 
 		assertTrue(grafo.existeArista(2, 3));
 	}
 
 	@Test
 	public void eliminarAristaExistenteTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, 4);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		Vertice v2 = new Vertice(4, "4");
+		
+		grafo.agregarArista(v1, v2, 0.1);
 
-		grafo.eliminarArista(2, 4);
-		assertFalse(grafo.existeArista(2, 4));
+		grafo.eliminarArista(v1, v2);
+		
+		assertFalse(grafo.existeArista(v1.getIndice(), v2.getIndice()));
 	}
 
 	@Test
 	public void eliminarAristaInexistenteTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.eliminarArista(2, 4);
-		assertFalse(grafo.existeArista(2, 4));
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		Vertice v2 = new Vertice(4, "4");
+		
+		grafo.eliminarArista(v1, v2);
+		
+		assertFalse(grafo.existeArista(v1.getIndice(), v2.getIndice()));
 	}
 
 	@Test
 	public void eliminarAristaDosVecesTest() {
-		GrafoND grafo = new GrafoND(5);
-		grafo.agregarArista(2, 4);
+		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
+		Vertice v1 = new Vertice(2, "2");
+		Vertice v2 = new Vertice(4, "4");
+		
+		grafo.agregarArista(v1, v2, 0.1);
+		grafo.eliminarArista(v1, v2);
+		grafo.eliminarArista(v1, v2);
 
-		grafo.eliminarArista(2, 4);
-		grafo.eliminarArista(2, 4);
-		assertFalse(grafo.existeArista(2, 4));
+		assertFalse(grafo.existeArista(v1.getIndice(), v2.getIndice()));
 	}
 }
