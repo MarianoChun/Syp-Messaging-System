@@ -6,7 +6,6 @@ import java.util.Queue;
 import java.util.Set;
 
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 
 public class BFS {
 

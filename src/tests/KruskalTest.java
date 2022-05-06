@@ -7,7 +7,6 @@ import org.junit.Test;
 import agm.Kruskal;
 import grafos.Arista;
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 import grafos.Vertice;
 
 public class KruskalTest {

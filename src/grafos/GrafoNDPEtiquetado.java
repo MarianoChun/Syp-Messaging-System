@@ -2,13 +2,13 @@ package grafos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class GrafoNDPEtiquetado{
+public class GrafoNDPEtiquetado {
 	private boolean[][] A;
 	private double[][] pesosA;
 	private ArrayList<Arista> aristas;
@@ -44,7 +44,7 @@ public class GrafoNDPEtiquetado{
 	private void agregarEtiquetaAGrafo(Vertice vertice) {
 		etiquetas.put(vertice.getIndice(), vertice.getEtiqueta());
 	}
-	
+
 	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
@@ -57,21 +57,19 @@ public class GrafoNDPEtiquetado{
 			eliminarArista(primerVertice, segundoVertice, pesoArista);
 		}
 	}
-	
-	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
+
+	private void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
+		// considero que no hace falta volver a verificar porque solo se usa como aux,
+		// en eliminarArista
+		// y este ya verifica si los vertices y arista existe
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
-		verificarVertice(i);
-		verificarVertice(j);
-		verificarDistintos(i, j);
 
-		if (existeArista(i, j)) {
-			A[i][j] = A[j][i] = false;
-			aristas.remove(new Arista(primerVertice, segundoVertice, peso));
-			aristas.remove(new Arista(segundoVertice, primerVertice, peso));
-		}
+		A[i][j] = A[j][i] = false;
+		aristas.remove(new Arista(primerVertice, segundoVertice, peso));
+		aristas.remove(new Arista(segundoVertice, primerVertice, peso));
 	}
-	
+
 	public boolean existeArista(int i, int j) {
 		verificarVertice(i);
 		verificarVertice(j);
@@ -79,7 +77,7 @@ public class GrafoNDPEtiquetado{
 
 		return A[i][j];
 	}
-	
+
 	public double obtenerPesoArista(Vertice primerVertice, Vertice segundoVertice) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
@@ -97,7 +95,7 @@ public class GrafoNDPEtiquetado{
 	public ArrayList<Arista> getAristas() {
 		return this.aristas;
 	}
-	
+
 	public String obtenerEtiquetaVertice(int i) {
 		verificarVerticeEtiquetado(i);
 		verificarVertice(i);
@@ -111,11 +109,11 @@ public class GrafoNDPEtiquetado{
 			vertices.add(i);
 		return vertices;
 	}
-	
+
 	public int tamaño() {
 		return A.length;
 	}
-	
+
 	public Set<Integer> vecinos(int i) {
 		verificarVertice(i);
 
@@ -128,35 +126,37 @@ public class GrafoNDPEtiquetado{
 
 		return ret;
 	}
-	
+
 	public boolean estaVerticeYaEtiquetado(Vertice vertice) {
 		String etiquetaVertice = vertice.getEtiqueta().toLowerCase();
 		int indiceVertice = vertice.getIndice();
 		String etiquetaEnGrafo = etiquetas.get(indiceVertice);
-		
-		if(etiquetaEnGrafo == null) {
+
+		if (etiquetaEnGrafo == null) {
 			return false;
 		}
-		return !etiquetaVertice.equals(etiquetaEnGrafo);	
+		return !etiquetaVertice.equals(etiquetaEnGrafo);
 	}
-	
+
 	private void verificarVerticeYaEtiquetado(Vertice vertice) {
-		if(estaVerticeYaEtiquetado(vertice)) {
+		if (estaVerticeYaEtiquetado(vertice)) {
 			String etiquetaVertice = vertice.getEtiqueta();
 			int indiceVertice = vertice.getIndice();
 			String etiquetaEnGrafo = etiquetas.get(indiceVertice);
-			throw new IllegalArgumentException("Ingrese correctamente la etiqueta. Para el vertice " + indiceVertice +" es " + etiquetaEnGrafo + " no es, " + etiquetaVertice);
+			throw new IllegalArgumentException("Ingrese correctamente la etiqueta. Para el vertice " + indiceVertice
+					+ " es " + etiquetaEnGrafo + " no es, " + etiquetaVertice);
 		}
 	}
+
 	private void verificarVerticeEtiquetado(Vertice vertice) {
 		if (!vertice.esEtiquetado()) {
-			throw new IllegalArgumentException("El vertice ingresado debe esta etiquetado");
+			throw new IllegalArgumentException("El vertice ingresado debe estar etiquetado");
 		}
 	}
-	
+
 	private void verificarVerticeEtiquetado(int indice) {
 		String etiquetaVertice = etiquetas.get(indice);
-		if(etiquetaVertice == null) {
+		if (etiquetaVertice == null) {
 			throw new IllegalArgumentException("El vertice ingresado debe esta etiquetado");
 		}
 	}
@@ -180,6 +180,7 @@ public class GrafoNDPEtiquetado{
 			throw new IllegalArgumentException("La arista " + i + "" + j + " no existe");
 		}
 	}
+
 	@Override
 	public String toString() {
 		StringBuffer cadena = new StringBuffer();
@@ -204,7 +205,7 @@ public class GrafoNDPEtiquetado{
 		cadena.append("----------------- \n");
 		return cadena.toString();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -218,49 +219,57 @@ public class GrafoNDPEtiquetado{
 
 	@Override
 	public boolean equals(Object obj) {
+		GrafoNDPEtiquetado other = (GrafoNDPEtiquetado) obj;
+
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GrafoNDPEtiquetado other = (GrafoNDPEtiquetado) obj;
 
 		if (!Arrays.deepEquals(A, other.A)) {
-			System.out.println("Falso equals A Grafo");
+			System.out.println("Falso el deep equals A");
 			return false;
 		}
-		if (!Arrays.deepEquals(pesosA, other.pesosA)){
-			System.out.println("Falso equals pesosA Grafo");
+
+		if (getClass() != obj.getClass())
 			return false;
-		}
+		if (!Arrays.deepEquals(pesosA, other.pesosA))
+			return false;
+
 		if (etiquetas == null) {
-			if (other.etiquetas != null)
+			if (other.etiquetas != null) {
 				return false;
-		} else if (!etiquetas.equals(other.etiquetas))
+			}
+		} else if (!etiquetas.equals(other.etiquetas)) {
 			return false;
+		}
+		
 		if (aristas == null) {
 			if (other.aristas != null)
 				return false;
-		}
-		boolean valor = true;
-		for(Arista otherArista : other.aristas) {
-			valor = valor && equalsAristas(otherArista);
-		}
-
-		return valor;
-	}
-	
-	private boolean equalsAristas(Arista otroArista) {
-		for(Arista aristaActual : this.aristas) {
-			if(otroArista.equals(aristaActual)) {
-				return true;
-			}
+		} else {
+			return sonAristasIguales(other);
 		}
 		
-		return false;
+		return true;
 	}
-	
-	
-	
+
+	private boolean sonAristasIguales(GrafoNDPEtiquetado other) {
+		boolean aux1 = true;
+		boolean aux2 = true;
+
+		Iterator<Arista> it1 = aristas.iterator();
+		Iterator<Arista> it2 = other.aristas.iterator();
+
+		while (it1.hasNext()) {
+			Arista arista1 = it1.next();
+			Arista arista2 = it2.next();
+			aux1 = aux1 && aristas.contains(arista2);
+			aux2 = aux2 && other.aristas.contains(arista1);
+		}
+		return aux1 && aux2;
+	}
+
 }

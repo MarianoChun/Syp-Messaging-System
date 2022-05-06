@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 import grafos.Vertice;
 import recorridos.BFS;
 
@@ -41,7 +40,7 @@ public class Prim {
 					if (pesoMin == aristaMin[2]) {
 						uMin = (int) aristaMin[0];
 						vMin = (int) aristaMin[1];
-	
+
 						etiquetaUmin = grafoInput.obtenerEtiquetaVertice(uMin);
 						etiquetaVmin = grafoInput.obtenerEtiquetaVertice(vMin);
 					}

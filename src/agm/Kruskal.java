@@ -5,7 +5,6 @@ import java.util.Collections;
 
 import grafos.Arista;
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 import grafos.Vertice;
 import recorridos.BFS;
 import unionFind.UnionFind;

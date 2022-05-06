@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.EventQueue;
-import java.security.KeyStore.Entry;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,10 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 import grafos.Vertice;
 import model.ComunicadorEspias;
 import recorridos.BFS;
@@ -27,7 +24,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 
 public class MainForm {
@@ -102,8 +98,10 @@ public class MainForm {
 					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
 					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
 						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
-						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),new Vertice(vecinoActual));
-						modeloRedSegura.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
+								new Vertice(vecinoActual));
+						modeloRedSegura
+								.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
 					}
 
 					tablaRedSegura.setModel(modeloRedSegura);
@@ -113,7 +111,7 @@ public class MainForm {
 		btnArmarRedSeguraKruskal.setEnabled(false);
 		btnArmarRedSeguraKruskal.setBounds(223, 207, 203, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
-	
+
 		JLabel lblFlecha = new JLabel("---------------->");
 		lblFlecha.setBounds(288, 112, 87, 14);
 
@@ -132,8 +130,10 @@ public class MainForm {
 					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
 					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
 						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
-						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),new Vertice(vecinoActual));
-						modeloRedSegura.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
+								new Vertice(vecinoActual));
+						modeloRedSegura
+								.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
 					}
 
 					tablaRedSegura.setModel(modeloRedSegura);

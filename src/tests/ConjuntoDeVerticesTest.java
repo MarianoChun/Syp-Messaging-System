@@ -7,16 +7,16 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import grafos.GrafoND;
-import grafos.GrafoNDPonderado;
+import grafos.GrafoNDPEtiquetado;
+import grafos.Vertice;
 
 public class ConjuntoDeVerticesTest {
 
 	@Test
 	public void grafoDisconexoTest() {
-		GrafoNDPonderado g = new GrafoNDPonderado(4);
-		g.agregarArista(0, 1);
-		g.agregarArista(0, 2);
+		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
+		g.agregarArista(new Vertice(0, "0"), new Vertice(1, "1"), 1.0);
+		g.agregarArista(new Vertice(0, "0"), new Vertice(2, "2"), 1.0);
 
 		Set<Integer> esperado = new HashSet<Integer>();
 		esperado.add(0);

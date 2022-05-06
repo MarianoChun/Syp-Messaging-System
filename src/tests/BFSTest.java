@@ -7,7 +7,6 @@ import java.util.Set;
 import org.junit.Test;
 
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 import grafos.Vertice;
 import recorridos.BFS;
 
@@ -57,7 +56,7 @@ public class BFSTest {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
 		g.agregarArista(new Vertice(0, "Omar"), new Vertice(1, "Raul"), 0.4);
 		g.agregarArista(new Vertice(0, "Roberto"), new Vertice(2, "Diana"), 0.2);
-		
+
 		BFS bfs = new BFS(g);
 		assertFalse(bfs.esConexo());
 	}

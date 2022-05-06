@@ -49,12 +49,12 @@ public class Arista implements Comparable<Object> {
 			System.out.println("Entro arista peso false");
 			return false;
 		}
-		if (!primerExtremo.equals(other.primerExtremo) && !primerExtremo.equals(other.segundoExtremo)){
+		if (!primerExtremo.equals(other.primerExtremo) && !primerExtremo.equals(other.segundoExtremo)) {
 			System.out.println(this.toString() + " " + other.toString());
 			System.out.println("Entro arista 1er false");
 			return false;
 		}
-		if (!segundoExtremo.equals(other.segundoExtremo) && !segundoExtremo.equals(other.primerExtremo)){
+		if (!segundoExtremo.equals(other.segundoExtremo) && !segundoExtremo.equals(other.primerExtremo)) {
 			System.out.println("Entro arista 2do false");
 			return false;
 		}

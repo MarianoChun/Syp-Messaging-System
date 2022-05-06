@@ -1,15 +1,11 @@
 package model;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -17,7 +13,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import agm.Kruskal;
 import agm.Prim;
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 import grafos.Vertice;
 
 public class ComunicadorEspias {
@@ -42,7 +37,7 @@ public class ComunicadorEspias {
 	public GrafoNDPEtiquetado obtenerRedSeguraKruskal() {
 		return new Kruskal(redEspias).obtenerArbolGM();
 	}
-	
+
 	public GrafoNDPEtiquetado obtenerRedSeguraPrim() {
 		return new Prim(redEspias).obtenerArbolGeneradorMinimo(0);
 	}
@@ -111,7 +106,7 @@ public class ComunicadorEspias {
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
 		Vertice verticeEspia1 = new Vertice(indiceEspia1, nombreEspia1);
 		Vertice verticeEspia2 = new Vertice(indiceEspia2, nombreEspia2);
-		
+
 		redEspias.agregarArista(verticeEspia1, verticeEspia2, probIntercepcion);
 
 	}
@@ -154,7 +149,7 @@ public class ComunicadorEspias {
 		int indiceEspia2 = espias.getIndiceEspia(nombreEspia2);
 		Vertice verticeEspia1 = new Vertice(indiceEspia1, nombreEspia1);
 		Vertice verticeEspia2 = new Vertice(indiceEspia2, nombreEspia2);
-		
+
 		return redEspias.obtenerPesoArista(verticeEspia1, verticeEspia2);
 	}
 
