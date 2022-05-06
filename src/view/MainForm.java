@@ -81,10 +81,20 @@ public class MainForm {
 
 		// Definimos los modelos de las dos tablas (de espias y red segura)
 
-		DefaultTableModel modeloTablaEspias = new DefaultTableModel();
+		DefaultTableModel modeloTablaEspias = new DefaultTableModel() {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		};
 		modeloTablaEspias.addColumn("Nombres espias");
 
-		DefaultTableModel modeloRedSegura = new DefaultTableModel();
+		DefaultTableModel modeloRedSegura = new DefaultTableModel() {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		};
 		modeloRedSegura.addColumn("Indice espia");
 		modeloRedSegura.addColumn("Nombre espia");
 		modeloRedSegura.addColumn("Compañero");
