@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 import grafos.Vertice;
 import model.ComunicadorEspias;
 

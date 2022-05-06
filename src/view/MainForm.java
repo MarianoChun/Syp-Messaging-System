@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.EventQueue;
-import java.security.KeyStore.Entry;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,10 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import grafos.GrafoNDPEtiquetado;
-import grafos.GrafoNDPonderado;
 import grafos.Vertice;
 import model.ComunicadorEspias;
 import recorridos.BFS;
@@ -27,7 +24,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 
 public class MainForm {

@@ -68,7 +68,6 @@ public class GrafoNDPEtiquetado {
 		A[i][j] = A[j][i] = false;
 		aristas.remove(new Arista(primerVertice, segundoVertice, peso));
 		aristas.remove(new Arista(segundoVertice, primerVertice, peso));
-
 	}
 
 	public boolean existeArista(int i, int j) {
@@ -151,7 +150,7 @@ public class GrafoNDPEtiquetado {
 
 	private void verificarVerticeEtiquetado(Vertice vertice) {
 		if (!vertice.esEtiquetado()) {
-			throw new IllegalArgumentException("El vertice ingresado debe esta etiquetado");
+			throw new IllegalArgumentException("El vertice ingresado debe estar etiquetado");
 		}
 	}
 
