@@ -72,10 +72,6 @@ public class MainForm {
 
 		// Definimos los modelos de las dos tablas (de espias y red segura)
 
-		
-
-		
-
 		JScrollPane scrollPanelEspias = iniciarScrollPanelEspias();
 
 		iniciarTablaEspias(scrollPanelEspias);
@@ -109,11 +105,11 @@ public class MainForm {
 			}
 		});
 		btnArmarRedSeguraKruskal.setEnabled(false);
-		btnArmarRedSeguraKruskal.setBounds(223, 207, 203, 23);
+		btnArmarRedSeguraKruskal.setBounds(52, 257, 230, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 
 		JLabel lblFlecha = new JLabel("---------------->");
-		lblFlecha.setBounds(288, 112, 87, 14);
+		lblFlecha.setBounds(301, 117, 87, 14);
 
 		frmPrincipal.getContentPane().add(lblFlecha);
 
@@ -141,8 +137,18 @@ public class MainForm {
 			}
 		});
 		btnArmarRedSeguraPrim.setEnabled(false);
-		btnArmarRedSeguraPrim.setBounds(223, 241, 203, 23);
+		btnArmarRedSeguraPrim.setBounds(334, 257, 230, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
+		
+		JButton btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
+		btnCompararTiempos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
+		btnCompararTiempos.setEnabled(false);
+		btnCompararTiempos.setBounds(612, 257, 230, 23);
+		frmPrincipal.getContentPane().add(btnCompararTiempos);
 
 		JButton btnSelectorArchivos = new JButton("Seleccionar archivo excel");
 		btnSelectorArchivos.addActionListener(new ActionListener() {
@@ -168,6 +174,7 @@ public class MainForm {
 						tablaEspias.setModel(modeloTablaEspias);
 						btnArmarRedSeguraPrim.setEnabled(true);
 						btnArmarRedSeguraKruskal.setEnabled(true);
+						btnCompararTiempos.setEnabled(true);
 
 					} catch (Exception ex) {
 						System.out.println(ex.getMessage());
@@ -177,17 +184,17 @@ public class MainForm {
 				}
 			}
 		});
-		btnSelectorArchivos.setBounds(223, 275, 203, 23);
+		btnSelectorArchivos.setBounds(334, 320, 230, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
 
 		JLabel lblTituloTablaEspias = new JLabel("Lista espias");
 		lblTituloTablaEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloTablaEspias.setBounds(80, 21, 122, 14);
+		lblTituloTablaEspias.setBounds(77, 21, 122, 14);
 		frmPrincipal.getContentPane().add(lblTituloTablaEspias);
 
 		JLabel lblTituloRedSegura = new JLabel("Red segura");
 		lblTituloRedSegura.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloRedSegura.setBounds(507, 21, 112, 14);
+		lblTituloRedSegura.setBounds(598, 21, 112, 14);
 		frmPrincipal.getContentPane().add(lblTituloRedSegura);
 
 	}
@@ -210,19 +217,18 @@ public class MainForm {
 		modeloRedSegura.addColumn("Nombre espia");
 		modeloRedSegura.addColumn("Compañero");
 		modeloRedSegura.addColumn("Probab. intercepcion");
-		tablaRedSegura.setModel(modeloRedSegura);
 	}
 
 	private JScrollPane iniciarScrollPanelEspias() {
 		JScrollPane scrollPanelEspias = new JScrollPane();
-		scrollPanelEspias.setBounds(38, 36, 214, 160);
+		scrollPanelEspias.setBounds(38, 46, 203, 160);
 		frmPrincipal.getContentPane().add(scrollPanelEspias);
 		return scrollPanelEspias;
 	}
 
 	private JScrollPane iniciarScrollPanelRedSegura() {
 		JScrollPane scrollPanelRedSegura = new JScrollPane();
-		scrollPanelRedSegura.setBounds(403, 36, 325, 160);
+		scrollPanelRedSegura.setBounds(432, 46, 445, 160);
 		frmPrincipal.getContentPane().add(scrollPanelRedSegura);
 		return scrollPanelRedSegura;
 	}
@@ -248,15 +254,13 @@ public class MainForm {
 	}
 
 	private void crearLblComEspias() {
-		JLabel lblComEspias = new JLabel("Comunicador de espias");
-		lblComEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblComEspias.setBounds(256, 11, 139, 14);
-		frmPrincipal.getContentPane().add(lblComEspias);
 	}
 
 	private void iniciarFrmPrincipal() {
 		frmPrincipal = new JFrame();
-		frmPrincipal.setBounds(100, 100, 770, 367);
+		frmPrincipal.setResizable(false);
+		frmPrincipal.setTitle("Comunicador de espias");
+		frmPrincipal.setBounds(100, 100, 926, 440);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
 	}
