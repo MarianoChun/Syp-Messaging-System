@@ -35,12 +35,6 @@ public class Arista implements Comparable<Object> {
 		return result;
 	}
 
-	// 1extr != other.1Extr && 1extr != other.2extr
-		// false
-	// 2extr !+ other.2Extr && 2extr !+ other.1Extr
-		// false
-	// (0,1)
-	// (1, 0)
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

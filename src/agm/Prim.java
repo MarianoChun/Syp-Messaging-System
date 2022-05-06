@@ -25,6 +25,8 @@ public class Prim {
 	public GrafoNDPEtiquetado obtenerArbolGeneradorMinimo(int vertice) {
 		V.add(vertice);
 		int i = 1;
+		String etiquetaUmin = null;
+		String etiquetaVmin = null;
 		int uMin = vertice;
 		int vMin = 0;
 		double pesoMin;
@@ -41,11 +43,14 @@ public class Prim {
 					if (pesoMin == aristaMin[2]) {
 						uMin = (int) aristaMin[0];
 						vMin = (int) aristaMin[1];
+	
+						etiquetaUmin = grafoInput.obtenerEtiquetaVertice(uMin);
+						etiquetaVmin = grafoInput.obtenerEtiquetaVertice(vMin);
 					}
 				}
 			}
 
-			grafoOutputAGM.agregarArista(new Vertice(uMin), new Vertice(vMin), pesoMin);
+			grafoOutputAGM.agregarArista(new Vertice(uMin, etiquetaUmin), new Vertice(vMin, etiquetaVmin), pesoMin);
 			V.add(vMin);
 			i++;
 		}
