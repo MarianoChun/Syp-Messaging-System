@@ -37,8 +37,12 @@ public class GrafoNDPEtiquetado{
 			pesosA[i][j] = pesosA[j][i] = peso;
 			aristas.add(new Arista(primerVertice, segundoVertice, peso));
 		}
-		etiquetas.put(primerVertice.getIndice(), primerVertice.getEtiqueta());
-		etiquetas.put(segundoVertice.getIndice(), segundoVertice.getEtiqueta());
+		agregarEtiquetaAGrafo(primerVertice);
+		agregarEtiquetaAGrafo(segundoVertice);
+	}
+
+	private void agregarEtiquetaAGrafo(Vertice vertice) {
+		etiquetas.put(vertice.getIndice(), vertice.getEtiqueta());
 	}
 	
 	public void eliminarArista(Vertice primerVertice, Vertice segundoVertice) {

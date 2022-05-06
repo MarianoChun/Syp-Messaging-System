@@ -20,8 +20,6 @@ public class Prim {
 		this.grafoInput = grafoInput;
 	}
 
-	// TODO: Hay que adaptar Prim a Vertice. De tal forma que ponga los mismos vertices del grafo input
-	// a el grafo output, para que se guarde la etiqueta de cada vertice.
 	public GrafoNDPEtiquetado obtenerArbolGeneradorMinimo(int vertice) {
 		V.add(vertice);
 		int i = 1;
