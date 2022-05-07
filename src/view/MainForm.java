@@ -108,6 +108,7 @@ public class MainForm {
 
 	}
 
+	//-------------------------metodos aux apartir de aca---------------------------------//
 	private void seleccionarArchivoExcel() {
 		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
 		btnSelectorArchivos.addActionListener(new ActionListener() {
@@ -160,8 +161,6 @@ public class MainForm {
 		btnCompararTiempos.setBounds(708, 342, 230, 23);
 		frmPrincipal.getContentPane().add(btnCompararTiempos);
 	}
-	
-	//-------------------------metodos aux apartir de aca---------------------------------//
 	
 	private void armarTablaConEspias(String path) {
 		String nombreEspia;
