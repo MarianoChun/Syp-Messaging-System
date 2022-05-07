@@ -193,6 +193,15 @@ public class MainForm {
 			tablaRedSegura.setModel(modeloRedSegura);
 		}
 	}
+	
+	private long tiempoEjecucionPrim() {
+		long tiempoInicial = System.currentTimeMillis();
+		armarRedSeguraPrim();
+		long tiempoFinal = (System.currentTimeMillis());
+		long tiempoPrim = (tiempoFinal - tiempoInicial)/1000;
+		
+		return tiempoPrim;
+	}
 
 	private void crearLblFlecha() {
 		JLabel lblFlecha = new JLabel("---------------->");
@@ -230,6 +239,15 @@ public class MainForm {
 			}
 			tablaRedSegura.setModel(modeloRedSegura);
 		}
+	}
+	
+	private long tiempoEjecucionKruskal() {
+		long tiempoInicial = System.currentTimeMillis();
+		armarRedSeguraKruskal();
+		long tiempoFinal = (System.currentTimeMillis());
+		long tiempoKruskal = (tiempoFinal - tiempoInicial)/1000;
+		
+		return tiempoKruskal;
 	}
 
 	private void iniciarTablaRedSegura(JScrollPane scrollPanelRedSegura) {
@@ -298,23 +316,6 @@ public class MainForm {
 		frmPrincipal.getContentPane().setLayout(null);
 	}
 	
-	private long tiempoEjecucionPrim() {
-		long tiempoInicial = System.currentTimeMillis();
-		armarRedSeguraPrim();
-		long tiempoFinal = (System.currentTimeMillis());
-		long tiempoPrim = (tiempoFinal - tiempoInicial)/1000;
-		
-		return tiempoPrim;
-	}
-	
-	private long tiempoEjecucionKruskal() {
-		long tiempoInicial = System.currentTimeMillis();
-		armarRedSeguraKruskal();
-		long tiempoFinal = (System.currentTimeMillis());
-		long tiempoKruskal = (tiempoFinal - tiempoInicial)/1000;
-		
-		return tiempoKruskal;
-	}
 
 	private void iniciarSelectorArchivos() {
 		File directorioAMostrar = new File(System.getProperty("user.dir") + "/src/lista_de_espias");
