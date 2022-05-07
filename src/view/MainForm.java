@@ -124,7 +124,7 @@ public class MainForm {
 						String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
 						comunicador = new ComunicadorEspias(path);
 						
-						armarTablaConEspias();
+						armarTablaConEspias(path);
 						
 						int cantRegistros = tablaRedSegura.getRowCount();
 						if (cantRegistros > 1) {
@@ -154,9 +154,9 @@ public class MainForm {
 	
 	//-------------------------metodos aux apartir de aca---------------------------------//
 	
-	private void armarTablaConEspias() {
-		File archivo = selectorArchivos.getSelectedFile();
-		String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
+	private void armarTablaConEspias(String path) {
+//		File archivo = selectorArchivos.getSelectedFile();
+//		String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
 		String nombreEspia;
 		String nombreCompañero;
 		String probabilidad;
