@@ -1,7 +1,7 @@
 package view;
 
 import java.awt.EventQueue;
-import java.util.Map;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -10,6 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import grafos.GrafoNDPEtiquetado;
 import grafos.Vertice;
@@ -25,7 +30,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.text.DecimalFormat;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class MainForm {
@@ -78,7 +85,7 @@ public class MainForm {
 
 		JScrollPane scrollPanelEspias = iniciarScrollPanelEspias();
 
-		iniciarTablaEspias(scrollPanelEspias);
+		iniciarTablaRedNoSegura(scrollPanelEspias);
 
 		JScrollPane scrollPanelRedSegura = iniciarScrollPanelRedSegura();
 
@@ -101,7 +108,7 @@ public class MainForm {
 			}
 		});
 		btnCompararTiempos.setEnabled(false);
-		btnCompararTiempos.setBounds(612, 257, 230, 23);
+		btnCompararTiempos.setBounds(708, 342, 230, 23);
 		frmPrincipal.getContentPane().add(btnCompararTiempos);
 
 		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
@@ -116,16 +123,14 @@ public class MainForm {
 						File archivo = selectorArchivos.getSelectedFile();
 						String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
 						comunicador = new ComunicadorEspias(path);
-
-						Map<String, Integer> listaEspias = comunicador.obtenerEspias();
-						int cantRegistros = tablaEspias.getRowCount();
+						
+						armarTablaConEspias();
+						
+						int cantRegistros = tablaRedSegura.getRowCount();
 						if (cantRegistros > 1) {
-							removerRegistrosTabla(modeloTablaEspias);
+							removerRegistrosTabla(modeloRedSegura);
 						}
-						for (Map.Entry<String, Integer> entry : listaEspias.entrySet()) {
-							modeloTablaEspias.addRow(new Object[] { entry.getKey() });
-						}
-						tablaEspias.setModel(modeloTablaEspias);
+
 						btnArmarRedSeguraPrim.setEnabled(true);
 						btnArmarRedSeguraKruskal.setEnabled(true);
 						btnCompararTiempos.setEnabled(true);
@@ -138,7 +143,7 @@ public class MainForm {
 				}
 			}
 		});
-		btnSelectorArchivos.setBounds(334, 320, 230, 23);
+		btnSelectorArchivos.setBounds(430, 405, 230, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
 
 		crearLblTituloTablaEspias();
@@ -148,6 +153,57 @@ public class MainForm {
 	}
 	
 	//-------------------------metodos aux apartir de aca---------------------------------//
+	
+	private void armarTablaConEspias() {
+		File archivo = selectorArchivos.getSelectedFile();
+		String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
+		String nombreEspia;
+		String nombreCompañero;
+		String probabilidad;
+		
+		try {
+			int cantRegistros = tablaEspias.getRowCount();
+			if (cantRegistros > 1) {
+				removerRegistrosTabla(modeloTablaEspias);
+			}
+			Iterator<Row> itr = obtenerIteradorExcel(path);
+
+			while (itr.hasNext()) {
+				Row row = itr.next();
+				Cell cell = row.getCell(0);
+				Cell cell1 = row.getCell(1);
+				Cell cell2 = row.getCell(2);
+				if(cell != null && cell1 != null && cell2 != null) {
+					nombreEspia = cell.getStringCellValue().toLowerCase();
+					nombreCompañero = cell1.getStringCellValue().toLowerCase();
+					probabilidad = cell2.getStringCellValue().toLowerCase();
+					modeloTablaEspias.addRow(new Object[] {nombreEspia, nombreCompañero, probabilidad});
+				}
+							
+				tablaEspias.setModel(modeloTablaEspias);
+			}
+		} catch  (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private Iterator<Row> obtenerIteradorExcel(String path) throws FileNotFoundException, IOException {
+		FileInputStream archivo;
+		try {
+			archivo = new FileInputStream(this.getClass().getResource(path).getPath());
+		} catch (NullPointerException e) {
+			archivo = new FileInputStream(path);
+		}
+		// Creamos una instancia Workbook que hace referencia al archivo .xlsx
+		XSSFWorkbook workbook = new XSSFWorkbook(archivo);
+		XSSFSheet sheet = workbook.getSheetAt(0);
+
+		Iterator<Row> itr = sheet.iterator();
+		itr.next();
+		return itr;
+	}
+	
 	private void popUpInfoTiempoDeEjecución(long tiempoPrim, long tiempoKruskal) {
 		StringBuilder str = new StringBuilder();
 
@@ -160,14 +216,14 @@ public class MainForm {
 	private void crearLblTituloRedSegura() {
 		JLabel lblTituloRedSegura = new JLabel("Red segura");
 		lblTituloRedSegura.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloRedSegura.setBounds(598, 21, 112, 14);
+		lblTituloRedSegura.setBounds(762, 21, 112, 14);
 		frmPrincipal.getContentPane().add(lblTituloRedSegura);
 	}
 
 	private void crearLblTituloTablaEspias() {
-		JLabel lblTituloTablaEspias = new JLabel("Lista espias");
+		JLabel lblTituloTablaEspias = new JLabel("Red No Segura");
 		lblTituloTablaEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloTablaEspias.setBounds(77, 21, 122, 14);
+		lblTituloTablaEspias.setBounds(200, 21, 122, 14);
 		frmPrincipal.getContentPane().add(lblTituloTablaEspias);
 	}
 
@@ -180,7 +236,7 @@ public class MainForm {
 		});
 
 		btnArmarRedSeguraPrim.setEnabled(false);
-		btnArmarRedSeguraPrim.setBounds(334, 257, 230, 23);
+		btnArmarRedSeguraPrim.setBounds(430, 342, 230, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
 	}
 
@@ -202,9 +258,9 @@ public class MainForm {
 			tablaRedSegura.setModel(modeloRedSegura);
 		}
 	}
+	
 
 	private long tiempoEjecucionPrim() {
-		
 		long tiempoInicial = System.currentTimeMillis();
 		armarRedSeguraPrim();
 		long tiempoFinal = (System.currentTimeMillis());
@@ -214,8 +270,8 @@ public class MainForm {
 	}
 
 	private void crearLblFlecha() {
-		JLabel lblFlecha = new JLabel("---------------->");
-		lblFlecha.setBounds(301, 117, 87, 14);
+		JLabel lblFlecha = new JLabel("=========>");
+		lblFlecha.setBounds(511, 119, 87, 14);
 		frmPrincipal.getContentPane().add(lblFlecha);
 	}
 
@@ -227,7 +283,7 @@ public class MainForm {
 			}
 		});
 		btnArmarRedSeguraKruskal.setEnabled(false);
-		btnArmarRedSeguraKruskal.setBounds(52, 257, 230, 23);
+		btnArmarRedSeguraKruskal.setBounds(148, 342, 230, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 	}
 
@@ -273,44 +329,45 @@ public class MainForm {
 				return false;
 			}
 		};
-		modeloRedSegura.addColumn("Indice espia");
-		modeloRedSegura.addColumn("Nombre espia");
+		modeloRedSegura.addColumn("Indice espía");
+		modeloRedSegura.addColumn("Nombre espía");
 		modeloRedSegura.addColumn("Compañero");
-		modeloRedSegura.addColumn("Probab. intercepcion");
+		modeloRedSegura.addColumn("Prob. intercepción");
 	}
 
 	private JScrollPane iniciarScrollPanelEspias() {
 		JScrollPane scrollPanelEspias = new JScrollPane();
-		scrollPanelEspias.setBounds(38, 46, 203, 160);
+		scrollPanelEspias.setBounds(50, 46, 445, 223);
 		frmPrincipal.getContentPane().add(scrollPanelEspias);
 		return scrollPanelEspias;
 	}
 
 	private JScrollPane iniciarScrollPanelRedSegura() {
 		JScrollPane scrollPanelRedSegura = new JScrollPane();
-		scrollPanelRedSegura.setBounds(432, 46, 445, 160);
+		scrollPanelRedSegura.setBounds(608, 46, 445, 223);
 		frmPrincipal.getContentPane().add(scrollPanelRedSegura);
 		return scrollPanelRedSegura;
 	}
 
-	private DefaultTableModel iniciarTablaEspias(JScrollPane scrollPanelEspias) {
+	private DefaultTableModel iniciarTablaRedNoSegura(JScrollPane scrollPanelEspias) {
 		tablaEspias = new JTable();
 		tablaEspias.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		iniciarModeloTablaEspias();
+		iniciarModeloRedNoSegura();
 		scrollPanelEspias.setViewportView(tablaEspias);
 		tablaEspias.setBounds(38, 24, 139, 172);
 		return modeloTablaEspias;
 	}
 
-	private void iniciarModeloTablaEspias() {
+	private void iniciarModeloRedNoSegura() {
 		modeloTablaEspias = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-		modeloTablaEspias.addColumn("Nombres espias");
-		tablaEspias.setModel(modeloTablaEspias);
+		modeloTablaEspias.addColumn("Nombre espía");
+		modeloTablaEspias.addColumn("Compañero");
+		modeloTablaEspias.addColumn("Prob. intercepción");
 	}
 
 	private void crearLblComEspias() {
@@ -320,7 +377,7 @@ public class MainForm {
 		frmPrincipal = new JFrame();
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setTitle("Comunicador de espias");
-		frmPrincipal.setBounds(100, 100, 926, 440);
+		frmPrincipal.setBounds(100, 100, 1123, 533);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
 	}
