@@ -46,6 +46,7 @@ public class MainForm {
 	private JButton btnArmarRedSeguraKruskal;
 	private JButton btnArmarRedSeguraPrim;
 	private JButton btnSelectorArchivos;
+	private JButton btnCompararTiempos;
 	private ComunicadorEspias comunicador;
 
 	/**
@@ -97,19 +98,7 @@ public class MainForm {
 
 		crearBtnArmarRedSeguraPrim();
 
-		JButton btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
-		btnCompararTiempos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				long tiempoPrim = tiempoEjecucionPrim();
-				long tiempoKruskal = tiempoEjecucionKruskal();
-
-				popUpInfoTiempoDeEjecución(tiempoPrim, tiempoKruskal);
-			}
-		});
-		btnCompararTiempos.setEnabled(false);
-		btnCompararTiempos.setBounds(708, 342, 230, 23);
-		frmPrincipal.getContentPane().add(btnCompararTiempos);
+		crearBtnCompararTiempos();
 
 		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
 		btnSelectorArchivos.addActionListener(new ActionListener() {
@@ -151,12 +140,26 @@ public class MainForm {
 		crearLblTituloRedSegura();
 
 	}
+
+	private void crearBtnCompararTiempos() {
+		btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
+		btnCompararTiempos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				long tiempoPrim = tiempoEjecucionPrim();
+				long tiempoKruskal = tiempoEjecucionKruskal();
+
+				popUpInfoTiempoDeEjecución(tiempoPrim, tiempoKruskal);
+			}
+		});
+		btnCompararTiempos.setEnabled(false);
+		btnCompararTiempos.setBounds(708, 342, 230, 23);
+		frmPrincipal.getContentPane().add(btnCompararTiempos);
+	}
 	
 	//-------------------------metodos aux apartir de aca---------------------------------//
 	
 	private void armarTablaConEspias(String path) {
-//		File archivo = selectorArchivos.getSelectedFile();
-//		String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
 		String nombreEspia;
 		String nombreCompañero;
 		String probabilidad;
