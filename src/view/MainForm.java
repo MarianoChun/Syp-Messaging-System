@@ -25,6 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 
 public class MainForm {
@@ -151,8 +152,9 @@ public class MainForm {
 		StringBuilder str = new StringBuilder();
 
 		JOptionPane.showMessageDialog(frmPrincipal,
-				str.append("El tiempo de ejecución de Prim fue: ").append(tiempoPrim).append("\n")
-						.append("El tiempo de ejecución de Kruskal fue: ").append(tiempoKruskal));
+				str.append("El tiempo de ejecución de Prim fue: ").append(tiempoPrim).append(" ms.").append("\n")
+						.append("El tiempo de ejecución de Kruskal fue: ").append(tiempoKruskal).append(" ms."));
+		
 	}
 
 	private void crearLblTituloRedSegura() {
@@ -202,10 +204,11 @@ public class MainForm {
 	}
 
 	private long tiempoEjecucionPrim() {
+		
 		long tiempoInicial = System.currentTimeMillis();
 		armarRedSeguraPrim();
 		long tiempoFinal = (System.currentTimeMillis());
-		long tiempoPrim = (tiempoFinal - tiempoInicial) / 1000;
+		long tiempoPrim = (tiempoFinal - tiempoInicial);
 
 		return tiempoPrim;
 	}
@@ -251,7 +254,7 @@ public class MainForm {
 		long tiempoInicial = System.currentTimeMillis();
 		armarRedSeguraKruskal();
 		long tiempoFinal = (System.currentTimeMillis());
-		long tiempoKruskal = (tiempoFinal - tiempoInicial) / 1000;
+		long tiempoKruskal = tiempoFinal - tiempoInicial;
 
 		return tiempoKruskal;
 	}
