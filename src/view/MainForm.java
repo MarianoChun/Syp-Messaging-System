@@ -100,6 +100,15 @@ public class MainForm {
 
 		crearBtnCompararTiempos();
 
+		seleccionarArchivoExcel();
+
+		crearLblTituloTablaEspias();
+
+		crearLblTituloRedSegura();
+
+	}
+
+	private void seleccionarArchivoExcel() {
 		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
 		btnSelectorArchivos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,11 +143,6 @@ public class MainForm {
 		});
 		btnSelectorArchivos.setBounds(430, 405, 230, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
-
-		crearLblTituloTablaEspias();
-
-		crearLblTituloRedSegura();
-
 	}
 
 	private void crearBtnCompararTiempos() {
