@@ -385,6 +385,7 @@ public class MainForm {
 		frmPrincipal.setBounds(100, 100, 1123, 533);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
+		frmPrincipal.setLocationRelativeTo(null);
 	}
 
 	private void iniciarSelectorArchivos() {
