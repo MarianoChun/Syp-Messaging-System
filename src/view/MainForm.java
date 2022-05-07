@@ -333,6 +333,8 @@ public class MainForm {
 		modeloRedSegura.addColumn("Nombre espía");
 		modeloRedSegura.addColumn("Compañero");
 		modeloRedSegura.addColumn("Prob. intercepción");
+		tablaRedSegura.getTableHeader().setReorderingAllowed(false);
+		tablaRedSegura.getTableHeader().setResizingAllowed(false);
 	}
 
 	private JScrollPane iniciarScrollPanelEspias() {
@@ -351,6 +353,7 @@ public class MainForm {
 
 	private DefaultTableModel iniciarTablaRedNoSegura(JScrollPane scrollPanelEspias) {
 		tablaEspias = new JTable();
+		tablaEspias.setRowSelectionAllowed(false);
 		tablaEspias.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		iniciarModeloRedNoSegura();
 		scrollPanelEspias.setViewportView(tablaEspias);
@@ -368,6 +371,8 @@ public class MainForm {
 		modeloTablaEspias.addColumn("Nombre espía");
 		modeloTablaEspias.addColumn("Compañero");
 		modeloTablaEspias.addColumn("Prob. intercepción");
+		tablaEspias.getTableHeader().setReorderingAllowed(false);
+		tablaEspias.getTableHeader().setResizingAllowed(false);
 	}
 
 	private void crearLblComEspias() {
