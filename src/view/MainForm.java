@@ -34,6 +34,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class MainForm {
 
@@ -108,9 +112,12 @@ public class MainForm {
 
 	}
 
-	//-------------------------metodos aux apartir de aca---------------------------------//
+	// -------------------------metodos aux apartir de
+	// aca---------------------------------//
 	private void seleccionarArchivoExcel() {
 		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
+		btnSelectorArchivos.setForeground(new Color(0, 0, 0));
+		btnSelectorArchivos.setBackground(new Color(230, 230, 250));
 		btnSelectorArchivos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FileFilter filtro = new FileNameExtensionFilter("Archivos xlsx (.xlsx)", "xlsx");
@@ -122,9 +129,9 @@ public class MainForm {
 						File archivo = selectorArchivos.getSelectedFile();
 						String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
 						comunicador = new ComunicadorEspias(path);
-						
+
 						armarTablaConEspias(path);
-						
+
 						int cantRegistros = tablaRedSegura.getRowCount();
 						if (cantRegistros > 1) {
 							removerRegistrosTabla(modeloRedSegura);
@@ -148,6 +155,8 @@ public class MainForm {
 
 	private void crearBtnCompararTiempos() {
 		btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
+		btnCompararTiempos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCompararTiempos.setBackground(new Color(216, 191, 216));
 		btnCompararTiempos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -158,15 +167,15 @@ public class MainForm {
 			}
 		});
 		btnCompararTiempos.setEnabled(false);
-		btnCompararTiempos.setBounds(708, 342, 230, 23);
+		btnCompararTiempos.setBounds(708, 342, 230, 34);
 		frmPrincipal.getContentPane().add(btnCompararTiempos);
 	}
-	
+
 	private void armarTablaConEspias(String path) {
 		String nombreEspia;
 		String nombreCompañero;
 		String probabilidad;
-		
+
 		try {
 			int cantRegistros = tablaEspias.getRowCount();
 			if (cantRegistros > 1) {
@@ -179,21 +188,21 @@ public class MainForm {
 				Cell cell = row.getCell(0);
 				Cell cell1 = row.getCell(1);
 				Cell cell2 = row.getCell(2);
-				if(cell != null && cell1 != null && cell2 != null) {
+				if (cell != null && cell1 != null && cell2 != null) {
 					nombreEspia = cell.getStringCellValue().toLowerCase();
 					nombreCompañero = cell1.getStringCellValue().toLowerCase();
 					probabilidad = cell2.getStringCellValue().toLowerCase();
-					modeloTablaEspias.addRow(new Object[] {nombreEspia, nombreCompañero, probabilidad});
+					modeloTablaEspias.addRow(new Object[] { nombreEspia, nombreCompañero, probabilidad });
 				}
-							
+
 				tablaEspias.setModel(modeloTablaEspias);
 			}
-		} catch  (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	private Iterator<Row> obtenerIteradorExcel(String path) throws FileNotFoundException, IOException {
 		FileInputStream archivo;
 		try {
@@ -209,32 +218,36 @@ public class MainForm {
 		itr.next();
 		return itr;
 	}
-	
+
 	private void popUpInfoTiempoDeEjecución(long tiempoPrim, long tiempoKruskal) {
 		StringBuilder str = new StringBuilder();
 
 		JOptionPane.showMessageDialog(frmPrincipal,
 				str.append("El tiempo de ejecución de Prim fue: ").append(tiempoPrim).append(" ms.").append("\n")
 						.append("El tiempo de ejecución de Kruskal fue: ").append(tiempoKruskal).append(" ms."));
-		
+
 	}
 
 	private void crearLblTituloRedSegura() {
 		JLabel lblTituloRedSegura = new JLabel("Red segura");
+		lblTituloRedSegura.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTituloRedSegura.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloRedSegura.setBounds(762, 21, 112, 14);
+		lblTituloRedSegura.setBounds(762, 19, 112, 19);
 		frmPrincipal.getContentPane().add(lblTituloRedSegura);
 	}
 
 	private void crearLblTituloTablaEspias() {
 		JLabel lblTituloTablaEspias = new JLabel("Red No Segura");
+		lblTituloTablaEspias.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTituloTablaEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloTablaEspias.setBounds(200, 21, 122, 14);
+		lblTituloTablaEspias.setBounds(200, 17, 122, 23);
 		frmPrincipal.getContentPane().add(lblTituloTablaEspias);
 	}
 
 	private void crearBtnArmarRedSeguraPrim() {
 		btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
+		btnArmarRedSeguraPrim.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnArmarRedSeguraPrim.setBackground(new Color(216, 191, 216));
 		btnArmarRedSeguraPrim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				armarRedSeguraPrim();
@@ -242,7 +255,7 @@ public class MainForm {
 		});
 
 		btnArmarRedSeguraPrim.setEnabled(false);
-		btnArmarRedSeguraPrim.setBounds(430, 342, 230, 23);
+		btnArmarRedSeguraPrim.setBounds(430, 342, 230, 34);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
 	}
 
@@ -264,7 +277,6 @@ public class MainForm {
 			tablaRedSegura.setModel(modeloRedSegura);
 		}
 	}
-	
 
 	private long tiempoEjecucionPrim() {
 		long tiempoInicial = System.currentTimeMillis();
@@ -283,13 +295,15 @@ public class MainForm {
 
 	private void crearBtnArmarRedSeguraKruskal() {
 		btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
+		btnArmarRedSeguraKruskal.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnArmarRedSeguraKruskal.setBackground(new Color(216, 191, 216));
 		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				armarRedSeguraKruskal();
 			}
 		});
 		btnArmarRedSeguraKruskal.setEnabled(false);
-		btnArmarRedSeguraKruskal.setBounds(148, 342, 230, 23);
+		btnArmarRedSeguraKruskal.setBounds(148, 342, 230, 34);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 	}
 
@@ -323,6 +337,7 @@ public class MainForm {
 
 	private void iniciarTablaRedSegura(JScrollPane scrollPanelRedSegura) {
 		tablaRedSegura = new JTable();
+		tablaRedSegura.setBackground(new Color(204, 255, 204));
 		iniciarModeloRedSegura();
 		tablaRedSegura.setBounds(259, 24, 139, 172);
 		scrollPanelRedSegura.setViewportView(tablaRedSegura);
@@ -345,22 +360,23 @@ public class MainForm {
 
 	private JScrollPane iniciarScrollPanelEspias() {
 		JScrollPane scrollPanelEspias = new JScrollPane();
-		scrollPanelEspias.setBounds(50, 46, 445, 223);
+		scrollPanelEspias.setBounds(50, 46, 445, 249);
 		frmPrincipal.getContentPane().add(scrollPanelEspias);
 		return scrollPanelEspias;
 	}
 
 	private JScrollPane iniciarScrollPanelRedSegura() {
 		JScrollPane scrollPanelRedSegura = new JScrollPane();
-		scrollPanelRedSegura.setBounds(608, 46, 445, 223);
+		scrollPanelRedSegura.setBounds(608, 46, 445, 249);
 		frmPrincipal.getContentPane().add(scrollPanelRedSegura);
 		return scrollPanelRedSegura;
 	}
 
 	private DefaultTableModel iniciarTablaRedNoSegura(JScrollPane scrollPanelEspias) {
 		tablaEspias = new JTable();
-		tablaEspias.setRowSelectionAllowed(false);
 		tablaEspias.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		tablaEspias.setBackground(new Color(255, 204, 153));
+		tablaEspias.setRowSelectionAllowed(false);
 		iniciarModeloRedNoSegura();
 		scrollPanelEspias.setViewportView(tablaEspias);
 		tablaEspias.setBounds(38, 24, 139, 172);
@@ -386,6 +402,7 @@ public class MainForm {
 
 	private void iniciarFrmPrincipal() {
 		frmPrincipal = new JFrame();
+		frmPrincipal.getContentPane().setBackground(new Color(250, 235, 215));
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setTitle("Comunicador de espias");
 		frmPrincipal.setBounds(100, 100, 1123, 533);
