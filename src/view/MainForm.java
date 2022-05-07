@@ -93,11 +93,16 @@ public class MainForm {
 		btnCompararTiempos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				long tiempoPrim = tiempoEjecucionPrim();
+				long tiempoKruskal = tiempoEjecucionKruskal();
+				
+				System.out.println("Prim " + tiempoPrim + "  " + "Kruskal " + tiempoKruskal);
 			}
 		});
 		btnCompararTiempos.setEnabled(false);
 		btnCompararTiempos.setBounds(612, 257, 230, 23);
 		frmPrincipal.getContentPane().add(btnCompararTiempos);
+		
 
 		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
 		btnSelectorArchivos.addActionListener(new ActionListener() {
@@ -197,6 +202,13 @@ public class MainForm {
 
 	private void crearBtnArmarRedSeguraKruskal() {
 		btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
+		armarRedSeguraKruskal();
+		btnArmarRedSeguraKruskal.setEnabled(false);
+		btnArmarRedSeguraKruskal.setBounds(52, 257, 230, 23);
+		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
+	}
+	
+	private void armarRedSeguraKruskal() {
 		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSeguraKruskal();
@@ -219,9 +231,6 @@ public class MainForm {
 				}
 			}
 		});
-		btnArmarRedSeguraKruskal.setEnabled(false);
-		btnArmarRedSeguraKruskal.setBounds(52, 257, 230, 23);
-		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 	}
 
 	private void iniciarTablaRedSegura(JScrollPane scrollPanelRedSegura) {
@@ -288,6 +297,24 @@ public class MainForm {
 		frmPrincipal.setBounds(100, 100, 926, 440);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
+	}
+	
+	private long tiempoEjecucionPrim() {
+		long tiempoInicial = System.currentTimeMillis();
+		armarRedSeguraPrim();
+		long tiempoFinal = (System.currentTimeMillis());
+		long tiempoPrim = (tiempoFinal - tiempoInicial)/1000;
+		
+		return tiempoPrim;
+	}
+	
+	private long tiempoEjecucionKruskal() {
+		long tiempoInicial = System.currentTimeMillis();
+		armarRedSeguraKruskal();
+		long tiempoFinal = (System.currentTimeMillis());
+		long tiempoKruskal = (tiempoFinal - tiempoInicial)/1000;
+		
+		return tiempoKruskal;
 	}
 
 	private void iniciarSelectorArchivos() {
