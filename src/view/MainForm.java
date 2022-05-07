@@ -32,8 +32,11 @@ public class MainForm {
 	private JTable tablaEspias;
 	private JTable tablaRedSegura;
 	private JFileChooser selectorArchivos;
-	DefaultTableModel modeloTablaEspias;
-	DefaultTableModel modeloRedSegura;
+	private DefaultTableModel modeloTablaEspias;
+	private DefaultTableModel modeloRedSegura;
+	private JButton btnArmarRedSeguraKruskal;
+	private JButton btnArmarRedSeguraPrim;
+	private JButton btnSelectorArchivos;
 	private ComunicadorEspias comunicador;
 	
 
@@ -80,77 +83,23 @@ public class MainForm {
 
 		iniciarTablaRedSegura(scrollPanelRedSegura);
 
+		crearBtnArmarRedSeguraKruskal();
 
-		JButton btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
-		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSeguraKruskal();
-				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
-				int cantRegistros = tablaEspias.getRowCount();
-				if (cantRegistros > 1) {
-					removerRegistrosTabla(modeloRedSegura);
-				}
-				for (Integer vertice : recorrido) {
-					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
-					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
-						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
-						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
-								new Vertice(vecinoActual));
-						modeloRedSegura
-								.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
-					}
+		crearLblFlecha();
 
-					tablaRedSegura.setModel(modeloRedSegura);
-				}
-			}
-		});
-		btnArmarRedSeguraKruskal.setEnabled(false);
-		btnArmarRedSeguraKruskal.setBounds(52, 257, 230, 23);
-		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
-
-		JLabel lblFlecha = new JLabel("---------------->");
-		lblFlecha.setBounds(301, 117, 87, 14);
-
-		frmPrincipal.getContentPane().add(lblFlecha);
-
-		JButton btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
-		btnArmarRedSeguraPrim.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSeguraPrim();
-				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
-				int cantRegistros = tablaEspias.getRowCount();
-				if (cantRegistros > 1) {
-					removerRegistrosTabla(modeloRedSegura);
-				}
-				for (Integer vertice : recorrido) {
-					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
-					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
-						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
-						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
-								new Vertice(vecinoActual));
-						modeloRedSegura
-								.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
-					}
-
-					tablaRedSegura.setModel(modeloRedSegura);
-				}
-			}
-		});
-		btnArmarRedSeguraPrim.setEnabled(false);
-		btnArmarRedSeguraPrim.setBounds(334, 257, 230, 23);
-		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
+		crearBtnArmarRedSeguraPrim();
 		
 		JButton btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
 		btnCompararTiempos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				
 			}
 		});
 		btnCompararTiempos.setEnabled(false);
 		btnCompararTiempos.setBounds(612, 257, 230, 23);
 		frmPrincipal.getContentPane().add(btnCompararTiempos);
 
-		JButton btnSelectorArchivos = new JButton("Seleccionar archivo excel");
+		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
 		btnSelectorArchivos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FileFilter filtro = new FileNameExtensionFilter("Archivos xlsx (.xlsx)", "xlsx");
@@ -187,16 +136,92 @@ public class MainForm {
 		btnSelectorArchivos.setBounds(334, 320, 230, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
 
-		JLabel lblTituloTablaEspias = new JLabel("Lista espias");
-		lblTituloTablaEspias.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloTablaEspias.setBounds(77, 21, 122, 14);
-		frmPrincipal.getContentPane().add(lblTituloTablaEspias);
+		crearLblTituloTablaEspias();
 
+		crearLblTituloRedSegura();
+
+	}
+
+	private void crearLblTituloRedSegura() {
 		JLabel lblTituloRedSegura = new JLabel("Red segura");
 		lblTituloRedSegura.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTituloRedSegura.setBounds(598, 21, 112, 14);
 		frmPrincipal.getContentPane().add(lblTituloRedSegura);
+	}
 
+	private void crearLblTituloTablaEspias() {
+		JLabel lblTituloTablaEspias = new JLabel("Lista espias");
+		lblTituloTablaEspias.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTituloTablaEspias.setBounds(77, 21, 122, 14);
+		frmPrincipal.getContentPane().add(lblTituloTablaEspias);
+	}
+
+	private void crearBtnArmarRedSeguraPrim() {
+		btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
+		armarRedSeguraPrim();
+		btnArmarRedSeguraPrim.setEnabled(false);
+		btnArmarRedSeguraPrim.setBounds(334, 257, 230, 23);
+		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
+	}
+
+	private void armarRedSeguraPrim() {
+		btnArmarRedSeguraPrim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSeguraPrim();
+				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
+				int cantRegistros = tablaEspias.getRowCount();
+				if (cantRegistros > 1) {
+					removerRegistrosTabla(modeloRedSegura);
+				}
+				for (Integer vertice : recorrido) {
+					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
+					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
+						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
+						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
+								new Vertice(vecinoActual));
+						modeloRedSegura
+								.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+					}
+
+					tablaRedSegura.setModel(modeloRedSegura);
+				}
+			}
+		});
+	}
+
+	private void crearLblFlecha() {
+		JLabel lblFlecha = new JLabel("---------------->");
+		lblFlecha.setBounds(301, 117, 87, 14);
+		frmPrincipal.getContentPane().add(lblFlecha);
+	}
+
+	private void crearBtnArmarRedSeguraKruskal() {
+		btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
+		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSeguraKruskal();
+				Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
+				int cantRegistros = tablaEspias.getRowCount();
+				if (cantRegistros > 1) {
+					removerRegistrosTabla(modeloRedSegura);
+				}
+				for (Integer vertice : recorrido) {
+					String nombreEspia = redSegura.obtenerEtiquetaVertice(vertice);
+					for (Integer vecinoActual : redSegura.vecinos(vertice)) {
+						String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
+						double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
+								new Vertice(vecinoActual));
+						modeloRedSegura
+								.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+					}
+
+					tablaRedSegura.setModel(modeloRedSegura);
+				}
+			}
+		});
+		btnArmarRedSeguraKruskal.setEnabled(false);
+		btnArmarRedSeguraKruskal.setBounds(52, 257, 230, 23);
+		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 	}
 
 	private void iniciarTablaRedSegura(JScrollPane scrollPanelRedSegura) {
