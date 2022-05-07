@@ -245,14 +245,14 @@ public class GrafoNDPEtiquetado {
 		} else if (!etiquetas.equals(other.etiquetas)) {
 			return false;
 		}
-		
+
 		if (aristas == null) {
 			if (other.aristas != null)
 				return false;
 		} else {
 			return sonAristasIguales(other);
 		}
-		
+
 		return true;
 	}
 

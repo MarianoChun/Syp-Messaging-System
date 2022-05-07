@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -38,7 +39,6 @@ public class MainForm {
 	private JButton btnArmarRedSeguraPrim;
 	private JButton btnSelectorArchivos;
 	private ComunicadorEspias comunicador;
-	
 
 	/**
 	 * Launch the application.
@@ -88,21 +88,20 @@ public class MainForm {
 		crearLblFlecha();
 
 		crearBtnArmarRedSeguraPrim();
-		
+
 		JButton btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
 		btnCompararTiempos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				long tiempoPrim = tiempoEjecucionPrim();
 				long tiempoKruskal = tiempoEjecucionKruskal();
-				
-				System.out.println("Prim " + tiempoPrim + "  " + "Kruskal " + tiempoKruskal);
+
+				popUpInfoTiempoDeEjecución(tiempoPrim, tiempoKruskal);
 			}
 		});
 		btnCompararTiempos.setEnabled(false);
 		btnCompararTiempos.setBounds(612, 257, 230, 23);
 		frmPrincipal.getContentPane().add(btnCompararTiempos);
-		
 
 		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
 		btnSelectorArchivos.addActionListener(new ActionListener() {
@@ -146,6 +145,15 @@ public class MainForm {
 		crearLblTituloRedSegura();
 
 	}
+	
+	//-------------------------metodos aux apartir de aca---------------------------------//
+	private void popUpInfoTiempoDeEjecución(long tiempoPrim, long tiempoKruskal) {
+		StringBuilder str = new StringBuilder();
+
+		JOptionPane.showMessageDialog(frmPrincipal,
+				str.append("El tiempo de ejecución de Prim fue: ").append(tiempoPrim).append("\n")
+						.append("El tiempo de ejecución de Kruskal fue: ").append(tiempoKruskal));
+	}
 
 	private void crearLblTituloRedSegura() {
 		JLabel lblTituloRedSegura = new JLabel("Red segura");
@@ -187,19 +195,18 @@ public class MainForm {
 				String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
 				double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
 						new Vertice(vecinoActual));
-				modeloRedSegura
-						.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+				modeloRedSegura.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
 			}
 			tablaRedSegura.setModel(modeloRedSegura);
 		}
 	}
-	
+
 	private long tiempoEjecucionPrim() {
 		long tiempoInicial = System.currentTimeMillis();
 		armarRedSeguraPrim();
 		long tiempoFinal = (System.currentTimeMillis());
-		long tiempoPrim = (tiempoFinal - tiempoInicial)/1000;
-		
+		long tiempoPrim = (tiempoFinal - tiempoInicial) / 1000;
+
 		return tiempoPrim;
 	}
 
@@ -220,7 +227,7 @@ public class MainForm {
 		btnArmarRedSeguraKruskal.setBounds(52, 257, 230, 23);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 	}
-	
+
 	private void armarRedSeguraKruskal() {
 		GrafoNDPEtiquetado redSegura = comunicador.obtenerRedSeguraKruskal();
 		Set<Integer> recorrido = new BFS(redSegura).verticesAlcanzablesDesdeVertice(0);
@@ -234,19 +241,18 @@ public class MainForm {
 				String nombreVecino = redSegura.obtenerEtiquetaVertice(vecinoActual);
 				double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
 						new Vertice(vecinoActual));
-				modeloRedSegura
-						.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+				modeloRedSegura.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
 			}
 			tablaRedSegura.setModel(modeloRedSegura);
 		}
 	}
-	
+
 	private long tiempoEjecucionKruskal() {
 		long tiempoInicial = System.currentTimeMillis();
 		armarRedSeguraKruskal();
 		long tiempoFinal = (System.currentTimeMillis());
-		long tiempoKruskal = (tiempoFinal - tiempoInicial)/1000;
-		
+		long tiempoKruskal = (tiempoFinal - tiempoInicial) / 1000;
+
 		return tiempoKruskal;
 	}
 
@@ -260,9 +266,9 @@ public class MainForm {
 	private void iniciarModeloRedSegura() {
 		modeloRedSegura = new DefaultTableModel() {
 			@Override
-		    public boolean isCellEditable(int row, int column) {
-		       return false;
-		    }
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
 		modeloRedSegura.addColumn("Indice espia");
 		modeloRedSegura.addColumn("Nombre espia");
@@ -296,9 +302,9 @@ public class MainForm {
 	private void iniciarModeloTablaEspias() {
 		modeloTablaEspias = new DefaultTableModel() {
 			@Override
-		    public boolean isCellEditable(int row, int column) {
-		       return false;
-		    }
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
 		modeloTablaEspias.addColumn("Nombres espias");
 		tablaEspias.setModel(modeloTablaEspias);
@@ -315,7 +321,6 @@ public class MainForm {
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
 	}
-	
 
 	private void iniciarSelectorArchivos() {
 		File directorioAMostrar = new File(System.getProperty("user.dir") + "/src/lista_de_espias");

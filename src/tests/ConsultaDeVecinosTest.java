@@ -34,7 +34,7 @@ public class ConsultaDeVecinosTest {
 		Vertice v2 = new Vertice(1, "1");
 		Vertice v3 = new Vertice(2, "2");
 		Vertice v4 = new Vertice(3, "3");
-		
+
 		grafo.agregarArista(v1, v2, 0.1);
 		grafo.agregarArista(v1, v3, 0.1);
 		grafo.agregarArista(v1, v4, 0.1);
@@ -46,12 +46,12 @@ public class ConsultaDeVecinosTest {
 	@Test
 	public void verticeNormalTest() {
 		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
-		
+
 		Vertice v1 = new Vertice(1, "1");
 		Vertice v2 = new Vertice(2, "2");
 		Vertice v3 = new Vertice(3, "3");
 		Vertice v4 = new Vertice(4, "4");
-		
+
 		grafo.agregarArista(v1, v3, 0.1);
 		grafo.agregarArista(v2, v3, 0.1);
 		grafo.agregarArista(v2, v4, 0.1);

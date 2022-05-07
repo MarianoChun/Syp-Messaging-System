@@ -21,17 +21,16 @@ public class GrafoNDPEtiquetadoTest {
 
 		assertTrue(g.existeArista(3, 2));
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void agregarAristaIguales() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
-		
-		g.agregarArista(new Vertice(0, "Juan"), new Vertice(0, "Juan"), 0.5);	
+
+		g.agregarArista(new Vertice(0, "Juan"), new Vertice(0, "Juan"), 0.5);
 
 		g.agregarArista(new Vertice(0, "Juan"), new Vertice(0, "Juan"), 0.5);
 	}
 
-	
 	@Test
 	public void eliminarAristaTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(5);
@@ -46,17 +45,16 @@ public class GrafoNDPEtiquetadoTest {
 	@Test
 	public void eliminarAristaDeArrayDeAristasTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
-		
+
 		ArrayList<Arista> vacio = new ArrayList<Arista>();
 		Vertice vertice1 = new Vertice(2, "2");
 		Vertice vertice2 = new Vertice(3, "3");
-		
+
 		g.agregarArista(vertice1, vertice2, 0.1);
 		g.eliminarArista(vertice1, vertice2);
 		assertEquals(vacio, g.getAristas());
 	}
 
-	
 	@Test
 	public void aristaInexistenteTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
@@ -83,16 +81,16 @@ public class GrafoNDPEtiquetadoTest {
 
 		assertTrue(esperado == g.obtenerPesoArista(new Vertice(4), new Vertice(0)));
 	}
-	
+
 	@Test
 	public void obtenerPesoInversoTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
-		
+
 		g.agregarArista(new Vertice(1, "1"), new Vertice(2, "2"), 0.8);
-		
+
 		Assert.equals(0.8, g.obtenerPesoArista(new Vertice(2), new Vertice(1)));
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void obtenerPesoAristaInexistenteTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(6);
@@ -103,17 +101,15 @@ public class GrafoNDPEtiquetadoTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void obtenerPesoAristaEliminada() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(9);
-		
+
 		Vertice vertice1 = new Vertice(0);
 		Vertice vertice2 = new Vertice(1);
-		
+
 		g.agregarArista(vertice1, vertice2, 0.9);
 		g.eliminarArista(vertice2, vertice1);
-		
 
 		g.obtenerPesoArista(vertice1, vertice2);
 	}
-
 
 //	@Test(expected = IllegalArgumentException.class)
 //	public void agregarArista1VerticeNoEtiquetadoTest() {

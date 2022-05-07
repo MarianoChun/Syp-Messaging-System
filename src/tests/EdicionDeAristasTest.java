@@ -44,7 +44,7 @@ public class EdicionDeAristasTest {
 	public void agregarLoopTest() {
 		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
 		Vertice v1 = new Vertice(2, "2");
-		
+
 		grafo.agregarArista(v1, v1, 0.1);
 	}
 
@@ -53,9 +53,9 @@ public class EdicionDeAristasTest {
 		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
 		Vertice v1 = new Vertice(2, "2");
 		Vertice v2 = new Vertice(3, "3");
-		
+
 		grafo.agregarArista(v1, v2, 0.1);
-		
+
 		assertTrue(grafo.existeArista(v1.getIndice(), v2.getIndice()));
 	}
 
@@ -65,7 +65,7 @@ public class EdicionDeAristasTest {
 		Vertice v1 = new Vertice(2, "2");
 		Vertice v2 = new Vertice(3, "3");
 		grafo.agregarArista(v1, v2, 0.1);
-		
+
 		assertTrue(grafo.existeArista(v2.getIndice(), v1.getIndice()));
 	}
 
@@ -74,7 +74,7 @@ public class EdicionDeAristasTest {
 		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
 		Vertice v1 = new Vertice(2, "2");
 		Vertice v2 = new Vertice(3, "3");
-		
+
 		grafo.agregarArista(v1, v2, 0.1);
 
 		assertFalse(grafo.existeArista(1, 4));
@@ -96,11 +96,11 @@ public class EdicionDeAristasTest {
 		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
 		Vertice v1 = new Vertice(2, "2");
 		Vertice v2 = new Vertice(4, "4");
-		
+
 		grafo.agregarArista(v1, v2, 0.1);
 
 		grafo.eliminarArista(v1, v2);
-		
+
 		assertFalse(grafo.existeArista(v1.getIndice(), v2.getIndice()));
 	}
 
@@ -109,9 +109,9 @@ public class EdicionDeAristasTest {
 		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
 		Vertice v1 = new Vertice(2, "2");
 		Vertice v2 = new Vertice(4, "4");
-		
+
 		grafo.eliminarArista(v1, v2);
-		
+
 		assertFalse(grafo.existeArista(v1.getIndice(), v2.getIndice()));
 	}
 
@@ -120,7 +120,7 @@ public class EdicionDeAristasTest {
 		GrafoNDPEtiquetado grafo = new GrafoNDPEtiquetado(5);
 		Vertice v1 = new Vertice(2, "2");
 		Vertice v2 = new Vertice(4, "4");
-		
+
 		grafo.agregarArista(v1, v2, 0.1);
 		grafo.eliminarArista(v1, v2);
 		grafo.eliminarArista(v1, v2);

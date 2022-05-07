@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import grafos.GrafoNDPEtiquetado;
 
-
 public class UnionFind {
 	private ArrayList<Integer> vertices;
 
