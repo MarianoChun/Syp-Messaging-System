@@ -45,6 +45,7 @@ import java.awt.Cursor;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.Window.Type;
 
 public class MainForm {
 
@@ -122,16 +123,19 @@ public class MainForm {
 	// ----------------------------------------------------------//
 	private void seleccionarArchivoExcel() {
 		btnSelectorArchivos = new JButton("Seleccionar archivo Excel");
+		btnSelectorArchivos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSelectorArchivos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnSelectorArchivos.setForeground(new Color(0, 0, 0));
 				btnSelectorArchivos.setBackground(new Color(204, 204, 255));
+				btnSelectorArchivos.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnSelectorArchivos.setForeground(new Color(0, 0, 0));
 				btnSelectorArchivos.setBackground(new Color(230, 230, 250));
+				btnSelectorArchivos.setFont(new Font("Tahoma", Font.BOLD, 11));
 			}
 		});
 		btnSelectorArchivos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -155,9 +159,9 @@ public class MainForm {
 						btnArmarRedSeguraPrim.setEnabled(true);
 						btnArmarRedSeguraKruskal.setEnabled(true);
 						btnCompararTiempos.setEnabled(true);
-						cambiarColorDeBotones(btnArmarRedSeguraPrim);
-						cambiarColorDeBotones(btnArmarRedSeguraKruskal);
-						cambiarColorDeBotones(btnCompararTiempos);
+						cambiarEstiloBotones(btnArmarRedSeguraPrim);
+						cambiarEstiloBotones(btnArmarRedSeguraKruskal);
+						cambiarEstiloBotones(btnCompararTiempos);
 
 					} catch (Exception ex) {
 						System.out.println(ex.getMessage());
@@ -171,15 +175,17 @@ public class MainForm {
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
 	}
 	
-	private void cambiarColorDeBotones(JButton btn) {
+	private void cambiarEstiloBotones(JButton btn) {
 		btn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btn.setBackground(new Color(204, 153, 204));
+				btn.setFont(new Font("Tahoma", Font.BOLD, 12));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btn.setBackground(new Color(216, 191, 216));
+				btn.setFont(new Font("Tahoma", Font.BOLD, 11));
 			}
 		});
 	}
@@ -453,9 +459,11 @@ public class MainForm {
 
 	private void iniciarFrmPrincipal() {
 		frmPrincipal = new JFrame();
+		frmPrincipal.setType(Type.POPUP);
+		frmPrincipal.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		frmPrincipal.getContentPane().setBackground(new Color(250, 235, 215));
 		frmPrincipal.setResizable(false);
-		frmPrincipal.setTitle("Comunicador de espias");
+		frmPrincipal.setTitle("Comunicador de espías");
 		frmPrincipal.setBounds(100, 100, 1123, 533);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
