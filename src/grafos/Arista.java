@@ -37,22 +37,21 @@ public class Arista implements Comparable<Object> {
 
 	@Override
 	public boolean equals(Object obj) {
+		Arista other = (Arista) obj;
+		
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Arista other = (Arista) obj;
-		if (peso != other.peso) {
+		
+		if (peso != other.peso) 
 			return false;
-		}
-		if (!primerExtremo.equals(other.primerExtremo) && !primerExtremo.equals(other.segundoExtremo)) {
+		if (!primerExtremo.equals(other.primerExtremo) && !primerExtremo.equals(other.segundoExtremo)) 
 			return false;
-		}
-		if (!segundoExtremo.equals(other.segundoExtremo) && !segundoExtremo.equals(other.primerExtremo)) {
+		if (!segundoExtremo.equals(other.segundoExtremo) && !segundoExtremo.equals(other.primerExtremo)) 
 			return false;
-		}
 		if (primerExtremo.equals(other.primerExtremo) && segundoExtremo.equals(other.segundoExtremo))
 			return true;
 		if (primerExtremo.equals(other.primerExtremo) && segundoExtremo.equals(other.segundoExtremo))

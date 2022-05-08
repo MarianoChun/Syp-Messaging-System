@@ -20,13 +20,6 @@ public class ComunicadorEspias {
 	private String pathExcel;
 	private GrafoNDPEtiquetado redEspias;
 
-	public ComunicadorEspias() {
-		this.pathExcel = "/lista_de_espias/lista-de-espias.xlsx";
-		this.espias = new CargadorEspias(pathExcel);
-		this.redEspias = new GrafoNDPEtiquetado(espias.cantidadEspias());
-		agregarComunicacionDesdeExcel();
-	}
-
 	public ComunicadorEspias(String pathExcel) {
 		this.pathExcel = pathExcel;
 		this.espias = new CargadorEspias(pathExcel);
