@@ -9,13 +9,13 @@ import grafos.Vertice;
 import recorridos.BFS;
 
 public class Prim {
-	private Set<Integer> vertices;
+	private Set<Integer> verticesMarcados;
 	private GrafoNDPEtiquetado grafoOutputAGM;
 	private GrafoNDPEtiquetado grafoInput;
 
 	public Prim(GrafoNDPEtiquetado grafoInput) {
 		verificarGrafoConexo(grafoInput);
-		this.vertices = new HashSet<Integer>();
+		this.verticesMarcados = new HashSet<Integer>();
 		this.grafoOutputAGM = new GrafoNDPEtiquetado(grafoInput.tamaño());
 		this.grafoInput = grafoInput;
 	}
@@ -27,12 +27,12 @@ public class Prim {
 		Vertice vecinoMin = null;
 		Set<Integer> vecinosVerticeMarcado;
 		
-		vertices.add(vertice);
+		verticesMarcados.add(vertice);
 		
 		while (i <= grafoInput.tamaño() - 1) {
 			pesoMin = Double.MAX_VALUE;
 
-			for (int verticeMarcado : vertices) {			
+			for (int verticeMarcado : verticesMarcados) {			
 				
 				vecinosVerticeMarcado = grafoInput.vecinos(verticeMarcado);		
 				
@@ -49,14 +49,14 @@ public class Prim {
 			}
 
 			grafoOutputAGM.agregarArista(verticeMin, vecinoMin, pesoMin);
-			vertices.add(vecinoMin.getIndice());
+			verticesMarcados.add(vecinoMin.getIndice());
 			i++;
 		}
 		return grafoOutputAGM;
 	}
 
 	private boolean estanTodosLosVecinosDelVerticeMarcados(Set<Integer> vecinosVerticeMarcado) {
-		return vertices.containsAll(vecinosVerticeMarcado);
+		return verticesMarcados.containsAll(vecinosVerticeMarcado);
 	}
 	
 	private boolean pesoEsIgual(double pesoActual, double pesoNuevo) {
@@ -87,7 +87,7 @@ public class Prim {
 	}
 
 	private boolean esVerticeMarcado(int vertice) {
-		return vertices.contains(vertice);
+		return verticesMarcados.contains(vertice);
 	}
 
 	private void verificarGrafoConexo(GrafoNDPEtiquetado grafoInput) {
