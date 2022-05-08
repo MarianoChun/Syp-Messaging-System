@@ -3,7 +3,6 @@ package interfaz;
 import java.awt.EventQueue;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -145,7 +144,7 @@ public class MainForm {
 				}
 			}
 		});
-		btnSelectorArchivos.setBounds(430, 404, 230, 23);
+		btnSelectorArchivos.setBounds(428, 411, 253, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
 	}
 
@@ -163,7 +162,7 @@ public class MainForm {
 			}
 		});
 		btnCompararTiempos.setEnabled(false);
-		btnCompararTiempos.setBounds(708, 342, 230, 34);
+		btnCompararTiempos.setBounds(708, 342, 253, 34);
 		frmPrincipal.getContentPane().add(btnCompararTiempos);
 	}
 
@@ -259,7 +258,7 @@ public class MainForm {
 		});
 
 		btnArmarRedSeguraPrim.setEnabled(false);
-		btnArmarRedSeguraPrim.setBounds(430, 342, 230, 34);
+		btnArmarRedSeguraPrim.setBounds(428, 342, 253, 34);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
 	}
 
@@ -298,7 +297,7 @@ public class MainForm {
 
 	private void crearLblFlecha() {
 		JLabel lblFlecha = new JLabel("=========>");
-		lblFlecha.setBounds(511, 119, 87, 14);
+		lblFlecha.setBounds(511, 174, 87, 14);
 		frmPrincipal.getContentPane().add(lblFlecha);
 	}
 
@@ -312,7 +311,7 @@ public class MainForm {
 			}
 		});
 		btnArmarRedSeguraKruskal.setEnabled(false);
-		btnArmarRedSeguraKruskal.setBounds(148, 342, 230, 34);
+		btnArmarRedSeguraKruskal.setBounds(148, 342, 253, 34);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 	}
 
