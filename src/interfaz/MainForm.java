@@ -16,8 +16,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
 import recorridos.BFS;
 import sistema_espias.ComunicadorEspias;
 import sistema_espias.ThreadTime;
@@ -40,6 +38,10 @@ import java.awt.Font;
 import javax.swing.JSeparator;
 import java.awt.Canvas;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
+
 import javax.swing.ScrollPaneConstants;
 import java.awt.Cursor;
 import java.awt.event.MouseMotionAdapter;

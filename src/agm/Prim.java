@@ -3,9 +3,9 @@ package agm;
 import java.util.HashSet;
 import java.util.Set;
 
-import grafos.Arista;
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.Arista;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 import recorridos.BFS;
 
 public class Prim {

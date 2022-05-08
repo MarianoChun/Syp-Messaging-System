@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 
 public class EdicionDeAristasTest {
 	@Test(expected = IllegalArgumentException.class)

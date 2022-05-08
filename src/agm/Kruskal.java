@@ -3,9 +3,9 @@ package agm;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import grafos.Arista;
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.Arista;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 import recorridos.BFS;
 import union_find.UnionFind;
 

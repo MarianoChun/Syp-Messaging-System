@@ -8,8 +8,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 import sistema_espias.ComunicadorEspias;
 
 public class ComunicadorEspiasTest2 {

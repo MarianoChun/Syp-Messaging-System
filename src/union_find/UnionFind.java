@@ -2,7 +2,7 @@ package union_find;
 
 import java.util.ArrayList;
 
-import grafos.GrafoNDPEtiquetado;
+import grafo.GrafoNDPEtiquetado;
 
 public class UnionFind {
 	private ArrayList<Integer> vertices;

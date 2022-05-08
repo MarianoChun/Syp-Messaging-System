@@ -1,4 +1,4 @@
-package grafos;
+package grafo;
 
 public class Vertice {
 	private int indice;

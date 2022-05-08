@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Test;
 import agm.Kruskal;
-import grafos.Arista;
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.Arista;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 
 public class KruskalTest {
 

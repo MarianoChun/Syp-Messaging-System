@@ -1,4 +1,4 @@
-package grafos;
+package grafo;
 
 public class Arista implements Comparable<Object> {
 	private Vertice primerExtremo;

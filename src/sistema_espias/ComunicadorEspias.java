@@ -12,8 +12,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import agm.Kruskal;
 import agm.Prim;
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 
 public class ComunicadorEspias {
 	private CargadorEspias espias;

@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 
 public class ConjuntoDeVerticesTest {
 

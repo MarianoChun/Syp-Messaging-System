@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import agm.Prim;
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 
 public class PrimTest {
 

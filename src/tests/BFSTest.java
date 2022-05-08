@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
 
-import grafos.GrafoNDPEtiquetado;
-import grafos.Vertice;
+import grafo.GrafoNDPEtiquetado;
+import grafo.Vertice;
 import recorridos.BFS;
 
 public class BFSTest {
