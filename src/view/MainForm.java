@@ -36,8 +36,6 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
 
 public class MainForm {
 
@@ -84,8 +82,6 @@ public class MainForm {
 
 		iniciarFrmPrincipal();
 
-		crearLblComEspias();
-
 		// Definimos los modelos de las dos tablas (de espias y red segura)
 
 		JScrollPane scrollPanelEspias = iniciarScrollPanelEspias();
@@ -112,8 +108,7 @@ public class MainForm {
 
 	}
 
-	// -------------------------metodos aux apartir de
-	// aca---------------------------------//
+	// ----------------------------------------------------------//
 	private void seleccionarArchivoExcel() {
 		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
 		btnSelectorArchivos.setForeground(new Color(0, 0, 0));
@@ -130,12 +125,8 @@ public class MainForm {
 						String path = archivo.getAbsolutePath().replaceAll("\\\\", "/");
 						comunicador = new ComunicadorEspias(path);
 
+						limpiarTablas();
 						armarTablaConEspias(path);
-
-						int cantRegistros = tablaRedSegura.getRowCount();
-						if (cantRegistros > 1) {
-							removerRegistrosTabla(modeloRedSegura);
-						}
 
 						btnArmarRedSeguraPrim.setEnabled(true);
 						btnArmarRedSeguraKruskal.setEnabled(true);
@@ -149,7 +140,7 @@ public class MainForm {
 				}
 			}
 		});
-		btnSelectorArchivos.setBounds(430, 405, 230, 23);
+		btnSelectorArchivos.setBounds(430, 404, 230, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
 	}
 
@@ -177,10 +168,7 @@ public class MainForm {
 		String probabilidad;
 
 		try {
-			int cantRegistros = tablaEspias.getRowCount();
-			if (cantRegistros > 1) {
-				removerRegistrosTabla(modeloTablaEspias);
-			}
+			limpiarTablas();
 			Iterator<Row> itr = obtenerIteradorExcel(path);
 
 			while (itr.hasNext()) {
@@ -200,7 +188,18 @@ public class MainForm {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	private void limpiarTablas() {
+		int cantRegistros = tablaEspias.getRowCount();
+		if (cantRegistros > 1) {
+			removerRegistrosTabla(modeloTablaEspias);
+		}
+		
+		cantRegistros = tablaRedSegura.getRowCount();
+		if (cantRegistros > 1) {
+			removerRegistrosTabla(modeloRedSegura);
+		}
 	}
 
 	private Iterator<Row> obtenerIteradorExcel(String path) throws FileNotFoundException, IOException {
@@ -395,9 +394,6 @@ public class MainForm {
 		modeloTablaEspias.addColumn("Prob. intercepción");
 		tablaEspias.getTableHeader().setReorderingAllowed(false);
 		tablaEspias.getTableHeader().setResizingAllowed(false);
-	}
-
-	private void crearLblComEspias() {
 	}
 
 	private void iniciarFrmPrincipal() {
