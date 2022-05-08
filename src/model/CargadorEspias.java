@@ -40,11 +40,11 @@ public class CargadorEspias {
 
 					// Ignora el nombre de la columna !nombreEspia.equals("Nombre") &&
 					// !nombreEspia.equals("Compañero") &&
-					if (!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 0) {
+					if (!esNombreVacio(nombreEspia) && !existeEspia(nombreEspia) && cell.getColumnIndex() == 0) {
 						espias.putIfAbsent(nombreEspia, i);
 						i++;
 					}
-					if (!nombreEspia.equals("") && !existeEspia(nombreEspia) && cell.getColumnIndex() == 1) {
+					if (!esNombreVacio(nombreEspia) && !existeEspia(nombreEspia) && cell.getColumnIndex() == 1) {
 						espias.putIfAbsent(nombreEspia, i);
 						i++;
 					}
@@ -56,6 +56,10 @@ public class CargadorEspias {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private boolean esNombreVacio(String nombre) {
+		return nombre.equals("");
 	}
 
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
