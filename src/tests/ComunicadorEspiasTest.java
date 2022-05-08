@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.ComunicadorEspias;
+import sistema_espias.ComunicadorEspias;
 
 public class ComunicadorEspiasTest {
 

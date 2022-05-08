@@ -1,4 +1,4 @@
-package unionFind;
+package union_find;
 
 import java.util.ArrayList;
 

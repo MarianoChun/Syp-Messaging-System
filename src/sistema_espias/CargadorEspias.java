@@ -1,4 +1,4 @@
-package model;
+package sistema_espias;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

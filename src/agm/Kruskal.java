@@ -7,7 +7,7 @@ import grafos.Arista;
 import grafos.GrafoNDPEtiquetado;
 import grafos.Vertice;
 import recorridos.BFS;
-import unionFind.UnionFind;
+import union_find.UnionFind;
 
 public class Kruskal {
 
@@ -25,14 +25,17 @@ public class Kruskal {
 		Collections.sort(aristas);
 	}
 
-	public GrafoNDPEtiquetado obtenerArbolGM() {
+	public GrafoNDPEtiquetado obtenerArbolGeneradorMinimo() {
 		int i = 1;
 
 		while (i <= grafoInput.tamaño() - 1) {
 			Arista aristaMinimaNoCircuito = obtenerAristaMinimaNoCircuito();
+			
 			Vertice primerVertice = aristaMinimaNoCircuito.getPrimerExtremo();
 			Vertice segundoVertice = aristaMinimaNoCircuito.getSegundoExtremo();
+			
 			double peso = grafoInput.obtenerPesoArista(primerVertice, segundoVertice);
+			
 			unionFind.union(primerVertice.getIndice(), segundoVertice.getIndice());
 
 			grafoOutputAGM.agregarArista(primerVertice, segundoVertice, peso);
@@ -46,17 +49,18 @@ public class Kruskal {
 	 * aristas que no forman un circuito con las aristas ya elegidas.
 	 */
 	private Arista obtenerAristaMinimaNoCircuito() {
-		int indice = 0;
-		Arista aristaMenor = aristas.get(indice);
-		while (formaCircuito(aristaMenor)) {
-			indice++;
-			aristaMenor = aristas.get(indice);
+		int i = 0;
+		
+		Arista aristaMenor = aristas.get(i);
+		
+		while (aristaFormaCircuito(aristaMenor)) {
+			i++;
+			aristaMenor = aristas.get(i);
 		}
-
 		return aristaMenor;
 	}
 
-	public boolean formaCircuito(Arista arista) {
+	public boolean aristaFormaCircuito(Arista arista) {
 		return unionFind.find(arista.getPrimerExtremo().getIndice(), arista.getSegundoExtremo().getIndice());
 	}
 

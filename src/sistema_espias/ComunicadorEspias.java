@@ -1,4 +1,4 @@
-package model;
+package sistema_espias;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +35,7 @@ public class ComunicadorEspias {
 	}
 
 	public GrafoNDPEtiquetado obtenerRedSeguraKruskal() {
-		return new Kruskal(redEspias).obtenerArbolGM();
+		return new Kruskal(redEspias).obtenerArbolGeneradorMinimo();
 	}
 
 	public GrafoNDPEtiquetado obtenerRedSeguraPrim() {

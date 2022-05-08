@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import grafos.GrafoNDPEtiquetado;
 import grafos.Vertice;
-import model.ComunicadorEspias;
+import sistema_espias.ComunicadorEspias;
 
 public class ComunicadorEspiasTest2 {
 	// NOTA: Esta suite de test utiliza los espias de "lista-de-espias-test-2"

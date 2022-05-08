@@ -1,4 +1,4 @@
-package view;
+package interfaz;
 
 import java.awt.EventQueue;
 import java.util.Iterator;
@@ -19,9 +19,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import grafos.GrafoNDPEtiquetado;
 import grafos.Vertice;
-import model.ComunicadorEspias;
-import model.ThreadTime;
 import recorridos.BFS;
+import sistema_espias.ComunicadorEspias;
+import sistema_espias.ThreadTime;
 
 import javax.swing.JTable;
 import javax.swing.JButton;

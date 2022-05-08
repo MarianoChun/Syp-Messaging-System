@@ -54,7 +54,7 @@ public class KruskalTest {
 		esperado.agregarArista(new Vertice(3, "Sasha"), new Vertice(1, "Candela"), 2.0);
 		esperado.agregarArista(new Vertice(1, "Candela"), new Vertice(2, "Gerardo"), 0.5);
 
-		GrafoNDPEtiquetado actual = new Kruskal(g).obtenerArbolGM();
+		GrafoNDPEtiquetado actual = new Kruskal(g).obtenerArbolGeneradorMinimo();
 		System.out.println(actual.toString());
 		assertEquals(esperado, actual);
 
@@ -80,7 +80,7 @@ public class KruskalTest {
 		esperado.agregarArista(new Vertice(2, "Mabel"), new Vertice(3, "Lola"), 0.2);
 		esperado.agregarArista(new Vertice(2, "Mabel"), new Vertice(5, "Flavia"), 2.5);
 
-		GrafoNDPEtiquetado actual = new Kruskal(g).obtenerArbolGM();
+		GrafoNDPEtiquetado actual = new Kruskal(g).obtenerArbolGeneradorMinimo();
 		System.out.println(actual.toString());
 		assertEquals(esperado, actual);
 	}
@@ -102,7 +102,7 @@ public class KruskalTest {
 		esperado.agregarArista(new Vertice(2, "ivan"), new Vertice(3, "Julia"), 0.2);
 		esperado.agregarArista(new Vertice(2, "ivan"), new Vertice(5, "Candela"), 0.2);
 
-		GrafoNDPEtiquetado actual = new Kruskal(g).obtenerArbolGM();
+		GrafoNDPEtiquetado actual = new Kruskal(g).obtenerArbolGeneradorMinimo();
 		System.out.println(actual.toString());
 		assertEquals(esperado, actual);
 	}
@@ -124,7 +124,7 @@ public class KruskalTest {
 		esperado.agregarArista(new Vertice(2, "Ricardo"), new Vertice(3, "Ismael"), -0.2);
 		esperado.agregarArista(new Vertice(2, "Ricardo"), new Vertice(5, "Paula"), -2.5);
 
-		GrafoNDPEtiquetado actual = new Kruskal(g).obtenerArbolGM();
+		GrafoNDPEtiquetado actual = new Kruskal(g).obtenerArbolGeneradorMinimo();
 		System.out.println(actual.toString());
 		assertEquals(esperado, actual);
 	}
