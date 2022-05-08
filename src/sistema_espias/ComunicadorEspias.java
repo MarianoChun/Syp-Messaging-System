@@ -64,7 +64,6 @@ public class ComunicadorEspias {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -78,8 +77,6 @@ public class ComunicadorEspias {
 	}
 
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
-		// Hacemos la asociacion logica al archivo excel
-		// "/lista_de_espias/lista-de-espias.xlsx"
 		FileInputStream archivo;
 		try {
 			archivo = new FileInputStream(this.getClass().getResource(pathExcel).getPath());
