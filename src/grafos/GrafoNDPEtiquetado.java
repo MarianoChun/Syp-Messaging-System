@@ -63,8 +63,12 @@ public class GrafoNDPEtiquetado {
 		int j = segundoVertice.getIndice();
 
 		A[i][j] = A[j][i] = false;
-		aristas.remove(new Arista(primerVertice, segundoVertice, peso));
-		aristas.remove(new Arista(segundoVertice, primerVertice, peso));
+		removerAristaListaAristas(primerVertice, segundoVertice, peso);
+		removerAristaListaAristas(segundoVertice, primerVertice, peso);
+	}
+
+	private boolean removerAristaListaAristas(Vertice primerVertice, Vertice segundoVertice, double peso) {
+		return aristas.remove(new Arista(primerVertice, segundoVertice, peso));
 	}
 
 	public boolean existeArista(int i, int j) {
@@ -226,7 +230,6 @@ public class GrafoNDPEtiquetado {
 			return false;
 
 		if (!Arrays.deepEquals(A, other.A)) {
-			System.out.println("Falso el deep equals A");
 			return false;
 		}
 

@@ -29,7 +29,7 @@ public class Kruskal {
 		int i = 1;
 
 		while (i <= grafoInput.tamaño() - 1) {
-			Arista aristaMinimaNoCircuito = obtenerAristaMinimaNoCircuito();
+			Arista aristaMinimaNoCircuito = obtenerAristaMinimaQueNoFormaCircuito();
 			
 			Vertice primerVertice = aristaMinimaNoCircuito.getPrimerExtremo();
 			Vertice segundoVertice = aristaMinimaNoCircuito.getSegundoExtremo();
@@ -48,7 +48,7 @@ public class Kruskal {
 	 * Elegir una arista del grafo dado, tal que su su peso sea mínimo entre las
 	 * aristas que no forman un circuito con las aristas ya elegidas.
 	 */
-	private Arista obtenerAristaMinimaNoCircuito() {
+	private Arista obtenerAristaMinimaQueNoFormaCircuito() {
 		int i = 0;
 		
 		Arista aristaMenor = aristas.get(i);
