@@ -24,8 +24,8 @@ public class GrafoNDPEtiquetado {
 	public void agregarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
 		verificarVerticeEtiquetado(primerVertice);
 		verificarVerticeEtiquetado(segundoVertice);
-		verificarVerticeYaEtiquetado(primerVertice);
-		verificarVerticeYaEtiquetado(segundoVertice);
+		verificarEtiquetaVertice(primerVertice);
+		verificarEtiquetaVertice(segundoVertice);
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
 		verificarVertice(i);
@@ -129,25 +129,26 @@ public class GrafoNDPEtiquetado {
 	}
 
 	public boolean estaVerticeYaEtiquetado(Vertice vertice) {
-		String etiquetaVertice = vertice.getEtiqueta();
 		int indiceVertice = vertice.getIndice();
 		String etiquetaEnGrafo = etiquetas.get(indiceVertice);
 
-		if (etiquetaEnGrafo == null) {
-			return false;
-		}
-		return !etiquetaVertice.equals(etiquetaEnGrafo);
+		return etiquetaEnGrafo != null;
 	}
 
-	private void verificarVerticeYaEtiquetado(Vertice vertice) {
+	private void verificarEtiquetaVertice(Vertice vertice) {
 		if (estaVerticeYaEtiquetado(vertice)) {
 			String etiquetaVertice = vertice.getEtiqueta();
 			int indiceVertice = vertice.getIndice();
 			String etiquetaEnGrafo = etiquetas.get(indiceVertice);
-			
-			throw new IllegalArgumentException("Ingrese correctamente la etiqueta. Para el vertice " + indiceVertice
-					+ " es " + etiquetaEnGrafo + " no es, " + etiquetaVertice);
+			if(!sonEtiquetasIguales(etiquetaVertice, etiquetaEnGrafo)) {
+				throw new IllegalArgumentException("Ingrese correctamente la etiqueta. Para el vertice " + indiceVertice
+						+ " es " + etiquetaEnGrafo + " no es, " + etiquetaVertice);
+			}
 		}
+	}
+
+	private boolean sonEtiquetasIguales(String etiqueta, String etiqueta2) {
+		return etiqueta.equals(etiqueta2);
 	}
 
 	private void verificarVerticeEtiquetado(Vertice vertice) {
