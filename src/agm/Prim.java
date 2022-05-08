@@ -36,12 +36,12 @@ public class Prim {
 				
 				vecinosVerticeMarcado = grafoInput.vecinos(verticeMarcado);
 				
-				if (!estaVerticeMarcado(vecinosVerticeMarcado)) {
+				if (!estanTodosLosVecinosDelVerticeMarcados(vecinosVerticeMarcado)) {
 					
 					double[] aristaMin = obtenerVecinoMenorPeso(grafoInput, verticeMarcado, vecinosVerticeMarcado);
 					pesoMin = Math.min(pesoMin, aristaMin[2]);
 					
-					if (pesoMin == aristaMin[2]) {
+					if (pesoEsIgual(pesoMin, aristaMin[2])) {
 						
 						verticeMin = (int) aristaMin[0];
 						vecinoMin = (int) aristaMin[1];
@@ -59,8 +59,12 @@ public class Prim {
 		return grafoOutputAGM;
 	}
 
-	private boolean estaVerticeMarcado(Set<Integer> vecinosVerticeMarcado) {
+	private boolean estanTodosLosVecinosDelVerticeMarcados(Set<Integer> vecinosVerticeMarcado) {
 		return vertices.containsAll(vecinosVerticeMarcado);
+	}
+	
+	private boolean pesoEsIgual(double pesoMinActual, double pesoMin) {
+		return pesoMinActual == pesoMin;
 	}
 
 	private double[] obtenerVecinoMenorPeso(GrafoNDPEtiquetado g, int vertice, Set<Integer> vecinos) {
@@ -72,7 +76,7 @@ public class Prim {
 			if (!esVerticeMarcado(vecino)) {
 				pesoVecinoActual = g.obtenerPesoArista(new Vertice(vertice), new Vertice(vecino));
 				pesoMenor = Math.min(pesoMenor, pesoVecinoActual);
-				if (pesoMenor == pesoVecinoActual) {
+				if (pesoEsIgual(pesoMenor, pesoVecinoActual)) {
 					vecinoMinimo = vecino;
 				}
 			}

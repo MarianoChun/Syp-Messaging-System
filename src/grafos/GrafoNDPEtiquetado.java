@@ -159,7 +159,7 @@ public class GrafoNDPEtiquetado {
 		}
 	}
 
-	protected void verificarVertice(int i) {
+	private void verificarVertice(int i) {
 		if (i < 0)
 			throw new IllegalArgumentException("El vertice no puede ser negativo: " + i);
 
@@ -167,13 +167,12 @@ public class GrafoNDPEtiquetado {
 			throw new IllegalArgumentException("Los vertices deben estar entre 0 y |V|-1: " + i);
 	}
 
-	// Verifica que i y j sean distintos
-	protected void verificarDistintos(int i, int j) {
+	private void verificarDistintos(int i, int j) {
 		if (i == j)
 			throw new IllegalArgumentException("No se permiten loops: (" + i + ", " + j + ")");
 	}
 
-	protected void verificarExisteArista(int i, int j) {
+	private void verificarExisteArista(int i, int j) {
 		if (!existeArista(i, j)) {
 			throw new IllegalArgumentException("La arista " + i + "" + j + " no existe");
 		}
