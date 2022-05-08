@@ -123,6 +123,7 @@ public class MainForm {
 	// ----------------------------------------------------------//
 	private void seleccionarArchivoExcel() {
 		btnSelectorArchivos = new JButton("Seleccionar archivo Excel");
+		btnSelectorArchivos.setRequestFocusEnabled(false);
 		btnSelectorArchivos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSelectorArchivos.addMouseListener(new MouseAdapter() {
 			@Override
@@ -192,6 +193,7 @@ public class MainForm {
 
 	private void crearBtnCompararTiempos() {
 		btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
+		btnCompararTiempos.setRequestFocusEnabled(false);
 		btnCompararTiempos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCompararTiempos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCompararTiempos.setBackground(new Color(216, 191, 216));
@@ -292,6 +294,7 @@ public class MainForm {
 
 	private void crearBtnArmarRedSeguraPrim() {
 		btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
+		btnArmarRedSeguraPrim.setRequestFocusEnabled(false);
 		btnArmarRedSeguraPrim.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnArmarRedSeguraPrim.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnArmarRedSeguraPrim.setBackground(new Color(216, 191, 216));
@@ -349,6 +352,7 @@ public class MainForm {
 
 	private void crearBtnArmarRedSeguraKruskal() {
 		btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
+		btnArmarRedSeguraKruskal.setRequestFocusEnabled(false);
 		btnArmarRedSeguraKruskal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnArmarRedSeguraKruskal.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnArmarRedSeguraKruskal.setBackground(new Color(216, 191, 216));
@@ -459,7 +463,6 @@ public class MainForm {
 
 	private void iniciarFrmPrincipal() {
 		frmPrincipal = new JFrame();
-		frmPrincipal.setType(Type.POPUP);
 		frmPrincipal.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		frmPrincipal.getContentPane().setBackground(new Color(250, 235, 215));
 		frmPrincipal.setResizable(false);
