@@ -37,6 +37,14 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JSeparator;
+import java.awt.Canvas;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import javax.swing.ScrollPaneConstants;
+import java.awt.Cursor;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 public class MainForm {
 
@@ -109,12 +117,24 @@ public class MainForm {
 		crearLblTituloTablaEspias();
 
 		crearLblTituloRedSegura();
-
 	}
 
 	// ----------------------------------------------------------//
 	private void seleccionarArchivoExcel() {
-		btnSelectorArchivos = new JButton("Seleccionar archivo excel");
+		btnSelectorArchivos = new JButton("Seleccionar archivo Excel");
+		btnSelectorArchivos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnSelectorArchivos.setForeground(new Color(0, 0, 0));
+				btnSelectorArchivos.setBackground(new Color(204, 204, 255));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnSelectorArchivos.setForeground(new Color(0, 0, 0));
+				btnSelectorArchivos.setBackground(new Color(230, 230, 250));
+			}
+		});
+		btnSelectorArchivos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSelectorArchivos.setForeground(new Color(0, 0, 0));
 		btnSelectorArchivos.setBackground(new Color(230, 230, 250));
 		btnSelectorArchivos.addActionListener(new ActionListener() {
@@ -135,6 +155,9 @@ public class MainForm {
 						btnArmarRedSeguraPrim.setEnabled(true);
 						btnArmarRedSeguraKruskal.setEnabled(true);
 						btnCompararTiempos.setEnabled(true);
+						cambiarColorDeBotones(btnArmarRedSeguraPrim);
+						cambiarColorDeBotones(btnArmarRedSeguraKruskal);
+						cambiarColorDeBotones(btnCompararTiempos);
 
 					} catch (Exception ex) {
 						System.out.println(ex.getMessage());
@@ -144,12 +167,26 @@ public class MainForm {
 				}
 			}
 		});
-		btnSelectorArchivos.setBounds(428, 411, 253, 23);
+		btnSelectorArchivos.setBounds(428, 414, 253, 23);
 		frmPrincipal.getContentPane().add(btnSelectorArchivos);
+	}
+	
+	private void cambiarColorDeBotones(JButton btn) {
+		btn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btn.setBackground(new Color(204, 153, 204));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btn.setBackground(new Color(216, 191, 216));
+			}
+		});
 	}
 
 	private void crearBtnCompararTiempos() {
 		btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
+		btnCompararTiempos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCompararTiempos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCompararTiempos.setBackground(new Color(216, 191, 216));
 		btnCompararTiempos.addActionListener(new ActionListener() {
@@ -162,7 +199,7 @@ public class MainForm {
 			}
 		});
 		btnCompararTiempos.setEnabled(false);
-		btnCompararTiempos.setBounds(708, 342, 253, 34);
+		btnCompararTiempos.setBounds(708, 345, 253, 34);
 		frmPrincipal.getContentPane().add(btnCompararTiempos);
 	}
 
@@ -232,7 +269,7 @@ public class MainForm {
 	}
 
 	private void crearLblTituloRedSegura() {
-		JLabel lblTituloRedSegura = new JLabel("Red segura");
+		JLabel lblTituloRedSegura = new JLabel("Red Segura");
 		lblTituloRedSegura.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTituloRedSegura.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTituloRedSegura.setBounds(762, 19, 112, 19);
@@ -249,6 +286,7 @@ public class MainForm {
 
 	private void crearBtnArmarRedSeguraPrim() {
 		btnArmarRedSeguraPrim = new JButton("Armar red segura (Prim)");
+		btnArmarRedSeguraPrim.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnArmarRedSeguraPrim.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnArmarRedSeguraPrim.setBackground(new Color(216, 191, 216));
 		btnArmarRedSeguraPrim.addActionListener(new ActionListener() {
@@ -258,7 +296,7 @@ public class MainForm {
 		});
 
 		btnArmarRedSeguraPrim.setEnabled(false);
-		btnArmarRedSeguraPrim.setBounds(428, 342, 253, 34);
+		btnArmarRedSeguraPrim.setBounds(428, 345, 253, 34);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraPrim);
 	}
 
@@ -276,6 +314,7 @@ public class MainForm {
 				double probIntercepcionVecino = redSegura.obtenerPesoArista(new Vertice(vertice),
 						new Vertice(vecinoActual));
 				modeloRedSegura.addRow(new Object[] { vertice, nombreEspia, nombreVecino, probIntercepcionVecino });
+				
 			}
 			tablaRedSegura.setModel(modeloRedSegura);
 		}
@@ -297,12 +336,14 @@ public class MainForm {
 
 	private void crearLblFlecha() {
 		JLabel lblFlecha = new JLabel("=========>");
+		lblFlecha.setForeground(Color.DARK_GRAY);
 		lblFlecha.setBounds(511, 174, 87, 14);
 		frmPrincipal.getContentPane().add(lblFlecha);
 	}
 
 	private void crearBtnArmarRedSeguraKruskal() {
 		btnArmarRedSeguraKruskal = new JButton("Armar red segura (Kruskal)");
+		btnArmarRedSeguraKruskal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnArmarRedSeguraKruskal.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnArmarRedSeguraKruskal.setBackground(new Color(216, 191, 216));
 		btnArmarRedSeguraKruskal.addActionListener(new ActionListener() {
@@ -311,7 +352,7 @@ public class MainForm {
 			}
 		});
 		btnArmarRedSeguraKruskal.setEnabled(false);
-		btnArmarRedSeguraKruskal.setBounds(148, 342, 253, 34);
+		btnArmarRedSeguraKruskal.setBounds(148, 345, 253, 34);
 		frmPrincipal.getContentPane().add(btnArmarRedSeguraKruskal);
 	}
 
