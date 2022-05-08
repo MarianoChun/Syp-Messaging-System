@@ -20,13 +20,6 @@ public class ComunicadorEspias {
 	private String pathExcel;
 	private GrafoNDPEtiquetado redEspias;
 
-	public ComunicadorEspias() {
-		this.pathExcel = "/lista_de_espias/lista-de-espias.xlsx";
-		this.espias = new CargadorEspias(pathExcel);
-		this.redEspias = new GrafoNDPEtiquetado(espias.cantidadEspias());
-		agregarComunicacionDesdeExcel();
-	}
-
 	public ComunicadorEspias(String pathExcel) {
 		this.pathExcel = pathExcel;
 		this.espias = new CargadorEspias(pathExcel);
@@ -71,7 +64,6 @@ public class ComunicadorEspias {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -85,8 +77,6 @@ public class ComunicadorEspias {
 	}
 
 	private Iterator<Row> obtenerIteradorExcel() throws FileNotFoundException, IOException {
-		// Hacemos la asociacion logica al archivo excel
-		// "/lista_de_espias/lista-de-espias.xlsx"
 		FileInputStream archivo;
 		try {
 			archivo = new FileInputStream(this.getClass().getResource(pathExcel).getPath());

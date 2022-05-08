@@ -40,20 +40,24 @@ public class Vertice {
 
 	@Override
 	public boolean equals(Object obj) {
+		Vertice other = (Vertice) obj;
+		
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Vertice other = (Vertice) obj;
+		
 		if (indice != other.indice)
 			return false;
+		
 		if (etiqueta == null) {
 			if (other.etiqueta != null)
 				return false;
-		} else if (!etiqueta.equals(other.etiqueta))
+		} else if (!etiqueta.equals(other.etiqueta)) {
 			return false;
+		}
 		return true;
 	}
 

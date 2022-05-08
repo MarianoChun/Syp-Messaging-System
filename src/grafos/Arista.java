@@ -37,27 +37,21 @@ public class Arista implements Comparable<Object> {
 
 	@Override
 	public boolean equals(Object obj) {
+		Arista other = (Arista) obj;
+		
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Arista other = (Arista) obj;
-		if (peso != other.peso) {
-			System.out.println(this.toString() + " " + other.toString());
-			System.out.println("Entro arista peso false");
+		
+		if (peso != other.peso) 
 			return false;
-		}
-		if (!primerExtremo.equals(other.primerExtremo) && !primerExtremo.equals(other.segundoExtremo)) {
-			System.out.println(this.toString() + " " + other.toString());
-			System.out.println("Entro arista 1er false");
+		if (!primerExtremo.equals(other.primerExtremo) && !primerExtremo.equals(other.segundoExtremo)) 
 			return false;
-		}
-		if (!segundoExtremo.equals(other.segundoExtremo) && !segundoExtremo.equals(other.primerExtremo)) {
-			System.out.println("Entro arista 2do false");
+		if (!segundoExtremo.equals(other.segundoExtremo) && !segundoExtremo.equals(other.primerExtremo)) 
 			return false;
-		}
 		if (primerExtremo.equals(other.primerExtremo) && segundoExtremo.equals(other.segundoExtremo))
 			return true;
 		if (primerExtremo.equals(other.primerExtremo) && segundoExtremo.equals(other.segundoExtremo))
@@ -73,11 +67,9 @@ public class Arista implements Comparable<Object> {
 		if (this.getPeso() < otraArista.getPeso()) {
 			return -1;
 		}
-
 		if (this.getPeso() > otraArista.getPeso()) {
 			return 1;
 		}
-
 		return 0;
 	}
 
