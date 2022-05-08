@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import grafos.Arista;
-import grafos.Assert;
 import grafos.GrafoNDPEtiquetado;
 import grafos.Vertice;
 
