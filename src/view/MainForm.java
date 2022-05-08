@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import grafos.GrafoNDPEtiquetado;
 import grafos.Vertice;
 import model.ComunicadorEspias;
+import model.ThreadTime;
 import recorridos.BFS;
 
 import javax.swing.JTable;
@@ -47,7 +49,7 @@ public class MainForm {
 	private JButton btnArmarRedSeguraPrim;
 	private JButton btnSelectorArchivos;
 	private ComunicadorEspias comunicador;
-
+	private static ThreadTime threadTiempo;
 	/**
 	 * Launch the application.
 	 */
@@ -57,6 +59,7 @@ public class MainForm {
 				try {
 					MainForm window = new MainForm();
 					window.frmPrincipal.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,6 +78,8 @@ public class MainForm {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		threadTiempo = new ThreadTime();
+		threadTiempo.start();
 		iniciarSelectorArchivos();
 
 		iniciarFrmPrincipal();
@@ -94,7 +99,7 @@ public class MainForm {
 		crearBtnArmarRedSeguraKruskal();
 
 		crearLblFlecha();
-
+		
 		crearBtnArmarRedSeguraPrim();
 
 		JButton btnCompararTiempos = new JButton("Comparar tiempos Prim vs. Kruskal");
@@ -261,11 +266,16 @@ public class MainForm {
 	
 
 	private long tiempoEjecucionPrim() {
-		long tiempoInicial = System.currentTimeMillis();
+		long tiempoInicial = threadTiempo.getTiempoActualMs();
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		armarRedSeguraPrim();
-		long tiempoFinal = (System.currentTimeMillis());
+		long tiempoFinal = threadTiempo.getTiempoActualMs();
 		long tiempoPrim = (tiempoFinal - tiempoInicial);
-
+		
 		return tiempoPrim;
 	}
 
@@ -307,10 +317,15 @@ public class MainForm {
 	}
 
 	private long tiempoEjecucionKruskal() {
-		long tiempoInicial = System.currentTimeMillis();
+		long tiempoInicial = threadTiempo.getTiempoActualMs();
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		armarRedSeguraKruskal();
-		long tiempoFinal = (System.currentTimeMillis());
-		long tiempoKruskal = tiempoFinal - tiempoInicial;
+		long tiempoFinal = threadTiempo.getTiempoActualMs();
+		long tiempoKruskal = (tiempoFinal - tiempoInicial);
 
 		return tiempoKruskal;
 	}
