@@ -63,8 +63,8 @@ public class Prim {
 		return vertices.containsAll(vecinosVerticeMarcado);
 	}
 	
-	private boolean pesoEsIgual(double pesoMinActual, double pesoMin) {
-		return pesoMinActual == pesoMin;
+	private boolean pesoEsIgual(double pesoActual, double pesoNuevo) {
+		return pesoActual == pesoNuevo;
 	}
 
 	private double[] obtenerVecinoMenorPeso(GrafoNDPEtiquetado g, int vertice, Set<Integer> vecinos) {
