@@ -59,9 +59,6 @@ public class GrafoNDPEtiquetado {
 	}
 
 	private void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
-		// considero que no hace falta volver a verificar porque solo se usa como aux,
-		// en eliminarArista
-		// y este ya verifica si los vertices y arista existe
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
 
@@ -128,7 +125,7 @@ public class GrafoNDPEtiquetado {
 	}
 
 	public boolean estaVerticeYaEtiquetado(Vertice vertice) {
-		String etiquetaVertice = vertice.getEtiqueta().toLowerCase();
+		String etiquetaVertice = vertice.getEtiqueta();
 		int indiceVertice = vertice.getIndice();
 		String etiquetaEnGrafo = etiquetas.get(indiceVertice);
 
@@ -143,6 +140,7 @@ public class GrafoNDPEtiquetado {
 			String etiquetaVertice = vertice.getEtiqueta();
 			int indiceVertice = vertice.getIndice();
 			String etiquetaEnGrafo = etiquetas.get(indiceVertice);
+			
 			throw new IllegalArgumentException("Ingrese correctamente la etiqueta. Para el vertice " + indiceVertice
 					+ " es " + etiquetaEnGrafo + " no es, " + etiquetaVertice);
 		}

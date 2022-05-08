@@ -22,33 +22,37 @@ public class Prim {
 	public GrafoNDPEtiquetado obtenerArbolGeneradorMinimo(int vertice) {
 		V.add(vertice);
 		int i = 1;
-		String etiquetaUmin = null;
-		String etiquetaVmin = null;
-		int uMin = vertice;
-		int vMin = 0;
+		String etiquetaVerticeMinimo = null;
+		String etiquetaVecinoMinimo = null;
+		int verticeMin = vertice;
+		int vecinoMin = 0;
 		double pesoMin;
-		Set<Integer> vecinosU;
+		Set<Integer> vecinosVerticeMarcado;
 
 		while (i <= grafoInput.tamaño() - 1) {
 			pesoMin = Double.MAX_VALUE;
 
-			for (int u : V) {
-				vecinosU = grafoInput.vecinos(u);
-				if (!V.containsAll(vecinosU)) {
-					double[] aristaMin = obtenerVecinoMenorPeso(grafoInput, u, vecinosU);
+			for (int verticeMarcado : V) {
+				
+				vecinosVerticeMarcado = grafoInput.vecinos(verticeMarcado);
+				
+				if (!V.containsAll(vecinosVerticeMarcado)) {
+					
+					double[] aristaMin = obtenerVecinoMenorPeso(grafoInput, verticeMarcado, vecinosVerticeMarcado);
 					pesoMin = Math.min(pesoMin, aristaMin[2]);
+					
 					if (pesoMin == aristaMin[2]) {
-						uMin = (int) aristaMin[0];
-						vMin = (int) aristaMin[1];
+						verticeMin = (int) aristaMin[0];
+						vecinoMin = (int) aristaMin[1];
 
-						etiquetaUmin = grafoInput.obtenerEtiquetaVertice(uMin);
-						etiquetaVmin = grafoInput.obtenerEtiquetaVertice(vMin);
+						etiquetaVerticeMinimo = grafoInput.obtenerEtiquetaVertice(verticeMin);
+						etiquetaVecinoMinimo = grafoInput.obtenerEtiquetaVertice(vecinoMin);
 					}
 				}
 			}
 
-			grafoOutputAGM.agregarArista(new Vertice(uMin, etiquetaUmin), new Vertice(vMin, etiquetaVmin), pesoMin);
-			V.add(vMin);
+			grafoOutputAGM.agregarArista(new Vertice(verticeMin, etiquetaVerticeMinimo), new Vertice(vecinoMin, etiquetaVecinoMinimo), pesoMin);
+			V.add(vecinoMin);
 			i++;
 		}
 		return grafoOutputAGM;

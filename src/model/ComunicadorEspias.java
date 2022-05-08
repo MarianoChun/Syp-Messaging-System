@@ -62,7 +62,7 @@ public class ComunicadorEspias {
 					nombreCompañero = row.getCell(1).getStringCellValue();
 
 					// Ignora el nombre de la columna y se asegura que no estemos en una celda vacia
-					if ((!nombreEspia.equals("Nombre")) && !nombreEspia.equals("")) {
+					if ((!nombreEspia.equals("Nombre")) && !esNombreVacio(nombreEspia)) {
 
 						probIntercepcion = Double.parseDouble(row.getCell(2).getStringCellValue());
 						agregarComunicacion(nombreEspia, nombreCompañero, probIntercepcion);
@@ -74,6 +74,10 @@ public class ComunicadorEspias {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private boolean esNombreVacio(String nombre) {
+		return nombre.equals("");
 	}
 
 	public boolean redYaEsSegura() {
