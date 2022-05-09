@@ -404,6 +404,8 @@ public class MainForm {
 
 	private void iniciarModeloRedSegura() {
 		modeloRedSegura = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -444,6 +446,7 @@ public class MainForm {
 
 	private void iniciarModeloRedNoSegura() {
 		modeloTablaEspias = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
