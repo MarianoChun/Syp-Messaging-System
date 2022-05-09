@@ -35,19 +35,13 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JSeparator;
-import java.awt.Canvas;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import grafo.GrafoNDPEtiquetado;
 import grafo.Vertice;
 
-import javax.swing.ScrollPaneConstants;
 import java.awt.Cursor;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.Window.Type;
 
 public class MainForm {
 
@@ -451,6 +445,7 @@ public class MainForm {
 
 	private void iniciarModeloRedNoSegura() {
 		modeloTablaEspias = new DefaultTableModel() {
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
