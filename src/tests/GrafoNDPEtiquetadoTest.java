@@ -15,8 +15,8 @@ public class GrafoNDPEtiquetadoTest {
 	@Test
 	public void agregarAristaTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
-		g.agregarArista(new Vertice(0, "Juan"), new Vertice(1, "Roberto"), 2.0);
-		g.agregarArista(new Vertice(2, "Juan"), new Vertice(3, "Thiago"), 3.0);
+		g.agregarArista(new Vertice(0, "Juan"), new Vertice(1, "Roberto"), 0.2);
+		g.agregarArista(new Vertice(2, "Juan"), new Vertice(3, "Thiago"), 0.3);
 
 		assertTrue(g.existeArista(3, 2));
 	}
@@ -57,8 +57,8 @@ public class GrafoNDPEtiquetadoTest {
 	@Test
 	public void aristaInexistenteTest() {
 		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(4);
-		g.agregarArista(new Vertice(3, "Ricardo"), new Vertice(1, "Roberto"), 5.0);
-		g.agregarArista(new Vertice(0, "Juan"), new Vertice(1, "Roberto"), 6.0);
+		g.agregarArista(new Vertice(3, "Ricardo"), new Vertice(1, "Roberto"), 0.5);
+		g.agregarArista(new Vertice(0, "Juan"), new Vertice(1, "Roberto"), 0.1);
 
 		assertFalse(g.existeArista(0, 3));
 	}
@@ -109,18 +109,4 @@ public class GrafoNDPEtiquetadoTest {
 
 		g.obtenerPesoArista(vertice1, vertice2);
 	}
-
-//	@Test(expected = IllegalArgumentException.class)
-//	public void agregarArista1VerticeNoEtiquetadoTest() {
-//		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(3);
-//		
-//		g.agregarArista(new Vertice(0), new Vertice(1, "Pepe"), 1.5);
-//	}
-
-//	@Test(expected = IllegalArgumentException.class)
-//	public void agregarArista2VerticesNoEtiquetadosTest() {
-//		GrafoNDPEtiquetado g = new GrafoNDPEtiquetado(3);
-//		
-//		g.agregarArista(new Vertice(0), new Vertice(2), 2.2);
-//	}
 }
