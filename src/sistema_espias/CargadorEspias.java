@@ -72,6 +72,7 @@ public class CargadorEspias {
 
 		Iterator<Row> itr = sheet.iterator();
 		itr.next();
+		workbook.close();
 		return itr;
 	}
 

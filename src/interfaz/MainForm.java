@@ -35,19 +35,11 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JSeparator;
-import java.awt.Canvas;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
 import grafo.GrafoNDPEtiquetado;
 import grafo.Vertice;
-
-import javax.swing.ScrollPaneConstants;
 import java.awt.Cursor;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.Window.Type;
 
 public class MainForm {
 
@@ -263,9 +255,9 @@ public class MainForm {
 		// Creamos una instancia Workbook que hace referencia al archivo .xlsx
 		XSSFWorkbook workbook = new XSSFWorkbook(archivo);
 		XSSFSheet sheet = workbook.getSheetAt(0);
-
 		Iterator<Row> itr = sheet.iterator();
 		itr.next();
+		workbook.close();
 		return itr;
 	}
 

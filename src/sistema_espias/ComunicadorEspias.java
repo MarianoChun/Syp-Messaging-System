@@ -88,6 +88,7 @@ public class ComunicadorEspias {
 		XSSFSheet sheet = workbook.getSheetAt(0);
 
 		Iterator<Row> itr = sheet.iterator();
+		workbook.close();
 		return itr;
 	}
 
