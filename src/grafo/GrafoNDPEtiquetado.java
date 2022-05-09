@@ -26,6 +26,7 @@ public class GrafoNDPEtiquetado {
 		verificarVerticeEtiquetado(segundoVertice);
 		verificarEtiquetaVertice(primerVertice);
 		verificarEtiquetaVertice(segundoVertice);
+		vertificarPesoValido(peso);
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
 		verificarVertice(i);
@@ -61,6 +62,7 @@ public class GrafoNDPEtiquetado {
 	private void eliminarArista(Vertice primerVertice, Vertice segundoVertice, double peso) {
 		int i = primerVertice.getIndice();
 		int j = segundoVertice.getIndice();
+		vertificarPesoValido(peso);
 
 		A[i][j] = A[j][i] = false;
 		removerAristaListaAristas(primerVertice, segundoVertice, peso);
@@ -128,6 +130,16 @@ public class GrafoNDPEtiquetado {
 		return ret;
 	}
 
+	private void vertificarPesoValido(double peso) {
+		if (!pesoValido(peso)) {
+			throw new IllegalArgumentException("Peso inválido, debe estar en el rango [0,1]: " + peso);
+		}
+	}
+
+	private boolean pesoValido(double peso) {
+		return peso >= 0 && peso <= 1;
+	}
+	
 	public boolean estaVerticeYaEtiquetado(Vertice vertice) {
 		int indiceVertice = vertice.getIndice();
 		String etiquetaEnGrafo = etiquetas.get(indiceVertice);

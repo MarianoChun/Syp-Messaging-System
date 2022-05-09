@@ -37,6 +37,7 @@ import java.awt.Color;
 import java.awt.Font;
 import grafo.GrafoNDPEtiquetado;
 import grafo.Vertice;
+
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -443,6 +444,7 @@ public class MainForm {
 
 	private void iniciarModeloRedNoSegura() {
 		modeloTablaEspias = new DefaultTableModel() {
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
